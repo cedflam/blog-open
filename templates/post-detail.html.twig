@@ -1,0 +1,105 @@
+{% extends "templates/base.html.twig" %}
+
+{% block title %}
+	Afficher Post
+{% endblock %}
+
+{% block body %}
+	<!-- Page Header -->
+	<header class="masthead" style="background-image: url('public/images/post-bg.jpg')">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<div class="post-heading">
+						<h1>{{article.title}}</h1>
+						<h2 class="subheading">
+							{{article.sentence}}
+						</h2>
+						<span class="meta">Posté par
+
+							<a href="#">
+								{{author.firstName}}
+								{{author.lastName}}
+							</a>
+
+							le,
+							{{author.date_article | date('d/m/Y à H:m:s') }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- Post Content -->
+	<article>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					{{article.content_article}}
+				</div>
+			</div>
+		</div>
+	</article>
+	<!--formulaire d'ajout de commentaire-->
+	<div class="container mt-5">
+
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto bg-light">
+				<h2>Laissez un commentaire...</h2>
+
+				<form name="sentMessage" id="contactForm" novalidate>
+					<div class="control-group">
+						<p class="help-block text-danger"></p>
+						<hr>
+						<div class="form-group floating-label-form-group controls">
+							<label>Nom</label>
+							<input type="text" class="form-control" placeholder="Nom" id="name" required data-validation-required-message="Please enter your name.">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="form-group floating-label-form-group controls">
+							<label>Message</label>
+							<textarea rows="5" class="form-control" placeholder="Message" id="message" required data-validation-required-message="Please enter a message."></textarea>
+							<p class="help-block text-danger"></p>
+						</div>
+					</div>
+					<br>
+					<div id="success"></div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary" id="sendMessageButton">Soumettre</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--Post Comment-->
+	<div class="container mt-5">
+	<h2 class ="text-center mt-3 mb-3">Les derniers commentaires...</h2>
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				{% for comment in comments %}
+					{% if article.id_pk_article == comment.id_article %}
+
+						<div class="card">
+							<div class="card-header">
+								<h5>Posté par,
+									{{comment.name}}
+									le,
+									{{comment.date_comment | date ('d/m/Y à H:m:s')}}
+								</h5>
+							</div>
+							<div class="card-body">
+								<p>
+									{{comment.content_comment}}
+								</p>
+							</div>
+						</div>
+
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
