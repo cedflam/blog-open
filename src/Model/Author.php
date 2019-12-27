@@ -44,7 +44,7 @@ class Author
      *
      * @return void
      */
-    public static function addAuthors()
+    public static function findAuthors()
     {
         //Variable globale qui permet de se connecter à la bdd 
         global $db;
@@ -68,8 +68,8 @@ class Author
         global $db;
         // Requete préparée 
         $reqAllDatabase = $db->prepare('SELECT * FROM author 
-        INNER JOIN article ON author.id_pk_author = article.id_author
-        INNER JOIN comment ON comment.id_article = article.id_pk_article 
+        LEFT JOIN article ON author.id_pk_author = article.id_author
+        LEFT JOIN comment ON comment.id_article = article.id_pk_article 
         ORDER BY date_article DESC');
         //J'éxecute la requete
         $reqAllDatabase->execute();

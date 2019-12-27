@@ -6,7 +6,7 @@ class Comment{
     private $id_pk_comment;
     private $content_comment;
     private $date_comment;
-    private $name;
+    private $name_comment;
     private $id_article;
 
 
@@ -20,21 +20,21 @@ class Comment{
         //Variable globale qui permet de se connecter à la bdd 
         global $db;
         //Requete préparée
-        $reqAuthor = $db->prepare(
+        $reqComment = $db->prepare(
             'SELECT * 
             FROM comment 
             WHERE id_pk_comment = ?'
         );
         //J'exécute la requete
-        $reqAuthor->execute([$id]);
+        $reqComment->execute([$id]);
         // Je stocke le résultat dans une variable 
-        $data = $reqAuthor->fetch();
+        $data = $reqComment->fetch();
 
         //Je paramètre les propriétés du nouvel objet
         $this->id_pk_comment = $id;
         $this->content_comment = $data['content_comment'];
         $this->date_comment = $data['date_comment'];
-        $this->name = $data['name'];
+        $this->name_comment = $data['name'];
         $this->id_article = $data['id_article'];        
     }
 
@@ -43,7 +43,7 @@ class Comment{
      *
      * @return void
      */
-    public static function addComments()
+    public static function findComments()
     {
         //Variable globale qui permet de se connecter à la bdd 
         global $db;
@@ -53,6 +53,38 @@ class Comment{
         $reqComments->execute();
         //Je retourne le résultat
         return $reqComments->fetchAll();
+    }
+
+    public static function addComment(){
+
+        //Connexion à la bdd 
+        global $db;
+        //requete préparée
+        $addComment = $db->prepare('INSERT INTO comment 
+                                            (content_comment, 
+                                            date_comment, 
+                                            name_comment, 
+                                            id_article)
+
+                                    VALUES (
+                                        :content_comment,
+                                        NOW(),
+                                        :name_comment,
+                                        :id_article)'
+                                        );
+         
+
+        //J'execute la requete
+        $addComment->execute(array(
+        ':content_comment'=> htmlspecialchars($_POST['content_comment']),
+        ':name_comment'=> htmlspecialchars($_POST['name_comment']),
+        ':id_article'=> $_POST['id_article']
+         ));
+            
+            
+        //Redirection de la page
+        header('Location: post-list');
+       
     }
 
    

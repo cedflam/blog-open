@@ -1,5 +1,7 @@
 <?php
 
+
+/********************Include*************************** */
 //Appel des fichiers de config
 require '_config/config.php';
 require '_config/db.php';
@@ -12,7 +14,10 @@ require 'src/Model/Comment.php';
 //Ajout du controller 
 require 'src/Controller/masterController.php';
 
+
 require 'vendor/autoload.php';
+
+/***********************Page courante********** */
 
 //Je définis la page courante
 if (isset($_GET['page']) and !empty($_GET['page'])) {
@@ -20,6 +25,8 @@ if (isset($_GET['page']) and !empty($_GET['page'])) {
 } else {
     $page = 'home';
 }
+
+/*************************TWIG********************************** */
 
 // Rendu du template
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__, '/templates');

@@ -31,8 +31,9 @@
                             <p class="text-justify">
                                 {{author.sentence}}                                
                             </p>
-                            <a href="?page=article-edit&amp;id_article={{author.id_article}}&amp;id_author={{author.id_author}} " class="btn btn-info">Modifier l'article</a>
-                            <a href="" class="btn btn-danger">Supprimer l'article</a>
+                            <a href="?page=article-edit&amp;id_article={{author.id_pk_article}}&amp;id_author={{author.id_pk_author}} " class="btn btn-info">Modifier l'article</a>
+                            <a href="?page=articles-list&amp;id_delete_article={{author.id_pk_article}}" class="btn btn-danger">Supprimer l'article</a>                       
+                            
                         </div>
                         
                     </div>

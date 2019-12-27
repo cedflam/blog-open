@@ -3,13 +3,14 @@
 
 
 //Je récupère tous les articles
-$articles = Article::addArticles();
+$articles = Article::findArticles();
 //Je récupère tous les auteurs
-$authors = Author::addAuthors();
+$authors = Author::findAuthors();
 //Je récupère tous les commentaires
-$comments = Comment::addComments();
+$comments = Comment::findComments();
 //Je récupère l'ensemble de la bdd
 $allDdb = Author::allDatabase();
+
 
 
 /**
@@ -17,10 +18,10 @@ $allDdb = Author::allDatabase();
  *
  * @return Author
  */
-function addAuthor()
-{     
+function findAuthor()
+{
     if ($_GET['id_author']) {
-        
+
         $id_author = $_GET['id_author'];
         $author = new Author($id_author);
 
@@ -33,7 +34,7 @@ function addAuthor()
  *
  * @return Article
  */
-function addArticle()
+function findArticle()
 {
     if ($_GET['id_article']) {
 
@@ -44,3 +45,23 @@ function addArticle()
     }
 }
 
+//Déclenche la modification d'un article
+if (!empty($_POST['editArticle'])) {
+    Article::editArticle();
+}
+
+//Déclenche l'ajout d'un article
+if (!empty($_POST['addArticle'])) {
+    Article::addArticle();
+}
+
+//Déclenche l'ajout d'un commentaire
+if (!empty($_POST['addComment'])) {
+    Comment::addComment();
+}
+
+//Déclenche la suppression d'un article
+if (!empty($_GET['id_delete_article'])) {
+    $article = new Article($_GET['id_delete_article']);
+    Article::deleteArticle($article);     
+}

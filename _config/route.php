@@ -19,8 +19,8 @@ switch ($page) {
         
         //J'affiche le template
         echo $twig->render('templates/post-detail.html.twig', [
-            'article' => addArticle(),
-            'author' => addAuthor(),
+            'article' => findArticle(),
+            'author' => findAuthor(),
             'comments' => $allDdb
         ]);
         break;
@@ -32,19 +32,22 @@ switch ($page) {
         ]);
         break;
 
-    case 'article-edit':
-        
+    case 'article-edit':        
         //J'affiche le template
         echo $twig->render('templates/admin/article-edit.html.twig', [
-            'article' => addArticle(),
-            'author' => addAuthor(),
+            'article' => findArticle(),
+            'author' => findAuthor(),
             'authors' => $authors
         ]);
         break;
 
     case 'article-add':
-        echo $twig->render('templates/admin/article-add.html.twig', []);
+        echo $twig->render('templates/admin/article-add.html.twig', [
+            'authors' => $authors
+        ]);
         break;
+
+  
         
     default:
         //J'affiche le template

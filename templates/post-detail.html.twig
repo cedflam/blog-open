@@ -47,27 +47,30 @@
 			<div class="col-lg-8 col-md-10 mx-auto bg-light">
 				<h2>Laissez un commentaire...</h2>
 
-				<form name="sentMessage" id="contactForm" novalidate>
+				<form name="addComment" action="" method="POST">
 					<div class="control-group">
 						<p class="help-block text-danger"></p>
 						<hr>
 						<div class="form-group floating-label-form-group controls">
 							<label>Nom</label>
-							<input type="text" class="form-control" placeholder="Nom" id="name" required data-validation-required-message="Please enter your name.">
+							<input type="text" class="form-control" placeholder="Nom" name="name_comment" >
 						</div>
 					</div>
-
+					
+					<input type="hidden" value="{{article.id_pk_article}}" name = "addComment">
 					<div class="control-group">
 						<div class="form-group floating-label-form-group controls">
 							<label>Message</label>
-							<textarea rows="5" class="form-control" placeholder="Message" id="message" required data-validation-required-message="Please enter a message."></textarea>
+							<textarea rows="5" class="form-control" placeholder="Message" name="content_comment" ></textarea>
 							<p class="help-block text-danger"></p>
 						</div>
 					</div>
 					<br>
-					<div id="success"></div>
+					<!--Permet de récupérer l'id de l'article -->
+					<input name ="id_article" type="hidden" value="{{article.id_pk_article}}">
+					
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary" id="sendMessageButton">Soumettre</button>
+						<button type="submit" class="btn btn-primary"  >Soumettre</button>
 					</div>
 				</form>
 			</div>
@@ -84,7 +87,7 @@
 						<div class="card">
 							<div class="card-header">
 								<h5>Posté par,
-									{{comment.name}}
+									{{comment.name_comment}}
 									le,
 									{{comment.date_comment | date ('d/m/Y à H:m:s')}}
 								</h5>

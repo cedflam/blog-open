@@ -46,8 +46,9 @@ class Article
      *
      * @return void
      */
-    public static function addArticles()
+    public static function findArticles()
     {
+
         //Variable globale qui permet de se connecter à la bdd 
         global $db;
         // Requete préparée
@@ -59,21 +60,96 @@ class Article
     }
 
     /**
-     * Fonction qui permet de modifier un article
+     * Fonction qui permet d'ajouter un article 
      *
-     * @param int $id_article
      * @return void
      */
-    public static function editArticle($id_article){
-        //Connexion à la base de données
-        global $db;
-        //requete préparée
-        $editArticle = $db->prepare(
-            'UPDATE title, sentence, firstName, lastName , content_article 
-            FROM article
-            INNER JOIN author ON article.id_author = author.id_pk_author
-            WHERE id_pk_article = ?');
+    public static function addArticle()
+    {
+        //Connexion à la bdd 
+        global $db;        
+        
+
+        //Requete préparée 
+         $addArticle = $db->prepare('INSERT INTO article 
+                                                (title,
+                                                sentence, 
+                                                content_article,
+                                                date_article,
+                                                id_author)
+                                    VALUES (
+                                                :title, 
+                                                :sentence, 
+                                                :content_article, 
+                                                 NOW(), 
+                                                :id_author)');        
+        
+        
+        //J'execute la requete
+        $addArticle->execute(array(
+            ':title'=> htmlspecialchars($_POST['title']),
+            ':sentence'=> htmlspecialchars($_POST['sentence']),
+            ':content_article'=> htmlspecialchars($_POST['content_article']),
+            ':id_author'=> $_POST['id_author']
+            
+        ));
+   
+
+                       
+         //Redirection de la page
+         header('Location: post-list');
     }
+
+    /**
+     * Fonction qui permet de modifier un article
+     *
+     * @return void
+     */
+    public static function editArticle()
+    {
+        //J'attribue les valeurs des champs aux variables
+        $title = htmlspecialchars($_POST['title']);
+        $sentence = htmlspecialchars($_POST['sentence']);
+        $id_author = htmlspecialchars($_POST['id_author']);
+        $content_article = htmlspecialchars($_POST['content_article']);
+        $id_article = htmlspecialchars($_POST['id_article']);
+
+
+        //Connexion à la bdd 
+        global $db;
+
+        //Requete préparée 
+        $editArticle = $db->prepare('UPDATE article 
+                                    SET title = ?, sentence = ?, content_article = ?, id_author = ?, date_article = NOW()  
+                                    WHERE id_pk_article = ?');
+
+        //J'execute la requete
+        $editArticle->execute(array($title, $sentence, $content_article, $id_author, $id_article));
+        
+        //Redirection de la page
+        header('Location: articles-list');
+    }
+
+    /**
+     * Fonction qui permet de supprimer un article 
+     *
+     * @return void
+     */
+    public static function deleteArticle($article){
+        //connexion à la base de données
+        global $db;       
+        //Requete préparée
+
+        $delete = $db->prepare('DELETE FROM article WHERE id_pk_article = ?');
+        
+        //J'execute la Requete
+        $delete->execute(array($article->getId_pk_article()));
+
+        //Redirection de la page 
+        header('Location: articles-list');
+
+    }
+
 
 
 
