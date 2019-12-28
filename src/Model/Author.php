@@ -56,6 +56,22 @@ class Author
         return $reqAuthors->fetchAll();
     }
 
+    /**
+     * Fonction qui permet de récupérer un auteur
+     *
+     * @return Author
+     */
+    public static function findAuthor()
+    {
+        if ($_GET['id_author']) {
+
+            $id_author = $_GET['id_author'];
+            $author = new Author($id_author);
+
+            return $author;
+        }
+    }
+
 
     /**
      * Fonction qui permet de récupérer les données
@@ -63,7 +79,8 @@ class Author
      *
      * @return void
      */
-    public static function allDatabase(){
+    public static function allDatabase()
+    {
         //Variable globale qui permet de se connecter à la bdd
         global $db;
         // Requete préparée 
@@ -80,7 +97,7 @@ class Author
 
 
 
-    
+
 
     /**
      * Get the value of firstName
@@ -164,7 +181,7 @@ class Author
 
     /**
      * Get the value of id_pk_author
-     */ 
+     */
     public function getId_pk_author()
     {
         return $this->id_pk_author;

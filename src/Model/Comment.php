@@ -7,6 +7,7 @@ class Comment{
     private $content_comment;
     private $date_comment;
     private $name_comment;
+    private $valid;
     private $id_article;
 
 
@@ -34,7 +35,8 @@ class Comment{
         $this->id_pk_comment = $id;
         $this->content_comment = $data['content_comment'];
         $this->date_comment = $data['date_comment'];
-        $this->name_comment = $data['name'];
+        $this->name_comment = $data['name_comment'];
+        $this->valid = $data['valid'];
         $this->id_article = $data['id_article'];        
     }
 
@@ -55,23 +57,47 @@ class Comment{
         return $reqComments->fetchAll();
     }
 
+    /**
+     * Fonction qui permet de récupérer un commentaire
+     *
+     * @return Article
+     */
+    public static function findComment()
+    {
+        if ($_GET['id_comment']) {
+
+            $id_comment = $_GET['id_comment'];
+            $comment = new Comment($id_comment);
+
+            return $comment;
+        }
+    }
+
+    /**
+     * Fonction qui permet d'ajouter un commentaire
+     *
+     * @return void
+     */
     public static function addComment(){
 
         //Connexion à la bdd 
         global $db;
         //requete préparée
-        $addComment = $db->prepare('INSERT INTO comment 
-                                            (content_comment, 
-                                            date_comment, 
-                                            name_comment, 
-                                            id_article)
+        $addComment = $db->prepare(
+            'INSERT INTO comment 
+                (content_comment, 
+                date_comment, 
+                name_comment,
+                valid, 
+                id_article)
 
-                                    VALUES (
-                                        :content_comment,
-                                        NOW(),
-                                        :name_comment,
-                                        :id_article)'
-                                        );
+             VALUES (
+                :content_comment,
+                NOW(),
+                :name_comment,
+                false,
+                :id_article)'
+             );
          
 
         //J'execute la requete
@@ -87,29 +113,71 @@ class Comment{
        
     }
 
-   
-
-
-    /**
-     * Get the value of name
-     */ 
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set the value of name
+     /**
+     * Fonction qui permet de modifier un commentaire
      *
-     * @return  self
-     */ 
-    public function setName($name)
+     * @return void
+     */
+    public static function editComment($id)
     {
-        $this->name = $name;
+        //J'attribue les valeurs des champs aux variables
+        $content_comment = htmlspecialchars($_POST['content_comment']);
+        $name_comment = htmlspecialchars($_POST['name_comment']);
+        $id_comment = htmlspecialchars($_POST['modComment']);
 
-        return $this;
+
+        //Connexion à la bdd 
+        global $db;
+
+        //Requete préparée 
+        $editArticle = $db->prepare('UPDATE comment 
+                                    SET content_comment = ?, name_comment = ?   
+                                    WHERE id_pk_comment = ?');
+
+        //J'execute la requete
+        $editArticle->execute(array($content_comment, $name_comment, $id_comment));
+
+        //Redirection de la page
+        header('Location: comment-list');
     }
 
+
+    /**
+     * Fonction qui permet de valider un commentaire
+     *
+     * @return void
+     */
+    public static function validComment($id){        
+       
+        //Connexion à la bdd 
+        global $db;
+
+        //Requete préparée 
+        $reqValid = $db->prepare('UPDATE comment SET valid = true WHERE id_pk_comment = ?');
+
+        //J'execute la requete 
+        $reqValid->execute(array($id));
+
+        //Redirection 
+        header('Location: comment-list');
+    }
+
+   public static function deleteComment($comment){
+
+    //connexion à la base de données
+    global $db;
+    //Requete préparée
+    $delete = $db->prepare('DELETE FROM comment WHERE id_pk_comment = ?');
+
+    //J'execute la Requete
+    $delete->execute(array($comment->getId_pk_comment()));
+
+    //Redirection de la page 
+    header('Location: comment-list');
+   }
+
+
+   
     /**
      * Get the value of id_article
      */ 
@@ -164,5 +232,25 @@ class Comment{
     public function getId_pk_comment()
     {
         return $this->id_pk_comment;
+    }
+
+    /**
+     * Get the value of name_comment
+     */ 
+    public function getName_comment()
+    {
+        return $this->name_comment;
+    }
+
+    /**
+     * Set the value of name_comment
+     *
+     * @return  self
+     */ 
+    public function setName_comment($name_comment)
+    {
+        $this->name_comment = $name_comment;
+
+        return $this;
     }
 }

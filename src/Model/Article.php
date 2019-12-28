@@ -60,6 +60,22 @@ class Article
     }
 
     /**
+     * Fonction qui permet de récupérer un article
+     *
+     * @return Article
+     */
+    public static function findArticle()
+    {
+        if ($_GET['id_article']) {
+
+            $id_article = $_GET['id_article'];
+            $article = new Article($id_article);
+
+            return $article;
+        }
+    }
+
+    /**
      * Fonction qui permet d'ajouter un article 
      *
      * @return void
@@ -67,37 +83,39 @@ class Article
     public static function addArticle()
     {
         //Connexion à la bdd 
-        global $db;        
-        
+        global $db;
+
 
         //Requete préparée 
-         $addArticle = $db->prepare('INSERT INTO article 
-                                                (title,
-                                                sentence, 
-                                                content_article,
-                                                date_article,
-                                                id_author)
-                                    VALUES (
-                                                :title, 
-                                                :sentence, 
-                                                :content_article, 
-                                                 NOW(), 
-                                                :id_author)');        
-        
-        
+        $addArticle = $db->prepare(
+            'INSERT INTO article 
+                        (title,
+                        sentence, 
+                        content_article,
+                        date_article,
+                        id_author)
+            VALUES (
+                        :title, 
+                        :sentence, 
+                        :content_article, 
+                        NOW(), 
+                        :id_author)'
+                    );
+
+
         //J'execute la requete
         $addArticle->execute(array(
-            ':title'=> htmlspecialchars($_POST['title']),
-            ':sentence'=> htmlspecialchars($_POST['sentence']),
-            ':content_article'=> htmlspecialchars($_POST['content_article']),
-            ':id_author'=> $_POST['id_author']
-            
-        ));
-   
+            ':title' => htmlspecialchars($_POST['title']),
+            ':sentence' => htmlspecialchars($_POST['sentence']),
+            ':content_article' => htmlspecialchars($_POST['content_article']),
+            ':id_author' => $_POST['id_author']
 
-                       
-         //Redirection de la page
-         header('Location: post-list');
+        ));
+
+
+
+        //Redirection de la page
+        header('Location: post-list');
     }
 
     /**
@@ -125,7 +143,7 @@ class Article
 
         //J'execute la requete
         $editArticle->execute(array($title, $sentence, $content_article, $id_author, $id_article));
-        
+
         //Redirection de la page
         header('Location: articles-list');
     }
@@ -135,19 +153,19 @@ class Article
      *
      * @return void
      */
-    public static function deleteArticle($article){
+    public static function deleteArticle($article)
+    {
         //connexion à la base de données
-        global $db;       
+        global $db;
         //Requete préparée
 
         $delete = $db->prepare('DELETE FROM article WHERE id_pk_article = ?');
-        
+
         //J'execute la Requete
         $delete->execute(array($article->getId_pk_article()));
 
         //Redirection de la page 
         header('Location: articles-list');
-
     }
 
 

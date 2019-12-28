@@ -70,22 +70,24 @@
 					<input name ="id_article" type="hidden" value="{{article.id_pk_article}}">
 					
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary"  >Soumettre</button>
+						<button type="submit" class="btn btn-primary">Soumettre</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 	<!--Post Comment-->
-	<div class="container mt-5">
+	
+	
+	<div class="container mt-5 text-justify">
 	<h2 class ="text-center mt-3 mb-3">Les derniers commentaires...</h2>
 		<div class="row">
 			<div class="col-lg-8 col-md-10 mx-auto">
 				{% for comment in comments %}
-					{% if article.id_pk_article == comment.id_article %}
-
+					{% if article.id_pk_article == comment.id_article and comment.valid == true %}
+					
 						<div class="card">
-							<div class="card-header">
+							<div class="card-header ">
 								<h5>Posté par,
 									{{comment.name_comment}}
 									le,

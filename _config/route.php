@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 //Liste des templates
 switch ($page) {
@@ -15,12 +15,12 @@ switch ($page) {
         ]);
         break;
 
-    case 'post-detail':           
-        
+    case 'post-detail':
+
         //J'affiche le template
         echo $twig->render('templates/post-detail.html.twig', [
-            'article' => findArticle(),
-            'author' => findAuthor(),
+            'article' => $article,
+            'author' => $author,
             'comments' => $allDdb
         ]);
         break;
@@ -32,11 +32,11 @@ switch ($page) {
         ]);
         break;
 
-    case 'article-edit':        
+    case 'article-edit':
         //J'affiche le template
         echo $twig->render('templates/admin/article-edit.html.twig', [
-            'article' => findArticle(),
-            'author' => findAuthor(),
+            'article' => $article,
+            'author' => $author,
             'authors' => $authors
         ]);
         break;
@@ -47,12 +47,34 @@ switch ($page) {
         ]);
         break;
 
-  
-        
+    case 'comment-list':
+        echo $twig->render('templates/admin/comment-list.html.twig', [
+            'comments' => $allDdb,
+
+        ]);
+        break;
+    case 'comment-edit':
+        echo $twig->render('templates/admin/comment-edit.html.twig', [
+            'comment' => $comment,
+            'articles' => $articles
+        ]);
+        break;
+
+    case 'admin-home':
+        echo $twig->render('templates/admin/admin-home.html.twig');
+        break;
+
+    case 'login':
+        echo $twig->render('templates/member/login.html.twig');
+        break;
+
+    case 'registration':
+        echo $twig->render('templates/member/registration.html.twig');
+        break;
+
+
     default:
         //J'affiche le template
         echo $twig->render('templates/partials/404.html.twig');
         break;
 }
-
-
