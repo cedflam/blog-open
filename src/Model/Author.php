@@ -9,6 +9,7 @@ class Author
     private $lastName;
     private $hash;
     private $email;
+    private $role;
 
 
     /**
@@ -37,6 +38,41 @@ class Author
         $this->lastName = $data['lastName'];
         $this->hash = $data['hash'];
         $this->email = $data['email'];
+    }
+
+    /**
+     * fonction qui permet de se connecter 
+     *
+     * @param String $mail
+     * @param String $pass
+     * @return String $role
+     */
+    public static function connection($mail, $pass){
+
+        //Connexion à la bdd 
+        global $db;
+        //Requete préparée 
+        $req = $db->prepare('SELECT * FROM author WHERE email = ?');
+        //J'execute la requete 
+        $req->execute([$mail]);
+        //Je stocke le résultat 
+        $data = $req->fetch();
+        //Je stocke les valeurs de l'objet dans des variables
+        $hash = $data['hash'];
+
+        if ($hash == $pass){
+            
+            $role = $data['role'];
+            return $role;
+          
+            
+        }else{
+
+           
+            header('Location: login');
+        }
+
+        
     }
 
     /**
@@ -185,5 +221,25 @@ class Author
     public function getId_pk_author()
     {
         return $this->id_pk_author;
+    }
+
+    /**
+     * Get the value of role
+     */ 
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * Set the value of role
+     *
+     * @return  self
+     */ 
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
     }
 }

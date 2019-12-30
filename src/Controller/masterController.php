@@ -1,5 +1,14 @@
 <?php
 
+//Connexion d'un utilisateur
+if(!empty($_POST['login'])){
+   $role =  Author::connection(htmlspecialchars($_POST['email']), htmlspecialchars($_POST['hash']) );
+   session_start();    
+   $_SESSION['role'] = $role;    
+}
+
+var_dump($_SESSION);
+
 //Je récupère tous les articles
 $articles = Article::findArticles();
 //Je récupère un article

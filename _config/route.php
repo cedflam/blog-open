@@ -37,7 +37,8 @@ switch ($page) {
         echo $twig->render('templates/admin/article-edit.html.twig', [
             'article' => $article,
             'author' => $author,
-            'authors' => $authors
+            'authors' => $authors,
+            
         ]);
         break;
 
@@ -65,7 +66,9 @@ switch ($page) {
         break;
 
     case 'login':
-        echo $twig->render('templates/member/login.html.twig');
+        echo $twig->render('templates/member/login.html.twig',[
+           
+        ]);
         break;
 
     case 'registration':
