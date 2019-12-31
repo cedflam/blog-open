@@ -3,7 +3,8 @@
 {% endblock %}
 
 {% block body %}
-
+	
+	{% if session.role == 'admin' %}
 	<!-- Page Header -->
 	<header class="masthead" style="background-image: url('public/images/')">
 		<div class="overlay"></div>
@@ -22,7 +23,7 @@
 
 	<div class="container mt-3">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="card">
 					<div class="card-header bg-warning">
 						<h4>Gérer les articles</h4>
@@ -38,7 +39,22 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header bg-warning">
+						<h4>Ajouter un article</h4>
+					</div>
+					<div class="card-body ">
+						<p class="text-justify">
+							Sur cette section vous avez la possibilité d'ajouter un nouvel article.
+						</p>
+					</div>
+					<div class="card-footer">
+						<a href="?page=article-add" class="btn btn-info mx-auto d-block">Ajouter un article</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
 				<div class="card">
 					<div class="card-header bg-warning">
 						<h4>Gérer les commentaires</h4>
@@ -54,8 +70,26 @@
 					</div>
 				</div>
 			</div>
-
+			
 		</div>
 	</div>
+	{% else %}
+		<header class="masthead" style="background-image: url('public/images/')">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<div class="site-heading">
+						<h2 class="">
+							Accès interdit ! <br>
+							Retour à l'accueil
+						</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
 
+	{% endif %}
+		
 {% endblock %}

@@ -3,45 +3,67 @@
 {% endblock %}
 
 {% block body %}
+	{% if session.role == 'admin' %}
 
-	<!-- Page Header -->
-	<header class="masthead" style="background-image: url('public/images/homef-bg.jpg')">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-md-10 mx-auto">
-					<div class="site-heading">
-						<h1>Liste des articles</h1>
+		<!-- Page Header -->
+		<header class="masthead" style="background-image: url('public/images/homef-bg.jpg')">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-10 mx-auto">
+						<div class="site-heading">
+							<h1>Liste des articles</h1>
+						</div>
 					</div>
 				</div>
 			</div>
+		</header>
+
+		<!--Corps de la page -->
+		<div class="container mt-5">
+			<div class="row">
+				{% for author in authors %}
+
+					<div class="col-lg-8 col-md-10 mx-auto mt-3">
+						<div class="card">
+							<div class="card-header">
+								<h4>
+									{{author.title}}
+								</h4>
+								<p>
+									Par,
+									{{author.firstName}}
+									{{author.lastName}}
+									le,
+									{{author.date_article | date ('d/m/Y à H:m:s')}}</p>
+							</div>
+							<div class="card-body">
+								<p class="text-justify">
+									{{author.sentence}}
+								</p>
+								<a href="?page=article-edit&amp;id_article={{author.id_pk_article}}&amp;id_author={{author.id_pk_author}} " class="btn btn-info">Modifier l'article</a>
+								<a href="?page=articles-list&amp;id_delete_article={{author.id_pk_article}}" class="btn btn-danger">Supprimer l'article</a>
+
+							</div>
+
+						</div>
+					</div>
+				{% endfor %}
+			</div>
 		</div>
-    </header>
-
-    <!--Corps de la page -->
-        <div class="container mt-5">
-            <div class="row">
-            {% for author in authors %}
-                
-                <div class="col-lg-8 col-md-10 mx-auto mt-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4> {{author.title}} </h4>
-                            <p> Par, {{author.firstName}} {{author.lastName}} le, {{author.date_article | date ('d/m/Y à H:m:s')}}</p>
-                        </div>
-                        <div class="card-body">
-                            <p class="text-justify">
-                                {{author.sentence}}                                
-                            </p>
-                            <a href="?page=article-edit&amp;id_article={{author.id_pk_article}}&amp;id_author={{author.id_pk_author}} " class="btn btn-info">Modifier l'article</a>
-                            <a href="?page=articles-list&amp;id_delete_article={{author.id_pk_article}}" class="btn btn-danger">Supprimer l'article</a>                       
-                            
-                        </div>
-                        
-                    </div>
-                </div>
-            {% endfor %}
-            </div>
-        </div>
-
-	{% endblock %}
+		{% else %}
+            <!-- Page Header -->
+		<header class="masthead" style="background-image: url('public/images/homef-bg.jpg')">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-10 mx-auto">
+						<div class="site-heading">
+							<h1>Accès interdit !</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	{% endif %}
+{% endblock %}

@@ -5,13 +5,15 @@ switch ($page) {
 
     case 'home':
         //J'affiche le template
-        echo $twig->render('templates/home.html.twig', []);
+        echo $twig->render('templates/home.html.twig', [
+            'session'=> $_SESSION
+        ]);
         break;
 
     case 'post-list':
         //J'affiche le template
         echo $twig->render('templates/post-list.html.twig', [
-            'authors' => $allDdb,
+            'authors' => $allDdb           
         ]);
         break;
 
@@ -21,14 +23,16 @@ switch ($page) {
         echo $twig->render('templates/post-detail.html.twig', [
             'article' => $article,
             'author' => $author,
-            'comments' => $allDdb
+            'comments' => $allDdb,
+            
         ]);
         break;
 
     case 'articles-list':
         ///J'affiche le template
         echo $twig->render('templates/admin/articles-list.html.twig', [
-            'authors' => $allDdb
+            'authors' => $allDdb,
+            'session'=> $_SESSION
         ]);
         break;
 
@@ -38,31 +42,37 @@ switch ($page) {
             'article' => $article,
             'author' => $author,
             'authors' => $authors,
+            'session'=> $_SESSION
             
         ]);
         break;
 
     case 'article-add':
         echo $twig->render('templates/admin/article-add.html.twig', [
-            'authors' => $authors
+            'authors' => $authors,
+            'session'=> $_SESSION
         ]);
         break;
 
     case 'comment-list':
         echo $twig->render('templates/admin/comment-list.html.twig', [
             'comments' => $allDdb,
+            'session'=> $_SESSION
 
         ]);
         break;
     case 'comment-edit':
         echo $twig->render('templates/admin/comment-edit.html.twig', [
             'comment' => $comment,
-            'articles' => $articles
+            'articles' => $articles,
+            'session'=> $_SESSION
         ]);
         break;
 
     case 'admin-home':
-        echo $twig->render('templates/admin/admin-home.html.twig');
+        echo $twig->render('templates/admin/admin-home.html.twig',[
+            'session'=> $_SESSION
+        ]);
         break;
 
     case 'login':

@@ -1,5 +1,5 @@
 <?php
-
+session_start(); 
 
 /********************Include*************************** */
 //Appel des fichiers de config
@@ -17,6 +17,7 @@ require 'src/Controller/masterController.php';
 
 require 'vendor/autoload.php';
 
+
 /***********************Page courante********** */
 
 //Je définis la page courante
@@ -26,7 +27,7 @@ if (isset($_GET['page']) and !empty($_GET['page'])) {
     $page = 'home';
 }
 
-/*************************TWIG********************************** */
+/*************************TWIG***********************************/
 
 // Rendu du template
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__, '/templates');
@@ -42,3 +43,8 @@ $twig->addExtension(new \Twig\Extension\DebugExtension());
 
 //Ajout du fichier contenant les routes
 require '_config/route.php';
+
+
+    
+   
+ 

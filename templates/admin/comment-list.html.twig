@@ -1,51 +1,75 @@
 {% extends "templates/base.html.twig" %}
-{% block title %}Administration - Liste des commentaires{% endblock %}
+{% block title %}Administration - Liste des commentaires
+{% endblock %}
 
 {% block body %}
+	{% if session.role == 'admin' %}
 
-<!-- Page Header -->
-	<header class="masthead" style="background-image: url('public/images/homef-bg.jpg')">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-md-10 mx-auto">
-					<div class="site-heading">
-						<h1>Liste des commentaires</h1>
+		<!-- Page Header -->
+		<header class="masthead" style="background-image: url('public/images/homef-bg.jpg')">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-10 mx-auto">
+						<div class="site-heading">
+							<h1>Liste des commentaires</h1>
+						</div>
 					</div>
 				</div>
 			</div>
+		</header>
+
+		<!--Corps de la page -->
+		<div class="container mt-5">
+			<div class="row">
+				{% for comment in comments %}
+
+					<div class="col-lg-8 col-md-10 mx-auto mt-3">
+						<div class="card">
+							<div class="card-header">
+								<h4>
+									{{comment.title}}
+								</h4>
+								<p>
+									Commentaire par,
+									{{comment.name_comment}}
+									le,
+									{{comment.date_comment | date ('d/m/Y à H:m:s')}}</p>
+							</div>
+							<div class="card-body">
+								<p class="text-justify">
+									{{comment.content_comment}}
+								</p>
+
+								{% if comment.valid == false %}
+									<a href="?page=comment-list&amp;idComment={{comment.id_pk_comment}}" class="btn btn-success">Valider
+									</a>
+								{% endif %}
+
+								<a href="?page=comment-edit&amp;id_comment={{comment.id_pk_comment}}" class="btn btn-info">Modifier
+								</a>
+								<a href="?page=comment-list&amp;id_delete_comment={{comment.id_pk_comment}}" class="btn btn-danger">Supprimer</a>
+
+							</div>
+
+						</div>
+					</div>
+				{% endfor %}
+			</div>
 		</div>
-    </header>
-
-    <!--Corps de la page -->
-        <div class="container mt-5">
-            <div class="row">
-            {% for comment in comments %}
-                
-                <div class="col-lg-8 col-md-10 mx-auto mt-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4> {{comment.title}} </h4>
-                            <p> Commentaire par, {{comment.name_comment}} le, {{comment.date_comment | date ('d/m/Y à H:m:s')}}</p>
-                        </div>
-                        <div class="card-body">
-                            <p class="text-justify">
-                                {{comment.content_comment}}                                
-                            </p>
-
-                            {% if comment.valid == false %}                            
-                            <a href="?page=comment-list&amp;idComment={{comment.id_pk_comment}}" class="btn btn-success">Valider </a>                                                    
-                            {% endif %}
-
-                            <a href="?page=comment-edit&amp;id_comment={{comment.id_pk_comment}}" class="btn btn-info">Modifier </a>
-                            <a href="?page=comment-list&amp;id_delete_comment={{comment.id_pk_comment}}" class="btn btn-danger">Supprimer</a>                       
-                            
-                        </div>
-                        
-                    </div>
-                </div>
-            {% endfor %}
-            </div>
-        </div>
-
+	{% else %}
+		<!-- Page Header -->
+		<header class="masthead" style="background-image: url('public/images/homef-bg.jpg')">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-10 mx-auto">
+						<div class="site-heading">
+							<h1>Accès interdit !</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	{% endif %}
 {% endblock %}

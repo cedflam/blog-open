@@ -38,6 +38,7 @@ class Author
         $this->lastName = $data['lastName'];
         $this->hash = $data['hash'];
         $this->email = $data['email'];
+        $this->role = $data['role'];
     }
 
     /**
@@ -47,7 +48,7 @@ class Author
      * @param String $pass
      * @return String $role
      */
-    public static function connection($mail, $pass){
+    public static function login($mail, $pass){
 
         //Connexion à la bdd 
         global $db;
@@ -63,12 +64,11 @@ class Author
         if ($hash == $pass){
             
             $role = $data['role'];
+            header('Location: admin-home');
             return $role;
-          
             
         }else{
-
-           
+                    
             header('Location: login');
         }
 
