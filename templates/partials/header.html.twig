@@ -14,14 +14,13 @@
 				<li class="nav-item">
 					<a class="nav-link" href="?page=home">Accueil</a>
 				</li>
-				<li class="nav-item">
+				{% if session.role == '' %}				
+				<li class="nav-item ">
 					<a class="nav-link" href="?page=login">Connexion</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="_config/logout.php">Deconnexion</a>					
-				</li>
-				<li class="nav-item">
 					<a class="nav-link" href="?page=registration">Inscription</a>
+				{% endif %}
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="?page=post-list">Les blogs-posts</a>
@@ -29,6 +28,12 @@
 				<li class="nav-item">
 					<a class="nav-link" href="public/docs/CV.pdf">CV</a>
 				</li>
+
+				{% if session.role == 'admin' or session.role == 'user' %}				
+				<li class="nav-item">
+					<a class="nav-link" href="_config/logout.php">Deconnexion</a>					
+				</li>
+				{% endif %}
 
 			</ul>
 		</div>

@@ -40,6 +40,8 @@
 			</div>
 		</div>
 	</article>
+	{% if session.role == 'user' or session.role == 'admin' %}
+	
 	<!--formulaire d'ajout de commentaire-->
 	<div class="container mt-5">
 
@@ -52,8 +54,8 @@
 						<p class="help-block text-danger"></p>
 						<hr>
 						<div class="form-group floating-label-form-group controls">
-							<label>Nom</label>
-							<input type="text" class="form-control" placeholder="Nom" name="name_comment" >
+							<label>{{session.firstName}}</label>
+							<input type="text" class="form-control" name="name_comment" value ="{{session.firstName}} {{session.lastName}}" disabled >
 						</div>
 					</div>
 					
@@ -78,6 +80,7 @@
 	</div>
 	<!--Post Comment-->
 	
+	{% endif %}
 	
 	<div class="container mt-5 text-justify">
 	<h2 class ="text-center mt-3 mb-3">Les derniers commentaires...</h2>

@@ -13,7 +13,9 @@ switch ($page) {
     case 'post-list':
         //J'affiche le template
         echo $twig->render('templates/post-list.html.twig', [
-            'authors' => $allDdb           
+            'authors' => $allDdb,
+            'session' => $_SESSION
+
         ]);
         break;
 
@@ -24,6 +26,7 @@ switch ($page) {
             'article' => $article,
             'author' => $author,
             'comments' => $allDdb,
+            'session' => $_SESSION
             
         ]);
         break;
@@ -82,7 +85,17 @@ switch ($page) {
         break;
 
     case 'registration':
-        echo $twig->render('templates/member/registration.html.twig');
+        echo $twig->render('templates/member/registration.html.twig',[
+            'session'=> $_SESSION,
+            'authors'=> $allDdb
+        ]);
+        break;
+
+    case 'registration-valid':
+        echo $twig->render('templates/admin/registration-valid.html.twig',[
+            'authors'=> $authors,
+            'session'=> $_SESSION
+        ]);
         break;
 
 

@@ -4,9 +4,11 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto d-block">
         <p class = "text-center">
+        {% if session.role == 'admin' %}        
           <a href="?page=admin-home" class="text-center"> 
           <span class="badge badge-primary">Administration</span>
           </a>
+        {% endif %}
         </p>
           <p class="copyright text-muted">Copyright &copy; Blog 2019</p>
         </div>

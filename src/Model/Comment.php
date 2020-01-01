@@ -1,6 +1,7 @@
-<?php 
+<?php
 
-class Comment{
+class Comment
+{
 
     //Propriétés 
     private $id_pk_comment;
@@ -37,7 +38,7 @@ class Comment{
         $this->date_comment = $data['date_comment'];
         $this->name_comment = $data['name_comment'];
         $this->valid = $data['valid'];
-        $this->id_article = $data['id_article'];        
+        $this->id_article = $data['id_article'];
     }
 
     /**
@@ -78,7 +79,8 @@ class Comment{
      *
      * @return void
      */
-    public static function addComment(){
+    public static function addComment()
+    {
 
         //Connexion à la bdd 
         global $db;
@@ -97,23 +99,22 @@ class Comment{
                 :name_comment,
                 false,
                 :id_article)'
-             );
-         
+        );
+
 
         //J'execute la requete
         $addComment->execute(array(
-        ':content_comment'=> htmlspecialchars($_POST['content_comment']),
-        ':name_comment'=> htmlspecialchars($_POST['name_comment']),
-        ':id_article'=> $_POST['id_article']
-         ));
-            
-            
+            ':content_comment' => htmlspecialchars($_POST['content_comment']),
+            ':name_comment' => htmlspecialchars($_POST['name_comment']),
+            ':id_article' => $_POST['id_article']
+        ));
+
+
         //Redirection de la page
         header('Location: post-list');
-       
     }
 
-     /**
+    /**
      * Fonction qui permet de modifier un commentaire
      *
      * @return void
@@ -147,8 +148,9 @@ class Comment{
      *
      * @return void
      */
-    public static function validComment($id){        
-       
+    public static function validComment($id)
+    {
+
         //Connexion à la bdd 
         global $db;
 
@@ -162,25 +164,32 @@ class Comment{
         header('Location: comment-list');
     }
 
-   public static function deleteComment($comment){
+    /**
+     * fonction qui permet d'effacer un commentaire 
+     *
+     * @param Comment $comment
+     * @return void
+     */
+    public static function deleteComment($comment)
+    {
 
-    //connexion à la base de données
-    global $db;
-    //Requete préparée
-    $delete = $db->prepare('DELETE FROM comment WHERE id_pk_comment = ?');
+        //connexion à la base de données
+        global $db;
+        //Requete préparée
+        $delete = $db->prepare('DELETE FROM comment WHERE id_pk_comment = ?');
 
-    //J'execute la Requete
-    $delete->execute(array($comment->getId_pk_comment()));
+        //J'execute la Requete
+        $delete->execute(array($comment->getId_pk_comment()));
 
-    //Redirection de la page 
-    header('Location: comment-list');
-   }
+        //Redirection de la page 
+        header('Location: comment-list');
+    }
 
 
-   
+
     /**
      * Get the value of id_article
-     */ 
+     */
     public function getId_article()
     {
         return $this->id_article;
@@ -188,7 +197,7 @@ class Comment{
 
     /**
      * Get the value of content_comment
-     */ 
+     */
     public function getContent_comment()
     {
         return $this->content_comment;
@@ -198,7 +207,7 @@ class Comment{
      * Set the value of content_comment
      *
      * @return  self
-     */ 
+     */
     public function setContent_comment($content_comment)
     {
         $this->content_comment = $content_comment;
@@ -208,7 +217,7 @@ class Comment{
 
     /**
      * Get the value of date_comment
-     */ 
+     */
     public function getDate_comment()
     {
         return $this->date_comment;
@@ -218,7 +227,7 @@ class Comment{
      * Set the value of date_comment
      *
      * @return  self
-     */ 
+     */
     public function setDate_comment($date_comment)
     {
         $this->date_comment = $date_comment;
@@ -228,7 +237,7 @@ class Comment{
 
     /**
      * Get the value of id_pk_comment
-     */ 
+     */
     public function getId_pk_comment()
     {
         return $this->id_pk_comment;
@@ -236,7 +245,7 @@ class Comment{
 
     /**
      * Get the value of name_comment
-     */ 
+     */
     public function getName_comment()
     {
         return $this->name_comment;
@@ -246,7 +255,7 @@ class Comment{
      * Set the value of name_comment
      *
      * @return  self
-     */ 
+     */
     public function setName_comment($name_comment)
     {
         $this->name_comment = $name_comment;

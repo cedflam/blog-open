@@ -84,8 +84,7 @@ class Article
     {
         //Connexion à la bdd 
         global $db;
-
-
+        
         //Requete préparée 
         $addArticle = $db->prepare(
             'INSERT INTO article 

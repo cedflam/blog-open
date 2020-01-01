@@ -10,7 +10,7 @@ class Author
     private $hash;
     private $email;
     private $role;
-
+    private $valid;
 
     /**
      * Constructeur
@@ -39,6 +39,101 @@ class Author
         $this->hash = $data['hash'];
         $this->email = $data['email'];
         $this->role = $data['role'];
+        $this->valid = $data['valid'];
+    }
+
+    /**
+     * fonction qui permet de s'inscrire 
+     *
+     * @return void
+     */
+    public static function addAuthor()
+    {
+        //Connexion à la bdd 
+        global $db;
+
+        //Si les mots de passes sont identiques alors...
+        if ($_POST['password'] == $_POST['confirmPassword']) {
+
+            //Je récupère les auteurs 
+            $authors = Author::findAuthors();
+            //J'initialise la varible $existe
+            $existe = false;
+            //Je boucle sur les auteurs 
+            foreach ($authors as $author) {
+                if ($_POST['email'] == $author['email']) {
+                    echo 'Cet email existe déjà !';
+                    $existe = true;
+                }
+            }
+            //Si $existe = false alors j'enregistre le nouvel auteur
+            if ($existe == false) {
+
+                //Requete préparée 
+                $addArticle = $db->prepare(
+
+                    'INSERT INTO author (firstName,lastName, hash, email, role, valid)
+              VALUES (:firstName, :lastName, :hash, :email, :role, false)'
+                );
+
+                //J'execute la requete
+                $addArticle->execute(array(
+                    ':firstName' => htmlspecialchars($_POST['firstName']),
+                    ':lastName' => htmlspecialchars($_POST['lastName']),
+                    ':hash' => htmlspecialchars($_POST['password']),
+                    ':email' => htmlspecialchars($_POST['email']),
+                    ':role' => 'user'
+                ));
+                //Redirection de la page
+                header('Location: home');
+            }
+        } else {
+
+            //Affiche un message d'erreur si la condition n'est pas remplie
+            echo 'Les mots de passes saisis sont différents, essayez à nouveau !';
+        }
+    }
+
+    /**
+     * Fonction qui permet de valider un auteur
+     *
+     * @return void
+     */
+    public static function validAuthor($id)
+    {
+
+        //Connexion à la bdd 
+        global $db;
+
+        //Requete préparée 
+        $reqValid = $db->prepare('UPDATE author SET valid = true WHERE id_pk_author = ?');
+
+        //J'execute la requete 
+        $reqValid->execute(array($id));
+
+        //Redirection 
+        header('Location: registration-valid');
+    }
+
+    /**
+     * fonction qui permet de supprimer un auteur
+     *
+     * @param Comment $comment
+     * @return void
+     */
+    public static function deleteAuthor($id)
+    {
+
+        //connexion à la base de données
+        global $db;
+        //Requete préparée
+        $delete = $db->prepare('DELETE FROM author WHERE id_pk_author = ?');
+
+        //J'execute la Requete
+        $delete->execute(array($id->getId_pk_author()));
+
+        //Redirection de la page 
+        header('Location: registration-valid');
     }
 
     /**
@@ -48,7 +143,8 @@ class Author
      * @param String $pass
      * @return String $role
      */
-    public static function login($mail, $pass){
+    public static function login($mail, $pass)
+    {
 
         //Connexion à la bdd 
         global $db;
@@ -61,18 +157,18 @@ class Author
         //Je stocke les valeurs de l'objet dans des variables
         $hash = $data['hash'];
 
-        if ($hash == $pass){
-            
-            $role = $data['role'];
-            header('Location: admin-home');
-            return $role;
-            
-        }else{
-                    
+        if ($hash == $pass) {
+
+            // Je crée un nouvel objet Author
+            $authorSession = new Author($data['id_pk_author']);
+            //Redirection
+            header('Location: home');
+            //Je retourne le nouvel objet
+            return $authorSession;
+        } else {
+
             header('Location: login');
         }
-
-        
     }
 
     /**
@@ -225,7 +321,7 @@ class Author
 
     /**
      * Get the value of role
-     */ 
+     */
     public function getRole()
     {
         return $this->role;
@@ -235,10 +331,30 @@ class Author
      * Set the value of role
      *
      * @return  self
-     */ 
+     */
     public function setRole($role)
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of valid
+     */
+    public function getValid()
+    {
+        return $this->valid;
+    }
+
+    /**
+     * Set the value of valid
+     *
+     * @return  self
+     */
+    public function setValid($valid)
+    {
+        $this->valid = $valid;
 
         return $this;
     }
