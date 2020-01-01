@@ -1,6 +1,5 @@
 vendor/
 config.php
 db.php
-blog.sql
 composer.json
 composer.lock
