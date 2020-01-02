@@ -41,13 +41,15 @@ class ArticleController
      *
      * @return void
      */
-    public static function findArticleAuthor(){
+    public static function findArticleAuthor()
+    {
         //Connexion à la bdd
         global $db;
         //Requete préparée 
         $reqArticleAuthor = $db->prepare(
-        'SELECT * FROM article
-        LEFT JOIN author ON article.id_author = author.id_pk_author ');
+            'SELECT * FROM article
+        LEFT JOIN author ON article.id_author = author.id_pk_author '
+        );
         //J'execute la requete
         $reqArticleAuthor->execute();
         //Je retourne le résultat 
@@ -63,6 +65,12 @@ class ArticleController
     {
         if (!empty($_POST['add_article'])) {
 
+            //Je récupère le post dans des variables 
+            $title = htmlspecialchars($_POST['title']);
+            $sentence = htmlspecialchars($_POST['sentence']);
+            $content_article = htmlspecialchars($_POST['content_article']);
+            $id_author = $_POST['id_author'];
+
             //Connexion à la bdd 
             global $db;
 
@@ -72,14 +80,12 @@ class ArticleController
             VALUES (:title, :sentence, :content_article, NOW(), :id_author)'
             );
 
-
             //J'execute la requete
             $addArticle->execute(array(
-                ':title' => htmlspecialchars($_POST['title']),
-                ':sentence' => htmlspecialchars($_POST['sentence']),
-                ':content_article' => htmlspecialchars($_POST['content_article']),
-                ':id_author' => $_POST['id_author']
-
+                ':title' => $title,
+                ':sentence' => $sentence,
+                ':content_article' => $content_article,
+                ':id_author' => $id_author
             ));
 
             //Redirection de la page
@@ -128,8 +134,11 @@ class ArticleController
     public static function deleteArticle()
     {
         if (!empty($_GET['id_delete_article'])) {
+
+            //Je récupère l'id dans une variable 
+            $id_delete_article = $_GET['id_delete_article'];
             //Je crée un nouvel objet article 
-            $article = new Article($_GET['id_delete_article']);
+            $article = new Article($id_delete_article);
             //connexion à la base de données
             global $db;
             //Requete préparée

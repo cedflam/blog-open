@@ -10,7 +10,7 @@ require '_config/db.php';
 require 'src/Model/Author.php';
 require 'src/Model/Article.php';
 require 'src/Model/Comment.php';
-require 'src/Model/Session.php';
+
 
 //Ajout du controller 
 require 'src/Controller/ArticleController.php';

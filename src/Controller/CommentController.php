@@ -27,9 +27,11 @@ class CommentController
      */
     public static function findComment()
     {
-        if (!empty($_GET['id_comment'])) {
+        //Je récupère le get dans une variable
+        $id_comment = $_GET['id_comment'];
+        //condition
+        if (!empty($id_comment)) {
 
-            $id_comment = $_GET['id_comment'];
             $comment = new Comment($id_comment);
 
             return $comment;
@@ -43,25 +45,32 @@ class CommentController
      */
     public static function addComment()
     {
+        //condition
         if (!empty($_POST['add_comment'])) {
+
+            //Je récupère les post dans des variables
+            $add_comment = $_POST['add_comment'];
+            $content_comment = htmlspecialchars($_POST['content_comment']);
+            $name_comment = htmlspecialchars($_POST['name_comment']);
+
             //Connexion à la bdd 
             global $db;
+            
             //requete préparée
             $addComment = $db->prepare(
                 'INSERT INTO comment (content_comment, date_comment, name_comment, valid, id_article)
              VALUES (:content_comment, NOW(), :name_comment, false, :id_article)'
             );
 
-
             //J'execute la requete
             $addComment->execute(array(
-                ':content_comment' => htmlspecialchars($_POST['content_comment']),
-                ':name_comment' => htmlspecialchars($_POST['name_comment']),
-                ':id_article' => $_POST['add_comment']
+                ':content_comment' => $content_comment,
+                ':name_comment' => $name_comment,
+                ':id_article' => $add_comment
             ));
-            
-                    //Redirection de la page
-                    header('Location: post-list');
+
+            //Redirection de la page
+            header('Location: post-list');
         }
     }
 
@@ -72,15 +81,14 @@ class CommentController
      */
     public static function editComment()
     {
-        if (!empty(($_POST['edit_comment']))) {
-
-            //Je récupère l'id 
-            $id_comment = $_POST['edit_comment'];
-            //J'attribue les valeurs des champs aux variables
+        
+        //condition
+        if (!empty($_POST['edit_comment'])) {
+            
+            //Je stock le post dans des variables
+            $edit_comment = $_POST['edit_comment'];
             $content_comment = htmlspecialchars($_POST['content_comment']);
             $name_comment = htmlspecialchars($_POST['name_comment']);
-            $id_comment = htmlspecialchars($_POST['edit_comment']);
-
 
             //Connexion à la bdd 
             global $db;
@@ -91,7 +99,7 @@ class CommentController
                                     WHERE id_pk_comment = ?');
 
             //J'execute la requete
-            $editArticle->execute(array($content_comment, $name_comment, $id_comment));
+            $editArticle->execute(array($content_comment, $name_comment, $edit_comment));
             //Redirection de la page
             header('Location: comment-list');
         }
@@ -104,9 +112,13 @@ class CommentController
      */
     public static function validComment()
     {
-        if (!empty($_GET['idComment'])) {
+        
+        //Condition
+        if (!empty($_GET['valid_comment'])) {
 
-            $id = $_GET['idComment'];
+            //Je récupère le get dans une variable 
+            $valid_comment = $_GET['valid_comment'];
+
             //Connexion à la bdd 
             global $db;
 
@@ -114,7 +126,7 @@ class CommentController
             $reqValid = $db->prepare('UPDATE comment SET valid = true WHERE id_pk_comment = ?');
 
             //J'execute la requete 
-            $reqValid->execute(array($id));
+            $reqValid->execute(array($valid_comment));
             // Redirection 
             header('Location: comment-list');
         }
@@ -129,21 +141,22 @@ class CommentController
      */
     public static function deleteComment()
     {
-        if(!empty($_GET['id_delete_comment'])){
-
+        
+        if (!empty($_GET['id_delete_comment'])) {
+            
             //Je récupère l'id 
-            $id = $_GET['id_delete_comment'];
+            $id_delete = $_GET['id_delete_comment'];
             //Je crée un nouvel objet 
-            $comment = new Comment($id);
+            $comment = new Comment($id_delete);
             //connexion à la base de données
             global $db;
             //Requete préparée
             $delete = $db->prepare('DELETE FROM comment WHERE id_pk_comment = ?');
-            
+
             //J'execute la Requete
             $delete->execute(array($comment->getId_pk_comment()));
-            
-            
+
+
             //Redirection de la page 
             header('Location: comment-list');
         }

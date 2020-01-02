@@ -14,8 +14,8 @@ class AuthorController extends Author
         if (!empty($_POST['hash']) AND !empty($_POST['email'])) {
 
             //J'attribue les valeurs aux variables 
-            $mail = $_POST['email'];
-            $pass = $_POST['hash'];
+            $mail = htmlspecialchars($_POST['email']);
+            $pass = htmlspecialchars($_POST['hash']);
             //Connexion à la bdd 
             global $db;
             //Requete préparée 
@@ -67,11 +67,15 @@ class AuthorController extends Author
     {
         if (!empty($_POST['add_author'])) {
 
+            //Je récupère les post dans des variables
+            $password = htmlspecialchars($_POST['password']);
+            $confirmPassword = htmlspecialchars($_POST['confirmPassword']);
+            $email = htmlspecialchars($_POST['email']);
             //Connexion à la bdd 
             global $db;
         
             //Si les mots de passes sont identiques alors...
-            if (htmlspecialchars($_POST['password']) == htmlspecialchars($_POST['confirmPassword'])) {
+            if ($password == $confirmPassword) {
 
                 //Je récupère les auteurs 
                 $authors = AuthorController::findAuthors();
@@ -80,7 +84,7 @@ class AuthorController extends Author
 
                 //Je boucle sur les auteurs 
                 foreach ($authors as $author) {
-                    if ($_POST['email'] == $author['email']) {
+                    if ($email == $author['email']) {
                         //l'auteur existe deja
                         $existe = true;
                         //Je paramètre la variable message
