@@ -24,7 +24,7 @@
 							</a>
 
 							le,
-							{{author.date_article | date('d/m/Y à H:m:s') }}</span>
+							{{article.date_article | date('d/m/Y à H:m:s') }}</span>
 					</div>
 				</div>
 			</div>
@@ -59,7 +59,7 @@
 						</div>
 					</div>
 					
-					<input type="hidden" value="{{article.id_pk_article}}" name = "addComment">
+					<input type="hidden" value="{{article.id_pk_article}}" name = "add_comment">
 					<div class="control-group">
 						<div class="form-group floating-label-form-group controls">
 							<label>Message</label>
@@ -68,8 +68,7 @@
 						</div>
 					</div>
 					<br>
-					<!--Permet de récupérer l'id de l'article -->
-					<input name ="id_article" type="hidden" value="{{article.id_pk_article}}">
+					
 					
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary">Soumettre</button>

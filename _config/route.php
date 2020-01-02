@@ -13,14 +13,19 @@ switch ($page) {
 
     //Page de connexion
     case 'login':
-        echo $twig->render('templates/member/login.html.twig', []);
+        echo $twig->render('templates/member/login.html.twig', [
+            'userConnect'=> AuthorController::login(),
+            'session'=>$_SESSION,
+            
+        ]);
         break;
 
     //Page d'inscription
     case 'registration':
         echo $twig->render('templates/member/registration.html.twig', [
+            'addAuthor'=> AuthorController::addAuthor(),
             'session' => $_SESSION,
-            'authors' => $allDdb
+            'authors' => AuthorController::allDatabase()
         ]);
         break;
 
@@ -28,7 +33,7 @@ switch ($page) {
     case 'post-list':
         //J'affiche le template
         echo $twig->render('templates/post-list.html.twig', [
-            'authors' => $allDdb,
+            'authors' => ArticleController::findArticleAuthor(),
             'session' => $_SESSION
         ]);
         break;
@@ -37,9 +42,10 @@ switch ($page) {
     case 'post-detail':
         //J'affiche le template
         echo $twig->render('templates/post-detail.html.twig', [
-            'article' => $article,
-            'author' => $author,
-            'comments' => $allDdb,
+            'addComment' => CommentController::addComment(),
+            'article' => ArticleController::findArticle(),
+            'author' => AuthorController::findAuthor(),
+            'comments' => AuthorController::allDatabase(),
             'session' => $_SESSION
 
         ]);
@@ -49,7 +55,8 @@ switch ($page) {
     case 'articles-list':
         ///J'affiche le template
         echo $twig->render('templates/admin/articles-list.html.twig', [
-            'authors' => $allDdb,
+            'deleteArticle'=> ArticleController::deleteArticle(),
+            'authors' => ArticleController::findArticleAuthor(),
             'session' => $_SESSION
         ]);
         break;
@@ -58,9 +65,10 @@ switch ($page) {
     case 'article-edit':
         //J'affiche le template
         echo $twig->render('templates/admin/article-edit.html.twig', [
-            'article' => $article,
-            'author' => $author,
-            'authors' => $authors,
+            'article' => ArticleController::findArticle(),
+            'articleFunction' => ArticleController::editArticle(),
+            'author' => AuthorController::findAuthor(),
+            'authors' => AuthorController::findAuthors(),
             'session' => $_SESSION
         ]);
         break;
@@ -68,7 +76,8 @@ switch ($page) {
     //Admin - Ajout d'un article
     case 'article-add':
         echo $twig->render('templates/admin/article-add.html.twig', [
-            'authors' => $authors,
+            'authors' => AuthorController::findAuthors(),
+            'articlefunction'=> ArticleController::addArticle(),
             'session' => $_SESSION
         ]);
         break;
@@ -76,7 +85,9 @@ switch ($page) {
     //Admin - liste des commentaires
     case 'comment-list':
         echo $twig->render('templates/admin/comment-list.html.twig', [
-            'comments' => $allDdb,
+            'comments' => AuthorController::allDatabase(),
+            'validComment'=> CommentController::validComment(),
+            'deleteComment'=> CommentController::deleteComment(),
             'session' => $_SESSION
 
         ]);
@@ -85,8 +96,9 @@ switch ($page) {
     //Admin - Modification d'un commentaire
     case 'comment-edit':
         echo $twig->render('templates/admin/comment-edit.html.twig', [
-            'comment' => $comment,
-            'articles' => $articles,
+            'editComment'=> CommentController::editComment(),
+            'comment' => CommentController::findComment(),
+            'articles' => ArticleController::findArticles(),
             'session' => $_SESSION
         ]);
         break;
@@ -101,7 +113,9 @@ switch ($page) {
     //Admin - Validation des nouvelles inscriptions
     case 'registration-valid':
         echo $twig->render('templates/admin/registration-valid.html.twig', [
-            'authors' => $authors,
+            'validAuthor'=> AuthorController::validAuthor(),
+            'deleteAuthor'=>AuthorController::deleteAuthor(),
+            'authors' => AuthorController::findAuthors(),
             'session' => $_SESSION
         ]);
         break;
@@ -112,3 +126,5 @@ switch ($page) {
         echo $twig->render('templates/partials/404.html.twig');
         break;
 }
+
+

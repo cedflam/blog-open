@@ -28,7 +28,7 @@
 		<div class="row">
 			<div class="col-lg-8 col-md-10 mx-auto bg-light">
 				<h2>Modifier</h2>
-				<form class="form-group" action="" method="POST" >
+				<form class="form-group" action="{{articleFunction.editArticle}}" method="POST" >
 					<div class="control-group">
 						<hr>
 						<div class="form-group ">
@@ -53,7 +53,7 @@
 							<input name="author" type="text" class="form-control" value=" {{author.firstName}} {{author.lastName}} " disabled>
 						</div>
 					</div>
-					<input type="hidden" value = " {{article.id_pk_article}} " name ="editArticle">
+					<input type="hidden" value = " {{article.id_pk_article}} " name ="edit_article">
 					<div class="form-group">
 						<label for="">Remplacer Auteur</label>
 						<select class="form-control" name="id_author">						
@@ -62,8 +62,7 @@
 																	
 							{% endfor %}	
 
-							<!--Permet de récupérer l'id de l'article -->
-							<input name ="id_article" type="hidden" value="{{article.id_pk_article}}">	
+							
 							
 						</select>
 					</div>

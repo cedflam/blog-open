@@ -10,9 +10,13 @@ require '_config/db.php';
 require 'src/Model/Author.php';
 require 'src/Model/Article.php';
 require 'src/Model/Comment.php';
+require 'src/Model/Session.php';
 
 //Ajout du controller 
-require 'src/Controller/masterController.php';
+require 'src/Controller/ArticleController.php';
+require 'src/Controller/AuthorController.php';
+require 'src/Controller/CommentController.php';
+
 
 
 require 'vendor/autoload.php';

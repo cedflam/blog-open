@@ -28,7 +28,7 @@
 		<div class="row">
 			<div class="col-lg-8 col-md-10 mx-auto bg-light">
 				<h2>Ajouter un article</h2>
-				<form class="form-group" action="" method="POST">
+				<form class="form-group" action="{{articleFunction.addArticle}}" method="POST">
 					<div class="control-group">
 						<hr>
 						<div class="form-group ">
@@ -47,7 +47,7 @@
 								</option>						
 							{% endfor %}										
 						</select>
-						<input type="hidden" value=" {{author.id_pk_author}} " name = "addArticle">
+						<input type="hidden" value=" {{author.id_pk_author}} " name = "add_article">
 					</div>
 					<div class="control-group">
 						<hr>
