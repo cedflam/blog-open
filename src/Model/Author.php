@@ -80,7 +80,7 @@ class Author
                 $addArticle->execute(array(
                     ':firstName' => htmlspecialchars($_POST['firstName']),
                     ':lastName' => htmlspecialchars($_POST['lastName']),
-                    ':hash' => htmlspecialchars($_POST['password']),
+                    ':hash' => password_hash($_POST['password'], PASSWORD_DEFAULT),
                     ':email' => htmlspecialchars($_POST['email']),
                     ':role' => 'user'
                 ));
@@ -145,7 +145,7 @@ class Author
      */
     public static function login($mail, $pass)
     {
-
+        
         //Connexion à la bdd 
         global $db;
         //Requete préparée 
@@ -156,8 +156,8 @@ class Author
         $data = $req->fetch();
         //Je stocke les valeurs de l'objet dans des variables
         $hash = $data['hash'];
-
-        if ($hash == $pass) {
+        //Je vérifie le password saisi avec le hash en bdd
+        if (password_verify($pass, $hash)) {
 
             // Je crée un nouvel objet Author
             $authorSession = new Author($data['id_pk_author']);
@@ -166,7 +166,7 @@ class Author
             //Je retourne le nouvel objet
             return $authorSession;
         } else {
-
+            //Redirection
             header('Location: login');
         }
     }

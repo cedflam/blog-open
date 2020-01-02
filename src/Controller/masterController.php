@@ -105,3 +105,6 @@ if (!empty($_GET['deleteAuthor'])) {
     $author = new Author($_GET['deleteAuthor']);
    Author::deleteAuthor($author);
 }
+
+
+

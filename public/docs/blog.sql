@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 01 jan. 2020 à 10:16
+-- Généré le :  jeu. 02 jan. 2020 à 08:27
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -68,18 +68,17 @@ CREATE TABLE IF NOT EXISTS `author` (
   `role` varchar(255) NOT NULL,
   `valid` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_pk_author`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `author`
 --
 
 INSERT INTO `author` (`id_pk_author`, `firstName`, `lastName`, `hash`, `email`, `role`, `valid`) VALUES
-(1, 'Cedric', 'Flamain', 'password', 'cedflam@gmail.com', 'admin', 1),
-(2, 'Jean', 'Dupont', 'password', 'j.dupont@gmail.com', 'user', 1),
-(3, 'Julie', 'Lescaux', 'password', 'jule@hotmail.fr', 'user', 1),
-(29, 'mathys', 'flamain', 'aaa', 'mathys@gmail.com', 'user', 0),
-(30, 'sandrine', 'gumez', 'zzz', 'sg@gmail.com', 'user', 0);
+(1, 'Cedric', 'Flamain', '$2y$10$h/4WrR.iA84jWJBG2r5t/.VGq/hDKly4HE4rXBaKYO8stq77viDd6', 'cedflam@gmail.com', 'admin', 1),
+(2, 'Jean', 'Dupont', '$2y$10$h/4WrR.iA84jWJBG2r5t/.VGq/hDKly4HE4rXBaKYO8stq77viDd6', 'j.dupont@gmail.com', 'user', 1),
+(3, 'Julie', 'Lescaux', '$2y$10$h/4WrR.iA84jWJBG2r5t/.VGq/hDKly4HE4rXBaKYO8stq77viDd6', 'jule@hotmail.fr', 'user', 1),
+(32, 'Thibault', 'Chazottes', '$2y$10$tc1w5sDBftyRVmz1I5t5NOm4ARAM0HiPmN6xrLlcUdXmmLk9.StoW', 'thibault@gmail.com', 'admin', 0);
 
 -- --------------------------------------------------------
 
