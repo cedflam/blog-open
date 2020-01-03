@@ -46,6 +46,8 @@ class AuthorController extends Author
                     ];
                     //Redirection
                     header('Location: home');
+                    exit;
+                    
                    
                 } else {
                     $_SESSION['message'] = "Votre compte n'a pas encore été validé !";
@@ -54,8 +56,10 @@ class AuthorController extends Author
                 $_SESSION['message'] = 'erreur de connexion, essayez à nouveau !';
                 //Redirection
                 header('Location: login');
+                exit;
             }
         }
+       
     }
 
     /**
@@ -120,6 +124,7 @@ class AuthorController extends Author
                     $_SESSION['message'] = 'Votre inscription à réussie, comptez 48h pour que celle-ci soit valide';
                     //Redirection de la page
                     header('Location: home');
+                    exit;
                 }
             }
         }
@@ -146,8 +151,12 @@ class AuthorController extends Author
             //J'execute la requete 
             $reqValid->execute(array($id));
 
+            //Message flash 
+            $_SESSION['message'] = 'Le nouvel auteur à été validé !';
+
             //Redirection 
             header('Location: registration-valid');
+            exit;
         }
     }
 
@@ -173,8 +182,12 @@ class AuthorController extends Author
             //J'execute la Requete
             $delete->execute(array($id));
 
+            //Message flash 
+            $_SESSION['message'] = "L'auteur à été supprimé !";
+
             //Redirection de la page 
             header('Location: registration-valid');
+            exit;
         }
     }
 

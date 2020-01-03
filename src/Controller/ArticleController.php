@@ -87,9 +87,13 @@ class ArticleController
                 ':content_article' => $content_article,
                 ':id_author' => $id_author
             ));
+            
+            //Message flash 
+            $_SESSION['message'] = "L'article à bien été ajouté !";
 
             //Redirection de la page
             header('Location: post-list');
+            exit;
         }
     }
 
@@ -121,8 +125,12 @@ class ArticleController
             //J'execute la requete
             $editArticle->execute(array($title, $sentence, $content_article, $id_author, $id_article));
 
+            //Message flash 
+            $_SESSION['message'] = "L'article à bien été modifié !";
+
             //Redirection de la page
             header('Location: articles-list');
+            exit;
         }
     }
 
@@ -148,8 +156,12 @@ class ArticleController
             //J'execute la Requete
             $delete->execute(array($article->getId_pk_article()));
 
+            //Message flash 
+            $_SESSION['message'] = "L'article à bien été supprimé !";
+            
             //Redirection de la page 
             header('Location: articles-list');
+            exit;
         }
     }
 }

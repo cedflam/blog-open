@@ -69,8 +69,12 @@ class CommentController
                 ':id_article' => $add_comment
             ));
 
+            //Message flash 
+            $_SESSION['message'] = "Le commentaire à été soumis, il est en attente de validation par l'administrateur";
+
             //Redirection de la page
             header('Location: post-list');
+            exit;
         }
     }
 
@@ -100,8 +104,13 @@ class CommentController
 
             //J'execute la requete
             $editArticle->execute(array($content_comment, $name_comment, $edit_comment));
+
+            //Message flash 
+            $_SESSION['message'] = "Le commentaire à bien été modifié !";
+
             //Redirection de la page
             header('Location: comment-list');
+            exit;
         }
     }
 
@@ -127,8 +136,13 @@ class CommentController
 
             //J'execute la requete 
             $reqValid->execute(array($valid_comment));
+
+            //Message flash 
+            $_SESSION['message'] = "Le commentaire à bien été validé !";
+
             // Redirection 
             header('Location: comment-list');
+            exit;
         }
     }
 
@@ -156,9 +170,12 @@ class CommentController
             //J'execute la Requete
             $delete->execute(array($comment->getId_pk_comment()));
 
+            //Message flash 
+            $_SESSION['message'] = "Le commentaire à bien été supprimé !";
 
             //Redirection de la page 
             header('Location: comment-list');
+            exit;
         }
     }
 }

@@ -6,13 +6,17 @@
 {% block body %}
 
 	<!-- Page Header -->
-	<header class="masthead" style="background-image: url('public/images/post-bg.jpg')">
+	<header class="masthead" style="background-image: url('public/images/post.jpg')">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-md-10 mx-auto">
 					<div class="site-heading">
 						<h1>Listes des posts !</h1>
+						{% if session.message %}
+							<p class="bg-success p-3"> {{session.message}} </p>
+						{% endif %}
+						
 						<span class="subheading">Cliquez sur l'article pour en savoir plus !</span>
 					</div>
 				</div>

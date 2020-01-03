@@ -66,7 +66,7 @@ switch ($page) {
         //J'affiche le template
         echo $twig->render('templates/admin/article-edit.html.twig', [
             'article' => ArticleController::findArticle(),
-            'articleFunction' => ArticleController::editArticle(),
+            'editArticle' => ArticleController::editArticle(),
             'author' => AuthorController::findAuthor(),
             'authors' => AuthorController::findAuthors(),
             'session' => $_SESSION
@@ -77,7 +77,7 @@ switch ($page) {
     case 'article-add':
         echo $twig->render('templates/admin/article-add.html.twig', [
             'authors' => AuthorController::findAuthors(),
-            'articlefunction'=> ArticleController::addArticle(),
+            'addArticle'=> ArticleController::addArticle(),
             'session' => $_SESSION
         ]);
         break;

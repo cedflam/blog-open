@@ -5,7 +5,7 @@
 {% block body %}
 
 	<!-- Page Header -->
-	<header class="masthead" style="background-image: url('public/images/')">
+	<header class="masthead" style="background-image: url('public/images/valid.jpg')">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
@@ -14,6 +14,10 @@
 						<h1>
 							Valider les inscriptions
 						</h1>
+						{% if session.message %}
+							<p class="p-3 bg-success">{{session.message}}</p>
+						{% endif %}
+						
 					</div>
 				</div>
 			</div>
