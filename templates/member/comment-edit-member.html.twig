@@ -1,0 +1,79 @@
+{% extends "templates/base.html.twig" %}
+{% block title %}Administration - Modifier un commentaire
+{% endblock %}
+
+{% block body %}
+	{% if session.role == 'user' %}
+
+		<!-- Page Header -->
+		<header class="masthead" style="background-image: url('public/images/commentEdit.jpg')">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-10 mx-auto">
+						<div class="site-heading">
+							<h1>Modifier le commentaire de
+								{{comment.name_comment}}</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!--formulaire de modification de commentaire-->
+		<div class="container mt-5">
+
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto bg-light">
+					<h4>Commentaire du
+						{{comment.date_comment | date('d/m/Y à H:m:s')}}
+					</h4>
+
+					<form action="" method="POST">
+						<div class="control-group">
+							<p class="help-block text-danger"></p>
+							<hr>
+							<div class="form-group floating-label-form-group controls">
+								<label>Nom</label>
+								<input type="text" class="form-control" placeholder="Nom" name="name_comment" value="{{comment.name_comment}}">
+							</div>
+						</div>
+
+
+						<div class="control-group">
+							<div class="form-group floating-label-form-group controls">
+								<label>Message</label>
+								<textarea rows="5" class="form-control" placeholder="Message" name="content_comment">
+									{{comment.content_comment}}
+								</textarea>
+								<p class="help-block text-danger"></p>
+							</div>
+						</div>
+						<br>
+						<!--Permet de récupérer l'id du commentaire -->
+						<input name="edit_comment" type="hidden" value="{{comment.id_pk_comment}}">
+
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Modifier</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<!-- Page Header -->
+		<header class="masthead" style="background-image: url('public/images/homef-bg.jpg')">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-10 mx-auto">
+						<div class="site-heading">
+							<h1>Accès interdit !</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	{% endif %}
+
+{% endblock %}

@@ -41,6 +41,7 @@ class AuthorController extends Author
                         'role' => $authorSession->getRole(),
                         'firstName' => $authorSession->getFirstName(),
                         'lastName' => $authorSession->getLastName(),
+                        'id' => $authorSession->getId_pk_author(),
                         'message' => 'Vous êtes connecté !'
                     
                     ];
@@ -216,7 +217,7 @@ class AuthorController extends Author
      */
     public static function findAuthor()
     {
-        if ($_GET['id_author']) {
+        if (!empty($_GET['id_author'])) {
 
             $id_author = $_GET['id_author'];
             $author = new Author($id_author);

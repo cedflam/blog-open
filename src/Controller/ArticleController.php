@@ -70,14 +70,15 @@ class ArticleController
             $sentence = htmlspecialchars($_POST['sentence']);
             $content_article = htmlspecialchars($_POST['content_article']);
             $id_author = $_POST['id_author'];
+            
 
             //Connexion à la bdd 
             global $db;
 
             //Requete préparée 
             $addArticle = $db->prepare(
-                'INSERT INTO article (title, sentence, content_article, date_article, id_author)
-            VALUES (:title, :sentence, :content_article, NOW(), :id_author)'
+                'INSERT INTO article (title, sentence, content_article, date_article, id_author, valid_article)
+            VALUES (:title, :sentence, :content_article, NOW(), :id_author, false)'
             );
 
             //J'execute la requete
@@ -89,7 +90,7 @@ class ArticleController
             ));
             
             //Message flash 
-            $_SESSION['message'] = "L'article à bien été ajouté !";
+            $_SESSION['message'] = "L'article à bien été ajouté !, la validation peut prendre 48h !";
 
             //Redirection de la page
             header('Location: post-list');
@@ -119,16 +120,48 @@ class ArticleController
 
             //Requete préparée 
             $editArticle = $db->prepare('UPDATE article 
-                                    SET title = ?, sentence = ?, content_article = ?, id_author = ?, date_article = NOW()  
+                                    SET title = ?, sentence = ?, content_article = ?, id_author = ?, date_article = NOW(), valid_article = false  
                                     WHERE id_pk_article = ?');
 
             //J'execute la requete
             $editArticle->execute(array($title, $sentence, $content_article, $id_author, $id_article));
 
             //Message flash 
-            $_SESSION['message'] = "L'article à bien été modifié !";
+            $_SESSION['message'] = "L'article à bien été modifié !, La validation peut prendre 48h";
 
             //Redirection de la page
+            header('Location: articles-list');
+            exit;
+        }
+    }
+
+    /**
+     * Fonction qui permet de valider un article
+     *
+     * @return void
+     */
+    public static function validArticle()
+    {
+        
+        //Condition
+        if (!empty($_GET['valid_article'])) {
+
+            //Je récupère le get dans une variable 
+            $valid_article = $_GET['valid_article'];
+
+            //Connexion à la bdd 
+            global $db;
+
+            //Requete préparée 
+            $reqValid = $db->prepare('UPDATE article SET valid_article = true WHERE id_pk_article = ?');
+
+            //J'execute la requete 
+            $reqValid->execute(array($valid_article));
+
+            //Message flash 
+            $_SESSION['message'] = "L'article à bien été validé et publié !";
+
+            // Redirection 
             header('Location: articles-list');
             exit;
         }
@@ -160,8 +193,13 @@ class ArticleController
             $_SESSION['message'] = "L'article à bien été supprimé !";
             
             //Redirection de la page 
-            header('Location: articles-list');
-            exit;
+            if($_SESSION['role'] == 'admin'){
+                header('Location: articles-list');
+                exit;
+            }else{
+                header('Location: articles-list-member');
+                exit;
+            }
         }
     }
 }

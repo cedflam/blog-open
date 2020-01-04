@@ -38,6 +38,25 @@ class CommentController
         }
     }
 
+    public static function findAuthorComment(){
+
+        $id = $_SESSION['id'];
+        //connexion à la bdd 
+        global $db;
+        // Requete préparée 
+        $reqAuthorComment = $db->prepare('SELECT * FROM `comment` 
+        left join article on comment.id_article = id_article
+        left join author on article.id_author = author.id_pk_author
+        where id_pk_author = ?'
+        );
+        //J'execute la requete 
+        $reqAuthorComment->execute(array($id));
+        //Je retourne le résultat 
+        return $reqAuthorComment->fetchAll();
+
+
+    }
+
     /**
      * Fonction qui permet d'ajouter un commentaire
      *
@@ -58,7 +77,7 @@ class CommentController
             
             //requete préparée
             $addComment = $db->prepare(
-                'INSERT INTO comment (content_comment, date_comment, name_comment, valid, id_article)
+                'INSERT INTO comment (content_comment, date_comment, name_comment, valid_comment, id_article)
              VALUES (:content_comment, NOW(), :name_comment, false, :id_article)'
             );
 
@@ -109,8 +128,15 @@ class CommentController
             $_SESSION['message'] = "Le commentaire à bien été modifié !";
 
             //Redirection de la page
-            header('Location: comment-list');
-            exit;
+            //Si role admin alors...
+            if($_SESSION['role'] == 'admin'){
+                header('Location: comment-list');
+                exit;
+            //Sinon...
+            }else{
+                header('Location: comment-list-member');
+                exit;
+            }
         }
     }
 
@@ -174,8 +200,14 @@ class CommentController
             $_SESSION['message'] = "Le commentaire à bien été supprimé !";
 
             //Redirection de la page 
-            header('Location: comment-list');
-            exit;
+            //si admin alors...
+            if($_SESSION['role'] == 'admin'){
+                header('Location: comment-list');
+                exit;
+            }else{
+                header('Location: comment-list-member');
+                exit;
+            }
         }
     }
 }

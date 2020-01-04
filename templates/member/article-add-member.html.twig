@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-	{% if session.role == 'admin' %}
+	{% if session.role == 'user' %}
 
 		<!-- Page Header -->
 		<header class="masthead" style="background-image: url('public/images/articleAdd.jpg')">
@@ -39,13 +39,12 @@
 						<div class="form-group">
 							<label for="">Auteur</label>
 							<select class="form-control" name="id_author">
-								{% for author in authors %}
+								
 									<option value=" {{author.id_pk_author}}">
-
 										{{author.firstName}}
 										{{author.lastName}}
 									</option>
-								{% endfor %}
+								
 							</select>
 							<input type="hidden" value=" {{author.id_pk_author}} " name="add_article">
 						</div>

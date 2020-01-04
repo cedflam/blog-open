@@ -45,7 +45,7 @@
 									{{comment.content_comment}}
 								</p>
 
-								{% if comment.valid == false %}
+								{% if comment.valid_comment == false %}
 									<a href="?page=comment-list&amp;valid_comment={{comment.id_pk_comment}}" class="btn btn-success">Valider
 									</a>
 								{% endif %}
