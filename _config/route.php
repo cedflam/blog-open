@@ -166,6 +166,20 @@ switch ($page) {
         ]);
         break;
 
+     //Admin - Modification d'un article
+     case 'article-edit-member':
+        //J'affiche le template
+        echo $twig->render('templates/member/article-edit-member.html.twig', [
+            'article' => ArticleController::findArticle(),
+            'editArticle' => ArticleController::editArticle(),
+            'author' => AuthorController::findAuthor(),
+            'authors' => AuthorController::findAuthors(),
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
+        ]);
+        break;
+        
+
     case 'comment-list-member':
         echo $twig->render('templates/member/comment-list-member.html.twig', [
             'comments' => CommentController::findAuthorComment(),

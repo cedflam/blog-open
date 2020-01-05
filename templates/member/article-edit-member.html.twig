@@ -5,7 +5,7 @@
 
 {% block body %}
 
-	{% if session.role == 'admin'%}
+	{% if session.role == 'user'%}
 
 		<!-- Page Header -->
 		<header class="masthead" style="background-image: url('public/images/articleEdit.jpg')">
@@ -46,18 +46,11 @@
 							</div>
 						</div>
 
-						<div class="control-group">
-							<hr>
-							<div class="form-group ">
-								<label>Auteur actuel</label>
-								<input name="author" type="text" class="form-control" value=" {{author.firstName}} {{author.lastName}} " disabled>
-							</div>
-						</div>
 						<input type="hidden" value=" {{article.id_pk_article}} " name="edit_article">
 						<div class="form-group">
-							<label for="">Remplacer Auteur</label>
+							<label for="">Auteur</label>
 							<select class="form-control" name="id_author">
-								{% for author in authors %}
+								
 									<option value=" {{author.id_pk_author}} ">
 										{{author.id_pk_author}}
 										-
@@ -65,7 +58,7 @@
 										{{author.lastName}}
 									</option>
 
-								{% endfor %}
+							
 
 
 							</select>
@@ -106,3 +99,4 @@
 		</div>
 	</header>
 {% endif %}{% endblock %}
+

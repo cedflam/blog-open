@@ -130,8 +130,15 @@ class ArticleController
             $_SESSION['message'] = "L'article à bien été modifié !, La validation peut prendre 48h";
 
             //Redirection de la page
-            header('Location: articles-list');
-            exit;
+             //Redirection de la page 
+             if ($_SESSION['role'] == 'admin') {
+                 header('Location: articles-list');
+                 exit;
+                
+            } else {
+                header('Location: articles-list-member');
+                 exit;
+            }           
         }
     }
 
