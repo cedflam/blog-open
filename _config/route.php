@@ -95,7 +95,8 @@ switch ($page) {
         //Admin - liste des commentaires
     case 'comment-list':
         echo $twig->render('templates/admin/comment-list.html.twig', [
-            'comments' => CommentController::findComments(),
+
+            'comments' => AuthorController::allDatabase(),
             'validComment' => CommentController::validComment(),
             'deleteComment' => CommentController::deleteComment(),
             'session' => $_SESSION,
@@ -181,8 +182,8 @@ switch ($page) {
         
 
     case 'comment-list-member':
-        echo $twig->render('templates/member/comment-list-member.html.twig', [
-            'comments' => CommentController::findAuthorComment(),
+        echo $twig->render('templates/member/comment-list-member.html.twig', [            
+            'comments' => AuthorController::allDatabase(),
             'validComment' => CommentController::validComment(),
             'deleteComment' => CommentController::deleteComment(),
             'session' => $_SESSION,

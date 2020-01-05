@@ -71,21 +71,23 @@ class CommentController
             $add_comment = $_POST['add_comment'];
             $content_comment = htmlspecialchars($_POST['content_comment']);
             $name_comment = htmlspecialchars($_POST['name_comment']);
+            $id_author_comment = $_SESSION['id'];
 
             //Connexion à la bdd 
             global $db;
 
             //requete préparée
             $addComment = $db->prepare(
-                'INSERT INTO comment (content_comment, date_comment, name_comment, valid_comment, id_article)
-             VALUES (:content_comment, NOW(), :name_comment, false, :id_article)'
+                'INSERT INTO comment (content_comment, date_comment, name_comment, valid_comment, id_article, id_author_comment)
+             VALUES (:content_comment, NOW(), :name_comment, false, :id_article, :id_author_comment)'
             );
 
             //J'execute la requete
             $addComment->execute(array(
                 ':content_comment' => $content_comment,
                 ':name_comment' => $name_comment,
-                ':id_article' => $add_comment
+                ':id_article' => $add_comment,
+                ':id_author_comment'=> $id_author_comment
             ));
 
             //Message flash 
@@ -112,6 +114,7 @@ class CommentController
             $edit_comment = $_POST['edit_comment'];
             $content_comment = htmlspecialchars($_POST['content_comment']);
             $name_comment = htmlspecialchars($_POST['name_comment']);
+            
 
             //Connexion à la bdd 
             global $db;

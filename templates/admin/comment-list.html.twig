@@ -28,8 +28,8 @@
 		<!--Corps de la page -->
 		<div class="container mt-5">
 			<div class="row">
-				{% for comment in comments %}
-					
+				{% for comment in comments %}			
+					{% if comment.id_author_comment %}
 					
 					<div class="col-lg-8 col-md-10 mx-auto mt-3">
 						<div class="card">
@@ -62,6 +62,8 @@
 						</div>
 					</div>
 					
+					
+					{% endif %}
 				{% endfor %}
 			</div>
 		</div>

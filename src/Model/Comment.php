@@ -10,6 +10,7 @@ class Comment
     private $name_comment;
     private $valid_comment;
     private $id_article;
+    private $id_author_comment;
 
 
     /**
@@ -39,6 +40,7 @@ class Comment
         $this->name_comment = $data['name_comment'];
         $this->valid_comment = $data['valid_comment'];
         $this->id_article = $data['id_article'];
+        $this->id_author_comment = $data['id_author_comment'];
     }
 
 
@@ -137,6 +139,26 @@ class Comment
     public function setValid_comment($valid_comment)
     {
         $this->valid_comment = $valid_comment;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id_author_comment
+     */ 
+    public function getId_author_comment()
+    {
+        return $this->id_author_comment;
+    }
+
+    /**
+     * Set the value of id_author_comment
+     *
+     * @return  self
+     */ 
+    public function setId_author_comment($id_author_comment)
+    {
+        $this->id_author_comment = $id_author_comment;
 
         return $this;
     }

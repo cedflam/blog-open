@@ -28,9 +28,11 @@
 		<!--Corps de la page -->
 		<div class="container mt-5">
 			<div class="row">
-				{% for comment in comments %}
-					{% if session.id == comment.id_author %}
+				{% for comment in comments %}	
+				
+						{% if session.id == comment.id_author_comment %}
 
+						
 
 						<div class="col-lg-8 col-md-10 mx-auto mt-3">
 							<div class="card">
