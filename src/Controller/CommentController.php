@@ -158,7 +158,7 @@ class CommentController
             global $db;
 
             //Requete préparée 
-            $reqValid = $db->prepare('UPDATE comment SET valid = true WHERE id_pk_comment = ?');
+            $reqValid = $db->prepare('UPDATE comment SET valid_comment = true WHERE id_pk_comment = ?');
 
             //J'execute la requete 
             $reqValid->execute(array($valid_comment));

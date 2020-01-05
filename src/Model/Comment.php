@@ -8,7 +8,7 @@ class Comment
     private $content_comment;
     private $date_comment;
     private $name_comment;
-    private $valid;
+    private $valid_comment;
     private $id_article;
 
 
@@ -37,7 +37,7 @@ class Comment
         $this->content_comment = $data['content_comment'];
         $this->date_comment = $data['date_comment'];
         $this->name_comment = $data['name_comment'];
-        $this->valid = $data['valid'];
+        $this->valid_comment = $data['valid_comment'];
         $this->id_article = $data['id_article'];
     }
 
@@ -119,22 +119,24 @@ class Comment
         return $this;
     }
 
+    
+
     /**
-     * Get the value of valid
-     */
-    public function getValid()
+     * Get the value of valid_comment
+     */ 
+    public function getValid_comment()
     {
-        return $this->valid;
+        return $this->valid_comment;
     }
 
     /**
-     * Set the value of valid
+     * Set the value of valid_comment
      *
      * @return  self
-     */
-    public function setValid($valid)
+     */ 
+    public function setValid_comment($valid_comment)
     {
-        $this->valid = $valid;
+        $this->valid_comment = $valid_comment;
 
         return $this;
     }
