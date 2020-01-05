@@ -17,7 +17,8 @@ class Author
      *
      * @param int $id
      */
-    function __construct($id){
+    function __construct($id)
+    {
         //Variable globale qui permet de se connecter à la bdd 
         global $db;
         //Requete préparée

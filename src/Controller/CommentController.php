@@ -38,13 +38,15 @@ class CommentController
         }
     }
 
-    public static function findAuthorComment(){
+    public static function findAuthorComment()
+    {
 
         $id = $_SESSION['id'];
         //connexion à la bdd 
         global $db;
         // Requete préparée 
-        $reqAuthorComment = $db->prepare('SELECT * FROM `comment` 
+        $reqAuthorComment = $db->prepare(
+            'SELECT * FROM `comment` 
         left join article on comment.id_article = id_article
         left join author on article.id_author = author.id_pk_author
         where id_pk_author = ?'
@@ -53,8 +55,6 @@ class CommentController
         $reqAuthorComment->execute(array($id));
         //Je retourne le résultat 
         return $reqAuthorComment->fetchAll();
-
-
     }
 
     /**
@@ -74,7 +74,7 @@ class CommentController
 
             //Connexion à la bdd 
             global $db;
-            
+
             //requete préparée
             $addComment = $db->prepare(
                 'INSERT INTO comment (content_comment, date_comment, name_comment, valid_comment, id_article)
@@ -104,10 +104,10 @@ class CommentController
      */
     public static function editComment()
     {
-        
+
         //condition
         if (!empty($_POST['edit_comment'])) {
-            
+
             //Je stock le post dans des variables
             $edit_comment = $_POST['edit_comment'];
             $content_comment = htmlspecialchars($_POST['content_comment']);
@@ -129,11 +129,11 @@ class CommentController
 
             //Redirection de la page
             //Si role admin alors...
-            if($_SESSION['role'] == 'admin'){
+            if ($_SESSION['role'] == 'admin') {
                 header('Location: comment-list');
                 exit;
-            //Sinon...
-            }else{
+                //Sinon...
+            } else {
                 header('Location: comment-list-member');
                 exit;
             }
@@ -147,7 +147,7 @@ class CommentController
      */
     public static function validComment()
     {
-        
+
         //Condition
         if (!empty($_GET['valid_comment'])) {
 
@@ -181,9 +181,9 @@ class CommentController
      */
     public static function deleteComment()
     {
-        
+
         if (!empty($_GET['id_delete_comment'])) {
-            
+
             //Je récupère l'id 
             $id_delete = $_GET['id_delete_comment'];
             //Je crée un nouvel objet 
@@ -201,10 +201,10 @@ class CommentController
 
             //Redirection de la page 
             //si admin alors...
-            if($_SESSION['role'] == 'admin'){
+            if ($_SESSION['role'] == 'admin') {
                 header('Location: comment-list');
                 exit;
-            }else{
+            } else {
                 header('Location: comment-list-member');
                 exit;
             }

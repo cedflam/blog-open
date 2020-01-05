@@ -70,7 +70,7 @@ class ArticleController
             $sentence = htmlspecialchars($_POST['sentence']);
             $content_article = htmlspecialchars($_POST['content_article']);
             $id_author = $_POST['id_author'];
-            
+
 
             //Connexion à la bdd 
             global $db;
@@ -88,7 +88,7 @@ class ArticleController
                 ':content_article' => $content_article,
                 ':id_author' => $id_author
             ));
-            
+
             //Message flash 
             $_SESSION['message'] = "L'article à bien été ajouté !, la validation peut prendre 48h !";
 
@@ -142,7 +142,7 @@ class ArticleController
      */
     public static function validArticle()
     {
-        
+
         //Condition
         if (!empty($_GET['valid_article'])) {
 
@@ -191,12 +191,12 @@ class ArticleController
 
             //Message flash 
             $_SESSION['message'] = "L'article à bien été supprimé !";
-            
+
             //Redirection de la page 
-            if($_SESSION['role'] == 'admin'){
+            if ($_SESSION['role'] == 'admin') {
                 header('Location: articles-list');
                 exit;
-            }else{
+            } else {
                 header('Location: articles-list-member');
                 exit;
             }

@@ -7,7 +7,8 @@ switch ($page) {
     case 'home':
         //J'affiche le template
         echo $twig->render('templates/home.html.twig', [
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
         ]);
         break;
 
@@ -16,6 +17,8 @@ switch ($page) {
         echo $twig->render('templates/member/login.html.twig', [
             'userConnect' => AuthorController::login(),
             'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
+           
 
         ]);
         break;
@@ -24,8 +27,9 @@ switch ($page) {
     case 'registration':
         echo $twig->render('templates/member/registration.html.twig', [
             'addAuthor' => AuthorController::addAuthor(),
+            'authors' => AuthorController::allDatabase(),
             'session' => $_SESSION,
-            'authors' => AuthorController::allDatabase()
+            'resetFlash' => AuthorController::purgeFlash()
         ]);
         break;
 
@@ -34,7 +38,8 @@ switch ($page) {
         //J'affiche le template
         echo $twig->render('templates/post-list.html.twig', [
             'authors' => ArticleController::findArticleAuthor(),
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
         ]);
         break;
 
@@ -46,7 +51,8 @@ switch ($page) {
             'article' => ArticleController::findArticle(),
             'author' => AuthorController::findAuthor(),
             'comments' => AuthorController::allDatabase(),
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
 
         ]);
         break;
@@ -58,7 +64,8 @@ switch ($page) {
             'validArticle' => ArticleController::validArticle(),
             'deleteArticle' => ArticleController::deleteArticle(),
             'authors' => ArticleController::findArticleAuthor(),
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
         ]);
         break;
 
@@ -70,7 +77,8 @@ switch ($page) {
             'editArticle' => ArticleController::editArticle(),
             'author' => AuthorController::findAuthor(),
             'authors' => AuthorController::findAuthors(),
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
         ]);
         break;
 
@@ -79,7 +87,8 @@ switch ($page) {
         echo $twig->render('templates/admin/article-add.html.twig', [
             'authors' => AuthorController::findAuthors(),
             'addArticle' => ArticleController::addArticle(),
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
         ]);
         break;
 
@@ -89,7 +98,8 @@ switch ($page) {
             'comments' => AuthorController::allDatabase(),
             'validComment' => CommentController::validComment(),
             'deleteComment' => CommentController::deleteComment(),
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
 
         ]);
         break;
@@ -100,7 +110,8 @@ switch ($page) {
             'editComment' => CommentController::editComment(),
             'comment' => CommentController::findComment(),
             'articles' => ArticleController::findArticles(),
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
         ]);
         break;
 
@@ -111,7 +122,8 @@ switch ($page) {
             'editArticle' => ArticleController::editArticle(),
             'author' => AuthorController::findAuthor(),
             'authors' => AuthorController::findAuthors(),
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
         ]);
         break;
 
@@ -121,14 +133,16 @@ switch ($page) {
             'validAuthor' => AuthorController::validAuthor(),
             'deleteAuthor' => AuthorController::deleteAuthor(),
             'authors' => AuthorController::findAuthors(),
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
         ]);
         break;
 
         //Admin member - Page d'administration des membres 
     case 'admin-home-member':
         echo $twig->render('templates/member/admin-home-member.html.twig', [
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
         ]);
         break;
 
@@ -137,7 +151,8 @@ switch ($page) {
         echo $twig->render('templates/member/articles-list-member.html.twig', [
             'deleteArticle' => ArticleController::deleteArticle(),
             'authors' => ArticleController::findArticleAuthor(),
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
         ]);
         break;
 
@@ -146,16 +161,18 @@ switch ($page) {
         echo $twig->render('templates/member/article-add-member.html.twig', [
             'author' => AuthorController::findAuthor(),
             'addArticle' => ArticleController::addArticle(),
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
         ]);
         break;
 
     case 'comment-list-member':
         echo $twig->render('templates/member/comment-list-member.html.twig', [
-            'comments' => CommentController::findAuthorComment(),            
+            'comments' => CommentController::findAuthorComment(),
             'validComment' => CommentController::validComment(),
             'deleteComment' => CommentController::deleteComment(),
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
 
         ]);
         break;
@@ -166,7 +183,8 @@ switch ($page) {
             'editComment' => CommentController::editComment(),
             'comment' => CommentController::findComment(),
             'articles' => ArticleController::findArticles(),
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
         ]);
         break;
 
@@ -175,7 +193,8 @@ switch ($page) {
     default:
         //J'affiche le template
         echo $twig->render('templates/partials/404.html.twig', [
-            'session' => $_SESSION
+            'session' => $_SESSION,
+            'resetFlash' => AuthorController::purgeFlash()
         ]);
         break;
 }

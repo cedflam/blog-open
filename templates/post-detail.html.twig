@@ -41,53 +41,53 @@
 		</div>
 	</article>
 	{% if session.role == 'user' or session.role == 'admin' %}
-	
-	<!--formulaire d'ajout de commentaire-->
-	<div class="container mt-5">
 
-		<div class="row">
-			<div class="col-lg-8 col-md-10 mx-auto bg-light">
-				<h2>Laissez un commentaire...</h2>
+		<!--formulaire d'ajout de commentaire-->
+		<div class="container mt-5">
 
-				<form name="addComment" action="" method="POST">
-					<div class="control-group">
-						<p class="help-block text-danger"></p>
-						<hr>
-						<div class="form-group floating-label-form-group controls">
-							<label>{{session.firstName}}</label>
-							<input type="text" class="form-control" name="name_comment" value ="{{session.firstName}} {{session.lastName}}">
-						</div>
-					</div>
-					
-					<input type="hidden" value="{{article.id_pk_article}}" name = "add_comment">
-					<div class="control-group">
-						<div class="form-group floating-label-form-group controls">
-							<label>Message</label>
-							<textarea rows="5" class="form-control" placeholder="Message" name="content_comment" ></textarea>
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto bg-light">
+					<h2>Laissez un commentaire...</h2>
+
+					<form name="addComment" action="" method="POST">
+						<div class="control-group">
 							<p class="help-block text-danger"></p>
+							<hr>
+							<div class="form-group floating-label-form-group controls">
+								<label>{{session.firstName}}</label>
+								<input type="text" class="form-control" name="name_comment" value="{{session.firstName}} {{session.lastName}}">
+							</div>
 						</div>
-					</div>
-					<br>
-					
-					
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary">Soumettre</button>
-					</div>
-				</form>
+
+						<input type="hidden" value="{{article.id_pk_article}}" name="add_comment">
+						<div class="control-group">
+							<div class="form-group floating-label-form-group controls">
+								<label>Message</label>
+								<textarea rows="5" class="form-control" placeholder="Message" name="content_comment"></textarea>
+								<p class="help-block text-danger"></p>
+							</div>
+						</div>
+						<br>
+
+
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Soumettre</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-	<!--Post Comment-->
-	
+		<!--Post Comment-->
+
 	{% endif %}
-	
+
 	<div class="container mt-5 text-justify">
-	<h2 class ="text-center mt-3 mb-3">Les derniers commentaires...</h2>
+		<h2 class="text-center mt-3 mb-3">Les derniers commentaires...</h2>
 		<div class="row">
 			<div class="col-lg-8 col-md-10 mx-auto">
 				{% for comment in comments %}
 					{% if article.id_pk_article == comment.id_article and comment.valid == true %}
-					
+
 						<div class="card">
 							<div class="card-header ">
 								<h5>Posté par,

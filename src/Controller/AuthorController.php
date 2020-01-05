@@ -1,7 +1,20 @@
 <?php
 
-class AuthorController extends Author
+class AuthorController
 {
+    /**
+     * Fonction qui permet de réinitialiser les messages flashs
+     *
+     * @return void
+     */
+    public static function purgeFlash()
+    {
+        if(!empty($_SESSION['message'])){
+           
+            unset($_SESSION['message']);            
+        }
+    }
+
     /**
      * fonction qui permet de se connecter 
      *
@@ -11,7 +24,7 @@ class AuthorController extends Author
      */
     public static function login()
     {
-        if (!empty($_POST['hash']) AND !empty($_POST['email'])) {
+        if (!empty($_POST['hash']) and !empty($_POST['email'])) {
 
             //J'attribue les valeurs aux variables 
             $mail = htmlspecialchars($_POST['email']);
@@ -43,24 +56,23 @@ class AuthorController extends Author
                         'lastName' => $authorSession->getLastName(),
                         'id' => $authorSession->getId_pk_author(),
                         'message' => 'Vous êtes connecté !'
-                    
+
                     ];
                     //Redirection
                     header('Location: home');
                     exit;
-                    
-                   
                 } else {
+                    //Message flash
                     $_SESSION['message'] = "Votre compte n'a pas encore été validé !";
                 }
             } else {
+                //Message flash
                 $_SESSION['message'] = 'erreur de connexion, essayez à nouveau !';
                 //Redirection
                 header('Location: login');
                 exit;
             }
         }
-       
     }
 
     /**
@@ -78,7 +90,7 @@ class AuthorController extends Author
             $email = htmlspecialchars($_POST['email']);
             //Connexion à la bdd 
             global $db;
-        
+
             //Si les mots de passes sont identiques alors...
             if ($password == $confirmPassword) {
 
@@ -226,7 +238,7 @@ class AuthorController extends Author
         }
     }
 
-     /**
+    /**
      * Fonction qui permet de récupérer les données
      * de l'ensemble des tables de la bdd
      *
@@ -246,7 +258,4 @@ class AuthorController extends Author
         //Je retourne le résultat
         return $reqAllDatabase->fetchAll();
     }
-
-        
-    
 }

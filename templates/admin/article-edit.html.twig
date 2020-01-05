@@ -6,89 +6,92 @@
 {% block body %}
 
 	{% if session.role == 'admin' %}
-	
-	<!-- Page Header -->
-	<header class="masthead" style="background-image: url('public/images/articleEdit.jpg')">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-md-10 mx-auto">
-					<div class="site-heading">
-						<h1>
-							Modifier un article
-						</h1>
+
+		<!-- Page Header -->
+		<header class="masthead" style="background-image: url('public/images/articleEdit.jpg')">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-10 mx-auto">
+						<div class="site-heading">
+							<h1>
+								Modifier un article
+							</h1>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</header>
+		</header>
 
-	<!--Formulaire de modification d'un article-->
-	<div class="container mt-5">
-		<div class="row">
-			<div class="col-lg-8 col-md-10 mx-auto bg-light">
-				<h2>Modifier</h2>
-				<form class="form-group" action="{{articleFunction.editArticle}}" method="POST" >
-					<div class="control-group">
-						<hr>
-						<div class="form-group ">
-							<label>Titre</label>
-							<input name="title" type="text" class="form-control" value=" {{article.title}} ">
+		<!--Formulaire de modification d'un article-->
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto bg-light">
+					<h2>Modifier</h2>
+					<form class="form-group" action="" method="POST">
+						<div class="control-group">
+							<hr>
+							<div class="form-group ">
+								<label>Titre</label>
+								<input name="title" type="text" class="form-control" value=" {{article.title}} ">
+							</div>
 						</div>
-					</div>
-					<div class="control-group">
-						<hr>
-						<div class="form-group ">
-							<label>Chapô</label>
-							<textarea name="sentence" type="textArea" class="form-control text-justify" cols="" rows="3">
-								{{article.sentence}}
-							</textarea>
+						<div class="control-group">
+							<hr>
+							<div class="form-group ">
+								<label>Chapô</label>
+								<textarea name="sentence" type="textArea" class="form-control text-justify" cols="" rows="3">
+									{{article.sentence}}
+								</textarea>
+							</div>
 						</div>
-					</div>
 
-					<div class="control-group">
-						<hr>
-						<div class="form-group ">
-							<label>Auteur actuel</label>
-							<input name="author" type="text" class="form-control" value=" {{author.firstName}} {{author.lastName}} " disabled>
+						<div class="control-group">
+							<hr>
+							<div class="form-group ">
+								<label>Auteur actuel</label>
+								<input name="author" type="text" class="form-control" value=" {{author.firstName}} {{author.lastName}} " disabled>
+							</div>
 						</div>
-					</div>
-					<input type="hidden" value = " {{article.id_pk_article}} " name ="edit_article">
-					<div class="form-group">
-						<label for="">Remplacer Auteur</label>
-						<select class="form-control" name="id_author">						
-							{% for author in authors %}																		
-								<option value = " {{author.id_pk_author}} "> {{author.id_pk_author}} - {{author.firstName}} {{author.lastName}} </option>	
-																	
-							{% endfor %}	
+						<input type="hidden" value=" {{article.id_pk_article}} " name="edit_article">
+						<div class="form-group">
+							<label for="">Remplacer Auteur</label>
+							<select class="form-control" name="id_author">
+								{% for author in authors %}
+									<option value=" {{author.id_pk_author}} ">
+										{{author.id_pk_author}}
+										-
+										{{author.firstName}}
+										{{author.lastName}}
+									</option>
 
-							
-							
-						</select>
-					</div>
-					
-					<div class="control-group">
-						<hr>
-						<div class="form-group ">
-							<label>Article</label>
-							<textarea name="content_article" type="textArea" class="form-control text-justify" cols="" rows="20">
-								{{article.content_article}}
-							</textarea>
+								{% endfor %}
+
+
+							</select>
 						</div>
-					</div>
-					<br>
-					<div id="success"></div>
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary" >
-						</a>Modifier</button>
+
+						<div class="control-group">
+							<hr>
+							<div class="form-group ">
+								<label>Article</label>
+								<textarea name="content_article" type="textArea" class="form-control text-justify" cols="" rows="20">
+									{{article.content_article}}
+								</textarea>
+							</div>
+						</div>
+						<br>
+						<div id="success"></div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary"></a>Modifier</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	{% else %}
-		<!-- Page Header -->
-	<header class="masthead" style="background-image: url('public/images/')">
+{% else %}
+	<!-- Page Header -->
+	<header class="masthead" style="background-image: url('public/images/interdit.jpg')">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
@@ -102,5 +105,4 @@
 			</div>
 		</div>
 	</header>
-	{% endif %}
-{% endblock %}
+{% endif %}{% endblock %}

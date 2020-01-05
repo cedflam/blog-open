@@ -121,7 +121,7 @@ class Comment
 
     /**
      * Get the value of valid
-     */ 
+     */
     public function getValid()
     {
         return $this->valid;
@@ -131,7 +131,7 @@ class Comment
      * Set the value of valid
      *
      * @return  self
-     */ 
+     */
     public function setValid($valid)
     {
         $this->valid = $valid;
