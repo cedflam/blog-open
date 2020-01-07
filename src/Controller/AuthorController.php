@@ -49,10 +49,10 @@ class AuthorController
                     //Redirection
                     header('Location: home');
                     exit;
-                    
+
                 } else {
                     //Message flash
-                    $_SESSION['message'] = "Votre compte n'a pas encore été validé !";
+                    $_SESSION['message'] = "Votre compte n'a pas encore été validé ! Vous pouvez contacter l'administrateur via la formulaire de contact";
                 }
             } else {
                 //Message flash
