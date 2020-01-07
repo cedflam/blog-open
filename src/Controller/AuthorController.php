@@ -1,20 +1,8 @@
 <?php
 
+
 class AuthorController
 {
-    /**
-     * Fonction qui permet de réinitialiser les messages flashs
-     *
-     * @return void
-     */
-    public static function purgeFlash()
-    {
-        if(!empty($_SESSION['message'])){
-           
-            unset($_SESSION['message']);            
-        }
-    }
-
     /**
      * fonction qui permet de se connecter 
      *
@@ -56,11 +44,12 @@ class AuthorController
                         'lastName' => $authorSession->getLastName(),
                         'id' => $authorSession->getId_pk_author(),
                         'message' => 'Vous êtes connecté !'
-
                     ];
+
                     //Redirection
                     header('Location: home');
                     exit;
+                    
                 } else {
                     //Message flash
                     $_SESSION['message'] = "Votre compte n'a pas encore été validé !";
@@ -68,9 +57,6 @@ class AuthorController
             } else {
                 //Message flash
                 $_SESSION['message'] = 'erreur de connexion, essayez à nouveau !';
-                //Redirection
-                header('Location: login');
-                exit;
             }
         }
     }
@@ -82,64 +68,64 @@ class AuthorController
      */
     public static function addAuthor()
     {
-        if (!empty($_POST['add_author'])) {
+        //Je récupère les post dans des variables
+        $password = htmlspecialchars($_POST['password']);
+        $confirmPassword = htmlspecialchars($_POST['confirmPassword']);
+        $email = htmlspecialchars($_POST['email']);
+        //Connexion à la bdd 
+        global $db;
 
-            //Je récupère les post dans des variables
-            $password = htmlspecialchars($_POST['password']);
-            $confirmPassword = htmlspecialchars($_POST['confirmPassword']);
-            $email = htmlspecialchars($_POST['email']);
-            //Connexion à la bdd 
-            global $db;
+        //Si les mots de passes sont identiques alors...
+        if ($password === $confirmPassword) {
 
-            //Si les mots de passes sont identiques alors...
-            if ($password == $confirmPassword) {
+            //Je récupère les auteurs 
+            $authors = AuthorController::findAuthors();
+            //J'initialise la varible $existe
+            $existe = false;
 
-                //Je récupère les auteurs 
-                $authors = AuthorController::findAuthors();
-                //J'initialise la varible $existe
-                $existe = false;
-
-                //Je boucle sur les auteurs 
-                foreach ($authors as $author) {
-                    if ($email == $author['email']) {
-                        //l'auteur existe deja
-                        $existe = true;
-                        //Je paramètre la variable message
-                        $_SESSION['message'] =  'Cet email existe déjà !';
-                    }
-                }
-
-                //Si $existe = false alors j'enregistre le nouvel auteur
-                if ($existe == false) {
-
-                    //Requete préparée 
-                    $addArticle = $db->prepare(
-                        'INSERT INTO author (firstName,lastName, hash, email, role, valid)
-                         VALUES (:firstName, :lastName, :hash, :email, :role, false)'
-                    );
-
-                    //J'attribue les valeurs aux variables (sécurité)
-                    $firstName = htmlspecialchars($_POST['firstName']);
-                    $lastName = htmlspecialchars($_POST['lastName']);
-                    $hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-
-
-                    //J'execute la requete
-                    $addArticle->execute(array(
-                        ':firstName' => $firstName,
-                        ':lastName' => $lastName,
-                        ':hash' => $hash,
-                        ':email' => $email,
-                        ':role' => 'user'
-                    ));
-
-                    $_SESSION['message'] = 'Votre inscription à réussie, comptez 48h pour que celle-ci soit valide';
-                    //Redirection de la page
-                    header('Location: home');
-                    exit;
+            //Je boucle sur les auteurs 
+            foreach ($authors as $author) {
+                if ($email == $author['email']) {
+                    //l'auteur existe deja
+                    $existe = true;
+                    //Message flash
+                    $_SESSION['message'] =  'Cet utilisateur existe déjà !';
                 }
             }
+
+            //Si $existe = false alors j'enregistre le nouvel auteur
+            if ($existe == false) {
+
+                //Requete préparée 
+                $addArticle = $db->prepare(
+                    'INSERT INTO author (firstName,lastName, hash, email, role, valid)
+                         VALUES (:firstName, :lastName, :hash, :email, :role, false)'
+                );
+
+                //J'attribue les valeurs aux variables (sécurité)
+                $firstName = htmlspecialchars($_POST['firstName']);
+                $lastName = htmlspecialchars($_POST['lastName']);
+                $hash = password_hash($password, PASSWORD_DEFAULT);
+                $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+
+
+                //J'execute la requete
+                $addArticle->execute(array(
+                    ':firstName' => $firstName,
+                    ':lastName' => $lastName,
+                    ':hash' => $hash,
+                    ':email' => $email,
+                    ':role' => 'user'
+                ));
+                //Message flash
+                $_SESSION['message'] = 'Votre inscription à réussie, comptez 48h pour que celle-ci soit valide';
+                //Redirection de la page
+                header('Location: home');
+                exit;
+            }
+        } else {
+            //Message flash
+            $_SESSION['message'] = "Echec ! Les mots de passes doivent être identiques !";
         }
     }
 
@@ -150,27 +136,24 @@ class AuthorController
      */
     public static function validAuthor()
     {
-        if (!empty($_GET['valid_author'])) {
+        //Je stocke l'id dans une variable
+        $id = $_GET['valid_author'];
 
-            //Je stocke l'id dans une variable
-            $id = $_GET['valid_author'];
+        //Connexion à la bdd 
+        global $db;
 
-            //Connexion à la bdd 
-            global $db;
+        //Requete préparée 
+        $reqValid = $db->prepare('UPDATE author SET valid = true WHERE id_pk_author = ?');
 
-            //Requete préparée 
-            $reqValid = $db->prepare('UPDATE author SET valid = true WHERE id_pk_author = ?');
+        //J'execute la requete 
+        $reqValid->execute(array($id));
 
-            //J'execute la requete 
-            $reqValid->execute(array($id));
+        //Message flash 
+        $_SESSION['message'] = 'Le nouvel auteur à été validé !';
 
-            //Message flash 
-            $_SESSION['message'] = 'Le nouvel auteur à été validé !';
-
-            //Redirection 
-            header('Location: registration-valid');
-            exit;
-        }
+        //Redirection 
+        header('Location: registration-valid');
+        exit;
     }
 
     /**
@@ -181,27 +164,24 @@ class AuthorController
      */
     public static function deleteAuthor()
     {
-        if (!empty($_GET['delete_author'])) {
+        //Je stocke l'id dans une variable 
+        $id = $_GET['delete_author'];
 
-            //Je stocke l'id dans une variable 
-            $id = $_GET['delete_author'];
+        //connexion à la base de données
+        global $db;
 
-            //connexion à la base de données
-            global $db;
+        //Requete préparée
+        $delete = $db->prepare('DELETE FROM author WHERE id_pk_author = ?');
 
-            //Requete préparée
-            $delete = $db->prepare('DELETE FROM author WHERE id_pk_author = ?');
+        //J'execute la Requete
+        $delete->execute(array($id));
 
-            //J'execute la Requete
-            $delete->execute(array($id));
+        //Message flash 
+        $_SESSION['message'] = "L'auteur à été supprimé !";
 
-            //Message flash 
-            $_SESSION['message'] = "L'auteur à été supprimé !";
-
-            //Redirection de la page 
-            header('Location: registration-valid');
-            exit;
-        }
+        //Redirection de la page 
+        header('Location: registration-valid');
+        exit;
     }
 
     /**

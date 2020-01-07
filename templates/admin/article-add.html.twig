@@ -39,13 +39,13 @@
 						<div class="form-group">
 							<label for="">Auteur</label>
 							<select class="form-control" name="id_author">
-								{% for author in authors %}
-									<option value=" {{author.id_pk_author}}">
+								
+									<option value=" {{session.id}}">
 
-										{{author.firstName}}
-										{{author.lastName}}
+										{{session.firstName}}
+										{{session.lastName}}
 									</option>
-								{% endfor %}
+								
 							</select>
 							<input type="hidden" value=" {{author.id_pk_author}} " name="add_article">
 						</div>

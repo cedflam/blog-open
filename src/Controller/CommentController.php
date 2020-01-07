@@ -31,16 +31,29 @@ class CommentController
         $id_comment = $_GET['id_comment'];
         //condition
         if (!empty($id_comment)) {
-
+            //Nouvel objet Comment
             $comment = new Comment($id_comment);
 
-            return $comment;
+            //condition si id_author_comment = l'id de session ou role = admin alors...
+            if ($comment->getId_author_comment() == $_SESSION['id'] | $_SESSION['role'] == 'admin') {
+                //Je retourne le commentaire demandé
+                return $comment;
+            } else {
+                //Sinon redirection avec message d'erreur
+                $_SESSION['message'] = "Accès refusé ! Vous essayez d'accéder à un commentaire dont vous n'êtes pas l'auteur !";
+                header('Location:comment-list-member');
+                exit;
+            }
         }
     }
 
+    /**
+     * fonction qui permet de récupérer les auteurs et les commentaires liés
+     *
+     * @return void
+     */
     public static function findAuthorComment()
     {
-
         $id = $_SESSION['id'];
         //connexion à la bdd 
         global $db;
@@ -64,40 +77,37 @@ class CommentController
      */
     public static function addComment()
     {
-        //condition
-        if (!empty($_POST['add_comment'])) {
+        //Je récupère les post dans des variables
+        $add_comment = $_POST['add_comment'];
+        $content_comment = htmlspecialchars($_POST['content_comment']);
+        $name_comment = htmlspecialchars($_POST['name_comment']);
+        $id_author_comment = $_SESSION['id'];
 
-            //Je récupère les post dans des variables
-            $add_comment = $_POST['add_comment'];
-            $content_comment = htmlspecialchars($_POST['content_comment']);
-            $name_comment = htmlspecialchars($_POST['name_comment']);
-            $id_author_comment = $_SESSION['id'];
+        //Connexion à la bdd 
+        global $db;
 
-            //Connexion à la bdd 
-            global $db;
-
-            //requete préparée
-            $addComment = $db->prepare(
-                'INSERT INTO comment (content_comment, date_comment, name_comment, valid_comment, id_article, id_author_comment)
+        //requete préparée
+        $addComment = $db->prepare(
+            'INSERT INTO comment (content_comment, date_comment, name_comment, valid_comment, id_article, id_author_comment)
              VALUES (:content_comment, NOW(), :name_comment, false, :id_article, :id_author_comment)'
-            );
+        );
 
-            //J'execute la requete
-            $addComment->execute(array(
-                ':content_comment' => $content_comment,
-                ':name_comment' => $name_comment,
-                ':id_article' => $add_comment,
-                ':id_author_comment'=> $id_author_comment
-            ));
+        //J'execute la requete
+        $addComment->execute(array(
+            ':content_comment' => $content_comment,
+            ':name_comment' => $name_comment,
+            ':id_article' => $add_comment,
+            ':id_author_comment' => $id_author_comment
+        ));
 
-            //Message flash 
-            $_SESSION['message'] = "Le commentaire à été soumis, il est en attente de validation par l'administrateur";
+        //Message flash 
+        $_SESSION['message'] = "Le commentaire à été soumis, il est en attente de validation par l'administrateur";
 
-            //Redirection de la page
-            header('Location: post-list');
-            exit;
-        }
+        //Redirection de la page
+        header('Location: post-list');
+        exit;
     }
+
 
     /**
      * Fonction qui permet de modifier un commentaire
@@ -106,42 +116,27 @@ class CommentController
      */
     public static function editComment()
     {
+        //Je stock le post dans des variables
+        $edit_comment = $_POST['edit_comment'];
+        $content_comment = htmlspecialchars($_POST['content_comment']);
+        $name_comment = htmlspecialchars($_POST['name_comment']);
 
-        //condition
-        if (!empty($_POST['edit_comment'])) {
 
-            //Je stock le post dans des variables
-            $edit_comment = $_POST['edit_comment'];
-            $content_comment = htmlspecialchars($_POST['content_comment']);
-            $name_comment = htmlspecialchars($_POST['name_comment']);
-            
+        //Connexion à la bdd 
+        global $db;
 
-            //Connexion à la bdd 
-            global $db;
-
-            //Requete préparée 
-            $editArticle = $db->prepare('UPDATE comment 
+        //Requete préparée 
+        $editArticle = $db->prepare('UPDATE comment 
                                     SET content_comment = ?, name_comment = ?   
                                     WHERE id_pk_comment = ?');
 
-            //J'execute la requete
-            $editArticle->execute(array($content_comment, $name_comment, $edit_comment));
+        //J'execute la requete
+        $editArticle->execute(array($content_comment, $name_comment, $edit_comment));
 
-            //Message flash 
-            $_SESSION['message'] = "Le commentaire à bien été modifié !";
-
-            //Redirection de la page
-            //Si role admin alors...
-            if ($_SESSION['role'] == 'admin') {
-                header('Location: comment-list');
-                exit;
-                //Sinon...
-            } else {
-                header('Location: comment-list-member');
-                exit;
-            }
-        }
+        //Message flash 
+        $_SESSION['message'] = "Le commentaire à bien été modifié !";
     }
+
 
     /**
      * Fonction qui permet de valider un commentaire
@@ -150,29 +145,21 @@ class CommentController
      */
     public static function validComment()
     {
+        //Je récupère le get dans une variable 
+        $valid_comment = $_GET['valid_comment'];
 
-        //Condition
-        if (!empty($_GET['valid_comment'])) {
+        //Connexion à la bdd 
+        global $db;
 
-            //Je récupère le get dans une variable 
-            $valid_comment = $_GET['valid_comment'];
+        //Requete préparée 
+        $reqValid = $db->prepare('UPDATE comment SET valid_comment = true WHERE id_pk_comment = ?');
 
-            //Connexion à la bdd 
-            global $db;
+        //J'execute la requete 
+        $reqValid->execute(array($valid_comment));
 
-            //Requete préparée 
-            $reqValid = $db->prepare('UPDATE comment SET valid_comment = true WHERE id_pk_comment = ?');
-
-            //J'execute la requete 
-            $reqValid->execute(array($valid_comment));
-
-            //Message flash 
-            $_SESSION['message'] = "Le commentaire à bien été validé !";
-
-            // Redirection 
-            header('Location: comment-list');
-            exit;
-        }
+        //Message flash 
+        $_SESSION['message'] = "Le commentaire à bien été validé !";
+        
     }
 
 
@@ -184,33 +171,19 @@ class CommentController
      */
     public static function deleteComment()
     {
+        //Je récupère l'id 
+        $id_delete = $_GET['id_delete_comment'];
+        //Je crée un nouvel objet 
+        $comment = new Comment($id_delete);
+        //connexion à la base de données
+        global $db;
+        //Requete préparée
+        $delete = $db->prepare('DELETE FROM comment WHERE id_pk_comment = ?');
 
-        if (!empty($_GET['id_delete_comment'])) {
+        //J'execute la Requete
+        $delete->execute(array($comment->getId_pk_comment()));
 
-            //Je récupère l'id 
-            $id_delete = $_GET['id_delete_comment'];
-            //Je crée un nouvel objet 
-            $comment = new Comment($id_delete);
-            //connexion à la base de données
-            global $db;
-            //Requete préparée
-            $delete = $db->prepare('DELETE FROM comment WHERE id_pk_comment = ?');
-
-            //J'execute la Requete
-            $delete->execute(array($comment->getId_pk_comment()));
-
-            //Message flash 
-            $_SESSION['message'] = "Le commentaire à bien été supprimé !";
-
-            //Redirection de la page 
-            //si admin alors...
-            if ($_SESSION['role'] == 'admin') {
-                header('Location: comment-list');
-                exit;
-            } else {
-                header('Location: comment-list-member');
-                exit;
-            }
-        }
+        //Message flash 
+        $_SESSION['message'] = "Le commentaire à bien été supprimé !";
     }
 }

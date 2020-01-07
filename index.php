@@ -13,6 +13,7 @@ require 'src/Model/Comment.php';
 
 
 //Ajout du controller 
+require 'src/Controller/ManagerController.php';
 require 'src/Controller/ArticleController.php';
 require 'src/Controller/AuthorController.php';
 require 'src/Controller/CommentController.php';
