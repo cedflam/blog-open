@@ -13,10 +13,7 @@ class ManagerController
      */
     public static function purgeFlash()
     {
-        //Propriété
-        $message = $_SESSION['message'];
-        //Condition
-        if (!empty($message)) {
+        if (!empty($_SESSION['message'])) {
 
             unset($_SESSION['message']);
         }
@@ -33,17 +30,13 @@ class ManagerController
      */
     public static function addArticleControls()
     {
-        //Propriétés
-        $add_article = $_POST['add_article'];
-        $title = $_POST['title'];
-        $sentence = $_POST['sentence'];
-        $content_article = $_POST['content_article'];
+
         //Controles
         if (
-            !empty($add_article) and
-            !empty($title) and
-            !empty($sentence) and
-            !empty($content_article) and
+            !empty($_POST['add_article']) and
+            !empty($_POST['title']) and
+            !empty($_POST['sentence']) and
+            !empty($_POST['content_article']) and
             $_SESSION['role'] == 'user' |
             $_SESSION['role'] == 'admin'
         ) {
@@ -61,23 +54,15 @@ class ManagerController
      */
     public static function editArticleControls()
     {
-        //Propriétés
-        $edit_article = $_POST['edit_article'];
-        $title = $_POST['title'];
-        $sentence = $_POST['sentence'];
-        $id_author = $_POST['id_author'];
-        $content_article = $_POST['content_article'];
-        $role = $_SESSION['role'];
-
         //Controles
         if (
-            !empty($edit_article) and
-            !empty($title) and
-            !empty($sentence) and
-            !empty($id_author) and
-            !empty($content_article) and
-            $role == 'admin' |
-            $role == 'user'
+            !empty($_POST['edit_article']) and
+            !empty($_POST['title']) and
+            !empty($_POST['sentence']) and
+            !empty($_POST['id_author']) and
+            !empty($_POST['content_article']) and
+            $_SESSION['role'] == 'admin' |
+            $_SESSION['role'] == 'user'
         ) {
 
             //Alors je modifie l'article 
@@ -102,16 +87,11 @@ class ManagerController
      */
     public static function deleteArticleControls()
     {
-
-        //Propriétés
-        $id_delete_article = $_GET['id_delete_article'];
-        $role = $_SESSION['role'];
-
         //Controles
         if (
-            !empty($id_delete_article) and
-            $role == 'admin' |
-            $role == 'user'
+            !empty($_GET['id_delete_article']) and
+            $_SESSION['role'] == 'admin' |
+            $_SESSION['role'] == 'user'
         ) {
 
             //Alors je supprime l'article 
@@ -119,7 +99,7 @@ class ManagerController
 
 
             //Redirection en fonction du role
-            if ($role == 'admin') {
+            if ($_SESSION['role'] == 'admin') {
                 header('Location: articles-list');
                 exit;
             } else {
@@ -138,13 +118,11 @@ class ManagerController
     public static function validArticleControls()
     {
 
-        //Propriétés 
-        $valid_article = $_GET['valid_article'];
-        $role = $_SESSION['role'];
+        //controles 
         //Condition
         if (
-            !empty($valid_article) and
-            $role == 'admin'
+            !empty($_GET['valid_article']) and
+            $_SESSION['role'] == 'admin'
         ) {
 
             //alors je valide l'article concerné
@@ -162,17 +140,12 @@ class ManagerController
      */
     public static function addAuthorControls()
     {
-        //Propriétés 
-        $add_author = $_POST['add_author'];
-        $password = $_POST['password'];
-        $firstName = $_POST['firstName'];
-        $lastName = $_POST['lastName'];
         //Controles 
         if (
-            !empty($add_author) and
-            !empty($password) and
-            !empty($firstName) and
-            !empty($lastName)
+            !empty($_POST['add_author']) and
+            !empty($_POST['password']) and
+            !empty($_POST['firstName']) and
+            !empty($_POST['lastName'])
         ) {
 
             //Alors j'ajoute un nouvel autheur
@@ -188,13 +161,11 @@ class ManagerController
      */
     public static function deleteAuthorControls()
     {
-        //Propriétés 
-        $delete_author = $_GET['delete_author'];
-        $role = $_SESSION['role'];
+
         //Controles 
         if (
-            !empty($delete_author) and
-            $role == 'admin'
+            !empty($_GET['delete_author']) and
+            $_SESSION['role'] == 'admin'
         ) {
             //Alors je supprime l'auteur 
             AuthorController::deleteAuthor();
@@ -210,13 +181,10 @@ class ManagerController
     public static function validAuthorControls()
     {
 
-        //Propriétés 
-        $valid_author = $_GET['valid_author'];
-        $role = $_SESSION['role'];
         //Controles
         if (
-            !empty($valid_author) and
-            $role == 'admin'
+            !empty($_GET['valid_author']) and
+            $_SESSION['role'] == 'admin'
         ) {
             //Alors je valide l'inscription
             AuthorController::validAuthor();
@@ -235,17 +203,13 @@ class ManagerController
     public static function addCommentControls()
     {
 
-        //Propriétés 
-        $add_comment = $_POST['add_comment'];
-        $name_comment = $_POST['name_comment'];
-        $content_comment = $_POST['content_comment'];
-        $role = $_SESSION['role'];
+        //Controles 
         //condition
         if (
-            !empty($add_comment) and
-            !empty($name_comment) and
-            !empty($content_comment) and
-            $role == 'user' | $role == 'admin'
+            !empty($_POST['add_comment']) and
+            !empty($_POST['name_comment']) and
+            !empty($_POST['content_comment']) and
+            $_SESSION['role'] == 'user' | $_SESSION['role'] == 'admin'
         ) {
 
             //Alors j'ajoute le nouveau commentaire 
@@ -263,25 +227,20 @@ class ManagerController
     public static function editCommentControls()
     {
 
-        //Propriétés 
-        $edit_comment = $_POST['edit_comment'];
-        $name_comment = $_POST['name_comment'];
-        $content_comment = $_POST['content_comment'];
-        $role = $_SESSION['role'];
-        
+        //Controles 
         //condition
         if (
-            !empty($edit_comment) and
-            !empty($name_comment) and
-            !empty($content_comment) and
-            $role == 'user' | $role == 'admin'
+            !empty($_POST['edit_comment']) and
+            !empty($_POST['name_comment']) and
+            !empty($_POST['content_comment']) and
+            $_SESSION['role'] == 'user' | $_SESSION['role'] == 'admin'
         ) {
 
             //Alors je modifie le commentaire
             CommentController::editComment();
             //Redirection de la page
             //Si role admin alors...
-            if ($role == 'admin') {
+            if ($_SESSION['role'] == 'admin') {
                 header('Location: comment-list');
                 exit;
                 //Sinon...
@@ -302,20 +261,17 @@ class ManagerController
     public static function deleteCommentControls()
     {
 
-        //Propriétés 
-        $id_delete_comment = $_GET['id_delete_comment'];
-        $role = $_SESSION['role'];
         //Controles 
         if (
-            !empty($id_delete_comment) and
-            $role == 'admin'
+            !empty($_GET['id_delete_comment']) and
+            $_SESSION['role'] == 'admin'
         ) {
 
             //Alors je supprime le commentaire
             CommentController::deleteComment();
             //Redirection de la page 
             //si admin alors...
-            if ($role == 'admin') {
+            if ($_SESSION['role'] == 'admin') {
                 header('Location: comment-list');
                 exit;
             } else {
@@ -328,13 +284,11 @@ class ManagerController
     public static function validCommentControls()
     {
 
-        //Propriétés
-        $valid_comment = $_GET['valid_comment'];
-        $role = $_SESSION['role'];
+        //Controles 
         //Condition
         if (
-            !empty($valid_comment) and
-            $role == 'admin'
+            !empty($_GET['valid_comment']) and
+            $_SESSION['role'] == 'admin'
         ) {
 
             //Alors je valide le commentaire
