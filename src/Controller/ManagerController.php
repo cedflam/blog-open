@@ -97,13 +97,18 @@ class ManagerController
             //Alors je supprime l'article 
             ArticleController::deleteArticle();
 
-            //Redirection en fonction du role
-            if ($_SESSION['role'] == 'admin') {
-                header('Location: articles-list');
-                exit;
-            } else {
-                header('Location: articles-list-member');
-                exit;
+            try{
+
+                //Redirection en fonction du role
+                if ($_SESSION['role'] == 'admin') {
+                    header('Location: articles-list');
+                    exit;
+                } else {
+                    header('Location: articles-list-member');
+                    exit;
+                }
+            }catch(Exception $e){
+                echo 'Erreur lors de la suppression !'.$e->getMessage();
             }
         }
     }
