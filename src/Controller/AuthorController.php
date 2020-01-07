@@ -12,56 +12,26 @@ class AuthorController
      */
     public static function login()
     {
-        if (!empty($_POST['hash']) and !empty($_POST['email'])) {
+        //J'attribue les valeurs aux variables 
+        $mail = htmlspecialchars($_POST['email']);
+        $pass = htmlspecialchars($_POST['hash']);
+        //Connexion à la bdd 
+        global $db;
+        //Requete préparée 
+        $req = $db->prepare('SELECT * FROM author WHERE email = ?');
+        //J'execute la requete 
+        $req->execute([$mail]);
+        //Je stocke le résultat 
+        $data = $req->fetch();
+        //Je stocke le hash de l'objet 
+        $hash = $data['hash'];
 
-            //J'attribue les valeurs aux variables 
-            $mail = htmlspecialchars($_POST['email']);
-            $pass = htmlspecialchars($_POST['hash']);
-            //Connexion à la bdd 
-            global $db;
-            //Requete préparée 
-            $req = $db->prepare('SELECT * FROM author WHERE email = ?');
-            //J'execute la requete 
-            $req->execute([$mail]);
-            //Je stocke le résultat 
-            $data = $req->fetch();
-            //Je stocke le hash de l'objet 
-            $hash = $data['hash'];
+        //J'appelle la fonction de vérification du password en bdd
+        ManagerController::passwordVerify($pass, $hash, $data);
 
-            //Je vérifie le password saisi avec le hash en bdd
-            if (password_verify($pass, $hash)) {
-                //Je crée un nouvel auteur 
-                $authorSession = new Author($data['id_pk_author']);
-                //J'attribue les valeurs à la session
-                $_SESSION['valid'] = $authorSession->getValid();
-
-                //Je test si l'auteur est validé 
-                if ($_SESSION['valid'] == true) {
-                    //Attribution des variables de session
-                    $_SESSION = [
-                        'role' => $authorSession->getRole(),
-                        'firstName' => $authorSession->getFirstName(),
-                        'lastName' => $authorSession->getLastName(),
-                        'id' => $authorSession->getId_pk_author(),
-                        'message' => 'Vous êtes connecté !'
-                    ];
-
-                    //Redirection
-                    header('Location: home');
-                    exit;
-                } else {
-                    //Message flash
-                    $_SESSION['message'] = "Votre compte n'a pas encore été validé !
-                                             Vous pouvez contacter l'administrateur 
-                                             via la formulaire de contact si le délais 
-                                             est > 48H";
-                }
-            } else {
-                //Message flash
-                $_SESSION['message'] = 'erreur de connexion, essayez à nouveau !';
-            }
-        }
     }
+
+    
 
     /**
      * fonction qui permet de s'inscrire 

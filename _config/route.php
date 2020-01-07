@@ -15,7 +15,7 @@ switch ($page) {
         //Page de connexion
     case 'login':
         echo $twig->render('templates/member/login.html.twig', [
-            'userConnect' => AuthorController::login(),
+            'userConnect' => ManagerController::loginControls(),
             'session' => $_SESSION,
             'resetFlash' => ManagerController::purgeFlash()
            

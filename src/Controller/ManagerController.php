@@ -133,6 +133,66 @@ class ManagerController
     /***********************CONTROLES AUTHOR*************** */
 
     /**
+     * Fonction qui permet de controler les champs 
+     * du formaulaire de connexion 
+     *
+     * @return void
+     */
+    public static function loginControls(){
+        //Controles 
+        if (!empty($_POST['hash']) and !empty($_POST['email'])) {
+            //Alors je lance la connexion
+            AuthorController::login();
+        }
+    }
+
+
+    /**
+     * Fonction qui permet de comparer le mot de passe saisi
+     * avec le mot de passe crypté en bdd 
+     *
+     * @param string $password
+     * @param string $hash
+     * @param Author $data
+     * @return void
+     */
+    public static function passwordVerify($password, $hash, $data){
+        //Je vérifie le password saisi avec le hash en bdd
+        if (password_verify($password, $hash)) {
+            //Je crée un nouvel auteur 
+            $authorSession = new Author($data['id_pk_author']);
+            //J'attribue les valeurs à la session
+            $_SESSION['valid'] = $authorSession->getValid();
+
+            //Je test si l'auteur est validé 
+            if ($_SESSION['valid'] == true) {
+                //Attribution des variables de session
+                $_SESSION = [
+                    'role' => $authorSession->getRole(),
+                    'firstName' => $authorSession->getFirstName(),
+                    'lastName' => $authorSession->getLastName(),
+                    'id' => $authorSession->getId_pk_author(),
+                    'message' => 'Vous êtes connecté !'
+                ];
+
+                //Redirection
+                header('Location: home');
+                exit;
+            } else {
+                //Message flash
+                $_SESSION['message'] = "Votre compte n'a pas encore été validé !
+                                             Vous pouvez contacter l'administrateur 
+                                             via la formulaire de contact si le délais 
+                                             est > 48H";
+            }
+        } else {
+            //Message flash
+            $_SESSION['message'] = 'Le mot de passe saisi est incorrect !';
+        }
+    
+    }
+
+    /**
      * Fonction qui permet d'effectuer les controles
      * lors de l'ajout d'un nouvel auteur
      *
