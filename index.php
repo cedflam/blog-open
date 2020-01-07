@@ -1,6 +1,9 @@
 <?php
 session_start(); 
 
+//Masque les erreurs Notice 
+error_reporting(0);
+
 /********************Include*************************** */
 //Appel des fichiers de config
 require '_config/config.php';
