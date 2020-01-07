@@ -52,7 +52,10 @@ class AuthorController
 
                 } else {
                     //Message flash
-                    $_SESSION['message'] = "Votre compte n'a pas encore été validé ! Vous pouvez contacter l'administrateur via la formulaire de contact";
+                    $_SESSION['message'] = "Votre compte n'a pas encore été validé !
+                                             Vous pouvez contacter l'administrateur 
+                                             via la formulaire de contact si le délais 
+                                             est > 48H";
                 }
             } else {
                 //Message flash
