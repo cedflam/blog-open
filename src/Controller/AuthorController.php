@@ -25,7 +25,7 @@ class AuthorController
             $req->execute([$mail]);
             //Je stocke le résultat 
             $data = $req->fetch();
-            //Je stocke les valeurs de l'objet dans des variables
+            //Je stocke le hash de l'objet 
             $hash = $data['hash'];
 
             //Je vérifie le password saisi avec le hash en bdd
@@ -49,7 +49,6 @@ class AuthorController
                     //Redirection
                     header('Location: home');
                     exit;
-
                 } else {
                     //Message flash
                     $_SESSION['message'] = "Votre compte n'a pas encore été validé !
@@ -71,15 +70,11 @@ class AuthorController
      */
     public static function addAuthor()
     {
-        //Je récupère les post dans des variables
-        $password = htmlspecialchars($_POST['password']);
-        $confirmPassword = htmlspecialchars($_POST['confirmPassword']);
-        $email = htmlspecialchars($_POST['email']);
         //Connexion à la bdd 
         global $db;
 
         //Si les mots de passes sont identiques alors...
-        if ($password === $confirmPassword) {
+        if (htmlspecialchars($_POST['password']) === htmlspecialchars($_POST['confirmPassword'])) {
 
             //Je récupère les auteurs 
             $authors = AuthorController::findAuthors();
@@ -88,7 +83,7 @@ class AuthorController
 
             //Je boucle sur les auteurs 
             foreach ($authors as $author) {
-                if ($email == $author['email']) {
+                if (htmlspecialchars($_POST['email']) == $author['email']) {
                     //l'auteur existe deja
                     $existe = true;
                     //Message flash
@@ -105,19 +100,12 @@ class AuthorController
                          VALUES (:firstName, :lastName, :hash, :email, :role, false)'
                 );
 
-                //J'attribue les valeurs aux variables (sécurité)
-                $firstName = htmlspecialchars($_POST['firstName']);
-                $lastName = htmlspecialchars($_POST['lastName']);
-                $hash = password_hash($password, PASSWORD_DEFAULT);
-                $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-
-
                 //J'execute la requete
                 $addArticle->execute(array(
-                    ':firstName' => $firstName,
-                    ':lastName' => $lastName,
-                    ':hash' => $hash,
-                    ':email' => $email,
+                    ':firstName' => htmlspecialchars($_POST['firstName']),
+                    ':lastName' => htmlspecialchars($_POST['lastName']),
+                    ':hash' => password_hash(htmlspecialchars($_POST['password']), PASSWORD_DEFAULT),
+                    ':email' => filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL),
                     ':role' => 'user'
                 ));
                 //Message flash
