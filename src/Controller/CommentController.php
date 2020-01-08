@@ -40,8 +40,12 @@ class CommentController
                 return $comment;
             } else {
                 //Sinon redirection avec message d'erreur
-                $_SESSION['message'] = "Accès refusé ! Vous essayez d'accéder à un commentaire dont vous n'êtes pas l'auteur !";
+                ManagerController::addFlash(
+                    "Accès refusé ! Vous essayez d'accéder à un commentaire dont vous n'êtes pas l'auteur !", 
+                    'danger');
+                //redirection
                 header('Location:comment-list-member');
+                //Affichage du message avant de le vider
                 ManagerController::stabilizeFlash();
             }
         }
@@ -101,10 +105,12 @@ class CommentController
         ));
 
         //Message flash 
-        $_SESSION['message'] = "Le commentaire à été soumis, il est en attente de validation par l'administrateur";
-
+        ManagerController::addFlash(
+            "Le commentaire à été soumis, il est en attente de validation par l'administrateur", 
+            'success');
         //Redirection de la page
         header('Location: post-list');
+        //Affichage du message avant de le vider
         ManagerController::stabilizeFlash();
     }
 
@@ -134,7 +140,9 @@ class CommentController
         $editArticle->execute(array($content_comment, $name_comment, $edit_comment));
 
         //Message flash 
-        $_SESSION['message'] = "Le commentaire à bien été modifié !";
+        ManagerController::addFlash(
+            "Le commentaire à bien été modifié !", 
+            'success');
     }
 
 
@@ -158,7 +166,9 @@ class CommentController
         $reqValid->execute(array($valid_comment));
 
         //Message flash 
-        $_SESSION['message'] = "Le commentaire à bien été validé !";
+        ManagerController::addFlash(
+            "Le commentaire à bien été validé !", 
+            'success');
         
     }
 
@@ -182,8 +192,10 @@ class CommentController
 
         //J'execute la Requete
         $delete->execute(array($comment->getId_pk_comment()));
-
+        
         //Message flash 
-        $_SESSION['message'] = "Le commentaire à bien été supprimé !";
+        ManagerController::addFlash(
+            "Le commentaire à bien été supprimé !", 
+            'success');
     }
 }

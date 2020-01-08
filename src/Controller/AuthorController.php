@@ -46,15 +46,18 @@ class AuthorController
         if (htmlspecialchars($_POST['password']) === htmlspecialchars($_POST['confirmPassword'])) {
 
             //Je stock le post dans une variable
-            $email = htmlspecialchars($_POST['email']);
+            $email = $_POST['email'];
             //Requete préparée
-            $existe = $db->prepare('SELECT email FROM author WHERE email = ?');
+            $exist = $db->prepare('SELECT email FROM author WHERE email = ?');
             //J'execute la requete 
-            $existe->execute(array($email));
-
+            $exist->execute(array($email));
+            //Je stocke le résultat
+            $exist = $exist->fetch();           
+            
+                
             //Si $existe est différent de $email je continue l'inscription
-            if ($existe != $email) {
-
+            if ($exist['email'] != $email) {
+            
                 //Requete préparée 
                 $addArticle = $db->prepare(
                     'INSERT INTO author (firstName,lastName, hash, email, role, valid)
@@ -70,14 +73,19 @@ class AuthorController
                     ':role' => 'user'
                 ));
                 //Message flash
-                $_SESSION['message'] = 'Votre inscription à réussie, comptez 48h pour que celle-ci soit valide';
+                ManagerController::addFlash('Votre inscription à réussie, comptez 48h pour que celle-ci soit valide', 'success');
                 //Redirection de la page
                 header('Location: home');
+                //Affichage du message avant de le vider
                 ManagerController::stabilizeFlash();
+            }else{
+                //Message flash
+                ManagerController::addFlash("Cet auteur existe déjà ! Rendez-vous sur la page de connexion", 'danger');
             }
         } else {
             //Message flash
-            $_SESSION['message'] = "Echec ! Les mots de passes doivent être identiques !";
+            ManagerController::addFlash("Echec ! Les mots de passes doivent être identiques !", 'danger');
+            
         }
     }
 
@@ -103,10 +111,10 @@ class AuthorController
         $reqValid->execute(array($id));
 
         //Message flash 
-        $_SESSION['message'] = 'Le nouvel auteur à été validé !';
-
+        ManagerController::addFlash("Le nouvel auteur à été validé !", 'success');
         //Redirection 
         header('Location: registration-valid');
+        //affichage du message avant de le vider
         ManagerController::stabilizeFlash();
     }
 
@@ -131,10 +139,10 @@ class AuthorController
         $delete->execute(array($id));
 
         //Message flash 
-        $_SESSION['message'] = "L'auteur à été supprimé !";
-
+        ManagerController::addFlash("L'auteur à été supprimé !", 'success');
         //Redirection de la page 
         header('Location: registration-valid');
+        //Affichage du message avant de le vider
         ManagerController::stabilizeFlash();
     }
 

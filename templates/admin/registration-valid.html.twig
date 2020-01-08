@@ -15,7 +15,7 @@
 							Valider les inscriptions
 						</h1>
 						{% if session.message %}
-							<p class="p-3 bg-success">{{session.message}}</p>
+							<p class="p-3 bg-{{session.type}}">{{session.message}}</p>
 						{% endif %}
 
 					</div>

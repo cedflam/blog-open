@@ -6,6 +6,19 @@ class ManagerController
 
 
     /******************MESSAGES FLASHS *********************/
+    /**
+     * Fonction qui permet de parametrer un message flash
+     *
+     * @param string $message
+     * @param string $type
+     * @return void
+     */
+    public static function addFlash($message, $type){
+        //J'attribue les variables reçues à la session
+        $_SESSION['message'] = $message;
+        $_SESSION['type'] = $type;  
+
+    }
 
     /**
      * Fonction qui permet de réinitialiser les messages flashs
@@ -191,9 +204,10 @@ class ManagerController
                     'firstName' => $authorSession->getFirstName(),
                     'lastName' => $authorSession->getLastName(),
                     'id' => $authorSession->getId_pk_author(),
-                    'message' => 'Vous êtes connecté !'
+                                        
                 ];
-
+                //Message flash
+                ManagerController::addFlash('Vous êtes connecté !', 'danger');
                 //Redirection
                 header('Location: home');
                 //Permet l'affichage et la suppression du message flash
@@ -219,16 +233,18 @@ class ManagerController
      */
     public static function addAuthorControls()
     {
-        //Controles 
+        //Controles sur les champs
         if (
             !empty($_POST['add_author']) and
             !empty($_POST['password']) and
+            !empty($_POST['confirmPassword']) and
             !empty($_POST['firstName']) and
-            !empty($_POST['lastName']) and
-            strlen($_POST['password']) < 6
+            !empty($_POST['lastName'])
         ) {
+            //Je stocke le mot de passe dans une variable
+            $lengthPass = $_POST['password'];
             //Si le mot de passe contient moins de 6 caractères
-            if (strlen($_POST['password'] < 6)) {
+            if (strlen($lengthPass) <= 6) {
                 //Message flash
                 $_SESSION['message'] = "Le mot de passe doit contenir au moins 6 caractères !";
             } else {

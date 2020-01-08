@@ -30,7 +30,10 @@
 			<div class="col-md-6 mx-auto d-block bg-light p-5">
 				<form class="form-group" method="POST">
 					{% if session.message %}
-						<p class="bg-danger p-3">{{session.message}}</p>
+						<p class="bg-{{session.type}} p-3">{{session.message}}</p>
+						<pre>
+							{{ dump(session.type) }}
+						</pre>
 					{% endif %}
 					<div class="form-group">
 						<label for="email">Email</label>

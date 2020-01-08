@@ -20,8 +20,12 @@ class ArticleController
                 return $article;
             } else {
                 //Sinon redirection avec message d'erreur
-                $_SESSION['message'] = "Accès refusé ! Vous essayez d'accéder à un article dont vous n'êtes pas l'auteur !";
+                ManagerController::addFlash(
+                    "Accès refusé ! Vous essayez d'accéder à un article dont vous n'êtes pas l'auteur !", 
+                    'danger');
+                //Redirection
                 header('Location:articles-list-member');
+                //affichage du message avant de le vider
                 ManagerController::stabilizeFlash();
             }
         }
@@ -98,10 +102,12 @@ class ArticleController
         ));
 
         //Message flash 
-        $_SESSION['message'] = "L'article à bien été ajouté !, la validation peut prendre 48h !";
-
+        ManagerController::addFlash(
+            "L'article à bien été ajouté !, la validation peut prendre 48h !", 
+            'success');
         //Redirection de la page
         header('Location: post-list');
+        //Affichage du message avant de le vider
         ManagerController::stabilizeFlash();
     }
 
@@ -133,7 +139,10 @@ class ArticleController
         $editArticle->execute(array($title, $sentence, $content_article, $id_author, $id_article));
 
         //Message flash 
-        $_SESSION['message'] = "L'article à bien été modifié !, La validation peut prendre 48h";
+        ManagerController::addFlash(
+            "L'article à bien été modifié !, La validation peut prendre 48h", 
+            'success');
+
     }
 
     /**
@@ -156,7 +165,10 @@ class ArticleController
         $reqValid->execute(array($valid_article));
 
         //Message flash 
-        $_SESSION['message'] = "L'article à bien été validé et publié !";
+        ManagerController::addFlash(
+            "L'article à bien été validé et publié !", 
+            'success');
+
     }
 
     /**
@@ -180,6 +192,8 @@ class ArticleController
         $delete->execute(array($article->getId_pk_article()));
 
         //Message flash 
-        $_SESSION['message'] = "L'article à bien été supprimé !";
+        ManagerController::addFlash(
+            "L'article à bien été supprimé !", 
+            'success');
     }
 }
