@@ -16,7 +16,7 @@
 							Inscription
 						</h1>
 						{% if session.message %}
-								<p class="bg-session.type p-3">
+								<p class="bg-{{session.type }} p-3">
 									{{session.message}}
 								</p>
 							{% endif %}
@@ -35,7 +35,7 @@
 
 					<div class="form-group">
 						<label for="lastName">Nom</label>
-						<input name="lastName" type="text" class="form-control" placeholder="Saisissez votre nom..." required>
+						<input name="lastName" type="text" class="form-control" placeholder="Saisissez votre nom..."  required>
 					</div>
 					<div class="form-group">
 						<label for="firstName">Prénom</label>

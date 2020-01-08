@@ -126,6 +126,7 @@ class CommentController
         $edit_comment = $_POST['edit_comment'];
         $content_comment = htmlspecialchars($_POST['content_comment']);
         $name_comment = htmlspecialchars($_POST['name_comment']);
+        
 
 
         //Connexion à la bdd 
@@ -133,15 +134,15 @@ class CommentController
 
         //Requete préparée 
         $editArticle = $db->prepare('UPDATE comment 
-                                    SET content_comment = ?, name_comment = ?   
+                                    SET content_comment = ?, name_comment = ?, valid_comment = ?   
                                     WHERE id_pk_comment = ?');
 
         //J'execute la requete
-        $editArticle->execute(array($content_comment, $name_comment, $edit_comment));
+        $editArticle->execute(array($content_comment, $name_comment, 0, $edit_comment));
 
         //Message flash 
         ManagerController::addFlash(
-            "Le commentaire à bien été modifié !", 
+            "Le commentaire à bien été modifié ! Il sera de nouveau valide sous 48H", 
             'success');
     }
 

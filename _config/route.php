@@ -171,7 +171,7 @@ switch ($page) {
      case 'article-edit-member':
         //J'affiche le template
         echo $twig->render('templates/member/article-edit-member.html.twig', [
-            'article' => ArticleController::findArticle(),
+            'article' => ArticleController::findEditArticle(),
             'editArticle' => ManagerController::editArticleControls(),
             'author' => AuthorController::findAuthor(),
             'authors' => AuthorController::findAuthors(),

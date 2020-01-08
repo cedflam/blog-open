@@ -73,18 +73,27 @@ class AuthorController
                     ':role' => 'user'
                 ));
                 //Message flash
-                ManagerController::addFlash('Votre inscription à réussie, comptez 48h pour que celle-ci soit valide', 'success');
+                ManagerController::addFlash(
+                    'Votre inscription à réussie, comptez 48h pour que celle-ci soit valide', 
+                    'success'
+                );
                 //Redirection de la page
                 header('Location: home');
                 //Affichage du message avant de le vider
                 ManagerController::stabilizeFlash();
             }else{
                 //Message flash
-                ManagerController::addFlash("Cet auteur existe déjà ! Rendez-vous sur la page de connexion", 'danger');
+                ManagerController::addFlash(
+                    "Cet auteur existe déjà ! Rendez-vous sur la page de connexion", 
+                    'danger'
+                );
             }
         } else {
             //Message flash
-            ManagerController::addFlash("Echec ! Les mots de passes doivent être identiques !", 'danger');
+            ManagerController::addFlash(
+                "Echec ! Les mots de passes doivent être identiques !", 
+                'danger'
+            );
             
         }
     }

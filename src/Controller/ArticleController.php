@@ -5,6 +5,7 @@ class ArticleController
 
     /**
      * Fonction qui permet de récupérer un article
+     * et de l'afficher pour consultation
      *
      * @return void
      */
@@ -12,8 +13,31 @@ class ArticleController
     {
         //Je récupère un article
         if (!empty($_GET['id_article'])) {
+            //Je stocke le GET dans une variable
             $id_article = $_GET['id_article'];
+            //Je crée un nouvel objet Article
             $article = new Article($id_article);
+            //Je retourne l'article
+            return $article;
+            
+        }
+    }
+
+    /**
+     * fonction qui permet de récupérer un article pour la modification 
+     * avec des controles sur le role de l'utilisateur connecté
+     * 
+     *
+     * @return void
+     */
+    public static function findEditArticle(){
+        //Je récupère un article
+        if (!empty($_GET['id_article'])) {
+            //Je stocke l'article dans une variable 
+            $id_article = $_GET['id_article'];
+            //Je crée un nouvel objet Article
+            $article = new Article($id_article);
+
             //Si id_author de article = l'id de session ou que le role est admin alors...
             if ($article->getId_author() == $_SESSION['id'] | $_SESSION['role'] == 'admin') {
                 //Je retourne l'article demandé
@@ -104,7 +128,8 @@ class ArticleController
         //Message flash 
         ManagerController::addFlash(
             "L'article à bien été ajouté !, la validation peut prendre 48h !", 
-            'success');
+            'success'
+        );
         //Redirection de la page
         header('Location: post-list');
         //Affichage du message avant de le vider
@@ -141,7 +166,8 @@ class ArticleController
         //Message flash 
         ManagerController::addFlash(
             "L'article à bien été modifié !, La validation peut prendre 48h", 
-            'success');
+            'success'
+        );
 
     }
 
@@ -167,7 +193,8 @@ class ArticleController
         //Message flash 
         ManagerController::addFlash(
             "L'article à bien été validé et publié !", 
-            'success');
+            'success'
+        );
 
     }
 
@@ -194,6 +221,7 @@ class ArticleController
         //Message flash 
         ManagerController::addFlash(
             "L'article à bien été supprimé !", 
-            'success');
+            'success'
+        );
     }
 }

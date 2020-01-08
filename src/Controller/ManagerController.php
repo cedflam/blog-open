@@ -6,6 +6,7 @@ class ManagerController
 
 
     /******************MESSAGES FLASHS *********************/
+
     /**
      * Fonction qui permet de parametrer un message flash
      *
@@ -48,6 +49,8 @@ class ManagerController
             echo 'Erreur de redirection : ' . $e->getMessage();
         }
     }
+
+
     /*******************CONTROLES ARTICLE***************** */
 
 
@@ -207,21 +210,28 @@ class ManagerController
                                         
                 ];
                 //Message flash
-                ManagerController::addFlash('Vous êtes connecté !', 'danger');
+                ManagerController::addFlash('Vous êtes connecté !', 'success');
                 //Redirection
                 header('Location: home');
                 //Permet l'affichage et la suppression du message flash
                 ManagerController::stabilizeFlash();
             } else {
                 //Message flash
-                $_SESSION['message'] = "Votre compte n'a pas encore été validé !
-                                                 Vous pouvez contacter l'administrateur 
-                                                 via la formulaire de contact si le délais 
-                                                 est > 48H";
+                ManagerController::addFlash(
+                    "Votre compte n'a pas encore été validé !
+                    Vous pouvez contacter l'administrateur 
+                    via la formulaire de contact si le délais 
+                    est > 48H", 
+                    'danger'
+                );              
             }
+
         } else {
             //Message flash
-            $_SESSION['message'] = 'Le mot de passe saisi est incorrect !';
+            ManagerController::addFlash(
+                "Le mot de passe saisi est incorrect !", 
+                'danger'
+            );
         }
     }
 
@@ -244,9 +254,13 @@ class ManagerController
             //Je stocke le mot de passe dans une variable
             $lengthPass = $_POST['password'];
             //Si le mot de passe contient moins de 6 caractères
-            if (strlen($lengthPass) <= 6) {
+            if (strlen($lengthPass) < 6) {
                 //Message flash
-                $_SESSION['message'] = "Le mot de passe doit contenir au moins 6 caractères !";
+                ManagerController::addFlash(
+                    "Le mot de passe doit contenir au moins 6 caractères !", 
+                    'danger'
+                );
+    
             } else {
                 //Sinon j'ajoute un nouvel autheur
                 AuthorController::addAuthor();
