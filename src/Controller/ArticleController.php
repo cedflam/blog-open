@@ -22,7 +22,7 @@ class ArticleController
                 //Sinon redirection avec message d'erreur
                 $_SESSION['message'] = "Accès refusé ! Vous essayez d'accéder à un article dont vous n'êtes pas l'auteur !";
                 header('Location:articles-list-member');
-                exit;
+                ManagerController::stabilizeFlash();
             }
         }
     }
@@ -102,7 +102,7 @@ class ArticleController
 
         //Redirection de la page
         header('Location: post-list');
-        exit;
+        ManagerController::stabilizeFlash();
     }
 
     /**

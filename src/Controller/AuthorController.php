@@ -28,10 +28,9 @@ class AuthorController
 
         //J'appelle la fonction de vérification du password en bdd
         ManagerController::passwordVerify($pass, $hash, $data);
-
     }
 
-    
+
 
     /**
      * fonction qui permet de s'inscrire 
@@ -46,12 +45,14 @@ class AuthorController
         //Si les mots de passes sont identiques alors...
         if (htmlspecialchars($_POST['password']) === htmlspecialchars($_POST['confirmPassword'])) {
 
-           
+            //Je stock le post dans une variable
             $email = htmlspecialchars($_POST['email']);
+            //Requete préparée
             $existe = $db->prepare('SELECT email FROM author WHERE email = ?');
+            //J'execute la requete 
             $existe->execute(array($email));
-               
-            //Si $existe est vide je crée le nouvel author
+
+            //Si $existe est différent de $email je continue l'inscription
             if ($existe != $email) {
 
                 //Requete préparée 
@@ -80,6 +81,8 @@ class AuthorController
         }
     }
 
+
+
     /**
      * Fonction qui permet de valider l'inscription d'un nouvel auteur
      *
@@ -104,7 +107,7 @@ class AuthorController
 
         //Redirection 
         header('Location: registration-valid');
-        exit;
+        ManagerController::stabilizeFlash();
     }
 
     /**
@@ -132,7 +135,7 @@ class AuthorController
 
         //Redirection de la page 
         header('Location: registration-valid');
-        exit;
+        ManagerController::stabilizeFlash();
     }
 
     /**

@@ -4,6 +4,7 @@
 class ManagerController
 {
 
+
     /******************MESSAGES FLASHS *********************/
 
     /**
@@ -18,7 +19,21 @@ class ManagerController
             unset($_SESSION['message']);
         }
     }
+    
 
+    /**
+     * fonction permet l'affichage et la suppression des messages flashs
+     * 
+     *
+     * @return void
+     */
+    public static function stabilizeFlash(){
+        try{
+            exit;
+        }catch(Exception $e){
+            echo 'Erreur de redirection : '.$e->getMessage();
+        }
+    }
     /*******************CONTROLES ARTICLE***************** */
 
 
@@ -71,10 +86,10 @@ class ManagerController
             //Redirection en fonction du role 
             if ($_SESSION['role'] == 'admin') {
                 header('Location: articles-list');
-                exit;
+                ManagerController::stabilizeFlash();
             } else {
                 header('Location: articles-list-member');
-                exit;
+                ManagerController::stabilizeFlash();
             }
         }
     }
@@ -101,10 +116,10 @@ class ManagerController
             //Redirection en fonction du role
             if ($_SESSION['role'] == 'admin') {
                 header('Location: articles-list');
-                exit;
+                ManagerController::stabilizeFlash();
             } else {
                 header('Location: articles-list-member');
-                exit;
+                ManagerController::stabilizeFlash();
             }
         }
     }
@@ -177,7 +192,8 @@ class ManagerController
 
                 //Redirection
                 header('Location: home');
-                exit;
+                //Permet l'affichage et la suppression du message flash
+                ManagerController::stabilizeFlash();
             } else {
                 //Message flash
                 $_SESSION['message'] = "Votre compte n'a pas encore été validé !
@@ -302,11 +318,11 @@ class ManagerController
             //Si role admin alors...
             if ($_SESSION['role'] == 'admin') {
                 header('Location: comment-list');
-                exit;
+                ManagerController::stabilizeFlash();
                 //Sinon...
             } else {
                 header('Location: comment-list-member');
-                exit;
+                ManagerController::stabilizeFlash();
             }
         }
     }
@@ -333,14 +349,19 @@ class ManagerController
             //si admin alors...
             if ($_SESSION['role'] == 'admin') {
                 header('Location: comment-list');
-                exit;
+                ManagerController::stabilizeFlash();
             } else {
                 header('Location: comment-list-member');
-                exit;
+                ManagerController::stabilizeFlash();
             }
         }
     }
-
+    /**
+     * Permet d'effectuer les controles lors de la 
+     * validation d'un commentaire par l'administrateur
+     *
+     * @return void
+     */
     public static function validCommentControls()
     {
 
@@ -355,4 +376,8 @@ class ManagerController
             CommentController::validComment();
         }
     }
+
+
+
+   
 }

@@ -42,7 +42,7 @@ class CommentController
                 //Sinon redirection avec message d'erreur
                 $_SESSION['message'] = "Accès refusé ! Vous essayez d'accéder à un commentaire dont vous n'êtes pas l'auteur !";
                 header('Location:comment-list-member');
-                exit;
+                ManagerController::stabilizeFlash();
             }
         }
     }
@@ -105,7 +105,7 @@ class CommentController
 
         //Redirection de la page
         header('Location: post-list');
-        exit;
+        ManagerController::stabilizeFlash();
     }
 
 
