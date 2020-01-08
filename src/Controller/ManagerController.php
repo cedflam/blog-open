@@ -29,7 +29,7 @@ class ManagerController
      */
     public static function stabilizeFlash(){
         try{
-            exit;
+            exit(1);
         }catch(Exception $e){
             echo 'Erreur de redirection : '.$e->getMessage();
         }
