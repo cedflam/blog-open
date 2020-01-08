@@ -46,23 +46,13 @@ class AuthorController
         //Si les mots de passes sont identiques alors...
         if (htmlspecialchars($_POST['password']) === htmlspecialchars($_POST['confirmPassword'])) {
 
-            //Je récupère les auteurs 
-            $authors = AuthorController::findAuthors();
-            //J'initialise la varible $existe
-            $existe = false;
-
-            //Je boucle sur les auteurs 
-            foreach ($authors as $author) {
-                if (htmlspecialchars($_POST['email']) == $author['email']) {
-                    //l'auteur existe deja
-                    $existe = true;
-                    //Message flash
-                    $_SESSION['message'] =  'Cet utilisateur existe déjà !';
-                }
-            }
-
-            //Si $existe = false alors j'enregistre le nouvel auteur
-            if ($existe == false) {
+           
+            $email = htmlspecialchars($_POST['email']);
+            $existe = $db->prepare('SELECT email FROM author WHERE email = ?');
+            $existe->execute(array($email));
+               
+            //Si $existe est vide je crée le nouvel author
+            if ($existe != $email) {
 
                 //Requete préparée 
                 $addArticle = $db->prepare(
