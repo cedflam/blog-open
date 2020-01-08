@@ -73,7 +73,7 @@ class AuthorController
                 $_SESSION['message'] = 'Votre inscription à réussie, comptez 48h pour que celle-ci soit valide';
                 //Redirection de la page
                 header('Location: home');
-                exit;
+                ManagerController::stabilizeFlash();
             }
         } else {
             //Message flash
