@@ -19,7 +19,7 @@ class ManagerController
             unset($_SESSION['message']);
         }
     }
-    
+
 
     /**
      * fonction permet l'affichage et la suppression des messages flashs
@@ -27,11 +27,12 @@ class ManagerController
      *
      * @return void
      */
-    public static function stabilizeFlash(){
-        try{
-            exit(1);
-        }catch(Exception $e){
-            echo 'Erreur de redirection : '.$e->getMessage();
+    public static function stabilizeFlash()
+    {
+        try {
+            exit;
+        } catch (Exception $e) {
+            echo 'Erreur de redirection : ' . $e->getMessage();
         }
     }
     /*******************CONTROLES ARTICLE***************** */
@@ -153,7 +154,8 @@ class ManagerController
      *
      * @return void
      */
-    public static function loginControls(){
+    public static function loginControls()
+    {
         //Controles 
         if (!empty($_POST['hash']) and !empty($_POST['email'])) {
             //Alors je lance la connexion
@@ -171,7 +173,9 @@ class ManagerController
      * @param Author $data
      * @return void
      */
-    public static function passwordVerify($password, $hash, $data){
+    public static function passwordVerify($password, $hash, $data)
+    {
+
         //Je vérifie le password saisi avec le hash en bdd
         if (password_verify($password, $hash)) {
             //Je crée un nouvel auteur 
@@ -197,15 +201,14 @@ class ManagerController
             } else {
                 //Message flash
                 $_SESSION['message'] = "Votre compte n'a pas encore été validé !
-                                             Vous pouvez contacter l'administrateur 
-                                             via la formulaire de contact si le délais 
-                                             est > 48H";
+                                                 Vous pouvez contacter l'administrateur 
+                                                 via la formulaire de contact si le délais 
+                                                 est > 48H";
             }
         } else {
             //Message flash
             $_SESSION['message'] = 'Le mot de passe saisi est incorrect !';
         }
-    
     }
 
     /**
@@ -221,11 +224,17 @@ class ManagerController
             !empty($_POST['add_author']) and
             !empty($_POST['password']) and
             !empty($_POST['firstName']) and
-            !empty($_POST['lastName'])
+            !empty($_POST['lastName']) and
+            strlen($_POST['password']) < 6
         ) {
-
-            //Alors j'ajoute un nouvel autheur
-            AuthorController::addAuthor();
+            //Si le mot de passe contient moins de 6 caractères
+            if (strlen($_POST['password'] < 6)) {
+                //Message flash
+                $_SESSION['message'] = "Le mot de passe doit contenir au moins 6 caractères !";
+            } else {
+                //Sinon j'ajoute un nouvel autheur
+                AuthorController::addAuthor();
+            }
         }
     }
 
@@ -376,8 +385,4 @@ class ManagerController
             CommentController::validComment();
         }
     }
-
-
-
-   
 }
