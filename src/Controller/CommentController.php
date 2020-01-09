@@ -182,6 +182,7 @@ class CommentController
      */
     public static function deleteComment()
     {
+        
         //Je récupère l'id 
         $id_delete = $_GET['id_delete_comment'];
         //Je crée un nouvel objet 
