@@ -379,7 +379,8 @@ class ManagerController
         //Controles 
         if (
             !empty($_GET['id_delete_comment']) and
-            $_SESSION['role'] == 'admin'
+            $_SESSION['role'] == 'admin' | 
+            $_SESSION['role'] == 'user'
         ) {
 
             //Alors je supprime le commentaire

@@ -73,7 +73,7 @@ switch ($page) {
     case 'article-edit':
         //J'affiche le template
         echo $twig->render('templates/admin/article-edit.html.twig', [
-            'article' => ArticleController::findArticle(),
+            'article' => ArticleController::findEditArticle(),
             'editArticle' => ManagerController::editArticleControls(),
             'author' => AuthorController::findAuthor(),
             'authors' => AuthorController::findAuthors(),
@@ -119,10 +119,6 @@ switch ($page) {
         //Admin - Accueil de la page d'administration
     case 'admin-home':
         echo $twig->render('templates/admin/admin-home.html.twig', [
-            'article' => ArticleController::findArticle(),
-            'editArticle' => ManagerController::editArticleControls(),
-            'author' => AuthorController::findAuthor(),
-            'authors' => AuthorController::findAuthors(),
             'session' => $_SESSION,
             'resetFlash' => ManagerController::purgeFlash()
         ]);
