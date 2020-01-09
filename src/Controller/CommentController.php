@@ -47,6 +47,7 @@ class CommentController
                 header('Location:comment-list-member');
                 //Affichage du message avant de le vider
                 ManagerController::stabilizeFlash();
+                
             }
         }
     }
@@ -108,7 +109,7 @@ class CommentController
         ManagerController::addFlash(
             "Le commentaire à été soumis, il est en attente de validation par l'administrateur", 
             'success');
-            
+
         //Redirection de la page
         header('Location: post-list');
         //Affichage du message avant de le vider
