@@ -12,12 +12,17 @@ class CommentController
     {
         //Variable globale qui permet de se connecter à la bdd 
         global $db;
+
         // Requete préparée
         $reqComments = $db->prepare('SELECT * FROM comment ORDER BY id_pk_comment DESC');
+
         //J'exécute la requete
         $reqComments->execute();
+        
         //Je retourne le résultat
         return $reqComments->fetchAll();
+
+
     }
 
     /**
@@ -47,7 +52,7 @@ class CommentController
                 header('Location:comment-list-member');
                 //Affichage du message avant de le vider
                 ManagerController::stabilizeFlash();
-                
+
             }
         }
     }
