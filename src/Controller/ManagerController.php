@@ -7,6 +7,8 @@ class ManagerController
 
     /******************MESSAGES FLASHS *********************/
 
+    
+
     /**
      * Fonction qui permet de parametrer un message flash
      *
