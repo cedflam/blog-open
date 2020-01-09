@@ -108,6 +108,7 @@ class CommentController
         ManagerController::addFlash(
             "Le commentaire à été soumis, il est en attente de validation par l'administrateur", 
             'success');
+            
         //Redirection de la page
         header('Location: post-list');
         //Affichage du message avant de le vider
@@ -182,7 +183,7 @@ class CommentController
      */
     public static function deleteComment()
     {
-        
+
         //Je récupère l'id 
         $id_delete = $_GET['id_delete_comment'];
         //Je crée un nouvel objet 
@@ -199,5 +200,6 @@ class CommentController
         ManagerController::addFlash(
             "Le commentaire à bien été supprimé !", 
             'success');
+
     }
 }
