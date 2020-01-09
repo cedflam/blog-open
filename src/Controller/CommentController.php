@@ -18,7 +18,7 @@ class CommentController
 
         //J'exécute la requete
         $reqComments->execute();
-        
+
         //Je retourne le résultat
         return $reqComments->fetchAll();
 
@@ -34,8 +34,10 @@ class CommentController
     {
         //Je récupère le get dans une variable
         $id_comment = $_GET['id_comment'];
+
         //condition
         if (!empty($id_comment)) {
+
             //Nouvel objet Comment
             $comment = new Comment($id_comment);
 
@@ -48,6 +50,7 @@ class CommentController
                 ManagerController::addFlash(
                     "Accès refusé ! Vous essayez d'accéder à un commentaire dont vous n'êtes pas l'auteur !", 
                     'danger');
+                    
                 //redirection
                 header('Location:comment-list-member');
                 //Affichage du message avant de le vider
