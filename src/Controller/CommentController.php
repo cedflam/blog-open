@@ -42,7 +42,7 @@ class CommentController
             $comment = new Comment($id_comment);
 
             //condition si id_author_comment = l'id de session ou role = admin alors...
-            if ($comment->getId_author_comment() == $_SESSION['id'] | $_SESSION['role'] == 'admin') {
+            if ($comment->getIdAuthorComment() == $_SESSION['id'] | $_SESSION['role'] == 'admin') {
                 //Je retourne le commentaire demandé
                 return $comment;
             } else {
@@ -203,7 +203,7 @@ class CommentController
         $delete = $db->prepare('DELETE FROM comment WHERE id_pk_comment = ?');
 
         //J'execute la Requete
-        $delete->execute(array($comment->getId_pk_comment()));
+        $delete->execute(array($comment->getIdPkComment()));
         
         //Message flash 
         FlashController::addFlash(

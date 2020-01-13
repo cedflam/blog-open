@@ -4,12 +4,12 @@ class Article
 {
 
     //propriétés
-    private $id_pk_article;
+    private $idPkArticle;
     private $title;
     private $sentence;
-    private $content_article;
-    private $date_article;
-    private $id_author;
+    private $contentArticle;
+    private $dateArticle;
+    private $idAuthor;
 
 
     /**
@@ -33,12 +33,12 @@ class Article
         $data = $reqAuthor->fetch();
 
         //Je paramètre les propriétés du nouvel objet
-        $this->id_pk_article = $id;
+        $this->idPkArticle = $id;
         $this->title = $data['title'];
         $this->sentence = $data['sentence'];
-        $this->content_article = $data['content_article'];
-        $this->date_article = $data['date_article'];
-        $this->id_author = $data['id_author'];
+        $this->contentArticle = $data['content_article'];
+        $this->dateArticle = $data['date_article'];
+        $this->idAuthor = $data['id_author'];
     }
 
     /**
@@ -79,62 +79,73 @@ class Article
         $this->sentence = $sentence;
 
         return $this;
-    }
-
+    }   
 
     /**
-     * Get the value of id_author
-     */
-    public function getId_author()
+     * Get the value of idPkArticle
+     */ 
+    public function getIdPkArticle()
     {
-        return $this->id_author;
+        return $this->idPkArticle;
     }
 
     /**
-     * Get the value of date_article
-     */
-    public function getDate_article()
+     * Get the value of contentArticle
+     */ 
+    public function getContentArticle()
     {
-        return $this->date_article;
+        return $this->contentArticle;
     }
 
     /**
-     * Set the value of date_article
+     * Set the value of contentArticle
      *
      * @return  self
-     */
-    public function setDate_article($date_article)
+     */ 
+    public function setContentArticle($contentArticle)
     {
-        $this->date_article = $date_article;
+        $this->contentArticle = $contentArticle;
 
         return $this;
     }
 
     /**
-     * Get the value of content_article
-     */
-    public function getContent_article()
+     * Get the value of dateArticle
+     */ 
+    public function getDateArticle()
     {
-        return $this->content_article;
+        return $this->dateArticle;
     }
 
     /**
-     * Set the value of content_article
+     * Set the value of dateArticle
      *
      * @return  self
-     */
-    public function setContent_article($content_article)
+     */ 
+    public function setDateArticle($dateArticle)
     {
-        $this->content_article = $content_article;
+        $this->dateArticle = $dateArticle;
 
         return $this;
     }
 
     /**
-     * Get the value of id_pk_article
-     */
-    public function getId_pk_article()
+     * Get the value of idAuthor
+     */ 
+    public function getIdAuthor()
     {
-        return $this->id_pk_article;
+        return $this->idAuthor;
+    }
+
+    /**
+     * Set the value of idAuthor
+     *
+     * @return  self
+     */ 
+    public function setIdAuthor($idAuthor)
+    {
+        $this->idAuthor = $idAuthor;
+
+        return $this;
     }
 }

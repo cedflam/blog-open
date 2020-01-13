@@ -39,7 +39,7 @@ class ArticleController
             $article = new Article($id_article);
 
             //Si id_author de article = l'id de session ou que le role est admin alors...
-            if ($article->getId_author() == $_SESSION['id'] | $_SESSION['role'] == 'admin') {
+            if ($article->getIdAuthor() == $_SESSION['id'] | $_SESSION['role'] == 'admin') {
                 //Je retourne l'article demandé
                 return $article;
             } else {
@@ -215,7 +215,7 @@ class ArticleController
         $delete = $db->prepare('DELETE FROM article WHERE id_pk_article = ?');
 
         //J'execute la Requete
-        $delete->execute(array($article->getId_pk_article()));
+        $delete->execute(array($article->getIdPkArticle()));
 
         //Message flash 
         FlashController::addFlash(

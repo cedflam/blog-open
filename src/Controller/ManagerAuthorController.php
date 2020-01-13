@@ -49,7 +49,7 @@ class ManagerAuthorController{
                     'role' => $authorSession->getRole(),
                     'firstName' => $authorSession->getFirstName(),
                     'lastName' => $authorSession->getLastName(),
-                    'id' => $authorSession->getId_pk_author(),
+                    'id' => $authorSession->getIdPkAuthor(),
                                         
                 ];
                 //Message flash

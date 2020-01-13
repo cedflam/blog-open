@@ -4,13 +4,13 @@ class Comment
 {
 
     //Propriétés 
-    private $id_pk_comment;
-    private $content_comment;
-    private $date_comment;
-    private $name_comment;
-    private $valid_comment;
-    private $id_article;
-    private $id_author_comment;
+    private $idPkComment;
+    private $contentComment;
+    private $dateComment;
+    private $nameComment;
+    private $validComment;
+    private $idArticle;
+    private $idAuthorComment;
 
     /**
      * Constructeur
@@ -33,131 +33,119 @@ class Comment
         $data = $reqComment->fetch();
 
         //Je paramètre les propriétés du nouvel objet
-        $this->id_pk_comment = $id;
-        $this->content_comment = $data['content_comment'];
-        $this->date_comment = $data['date_comment'];
-        $this->name_comment = $data['name_comment'];
-        $this->valid_comment = $data['valid_comment'];
-        $this->id_article = $data['id_article'];
-        $this->id_author_comment = $data['id_author_comment'];
+        $this->idPkComment = $id;
+        $this->contentComment = $data['content_comment'];
+        $this->dateComment = $data['date_comment'];
+        $this->nameComment = $data['name_comment'];
+        $this->validComment = $data['valid_comment'];
+        $this->idArticle = $data['id_article'];
+        $this->idAuthor = $data['id_author_comment'];
     }
 
 
-
-    /**
-     * Get the value of id_article
-     */
-    public function getId_article()
-    {
-        return $this->id_article;
-    }
-
-    /**
-     * Get the value of content_comment
-     */
-    public function getContent_comment()
-    {
-        return $this->content_comment;
-    }
-
-    /**
-     * Set the value of content_comment
-     *
-     * @return  self
-     */
-    public function setContent_comment($content_comment)
-    {
-        $this->content_comment = $content_comment;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of date_comment
-     */
-    public function getDate_comment()
-    {
-        return $this->date_comment;
-    }
-
-    /**
-     * Set the value of date_comment
-     *
-     * @return  self
-     */
-    public function setDate_comment($date_comment)
-    {
-        $this->date_comment = $date_comment;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of id_pk_comment
-     */
-    public function getId_pk_comment()
-    {
-        return $this->id_pk_comment;
-    }
-
-    /**
-     * Get the value of name_comment
-     */
-    public function getName_comment()
-    {
-        return $this->name_comment;
-    }
-
-    /**
-     * Set the value of name_comment
-     *
-     * @return  self
-     */
-    public function setName_comment($name_comment)
-    {
-        $this->name_comment = $name_comment;
-
-        return $this;
-    }
 
     
 
     /**
-     * Get the value of valid_comment
+     * Get the value of idPkComment
      */ 
-    public function getValid_comment()
+    public function getIdPkComment()
     {
-        return $this->valid_comment;
+        return $this->idPkComment;
     }
 
     /**
-     * Set the value of valid_comment
+     * Get the value of idArticle
+     */ 
+    public function getIdArticle()
+    {
+        return $this->idArticle;
+    }
+
+    /**
+     * Get the value of idAuthorComment
+     */ 
+    public function getIdAuthorComment()
+    {
+        return $this->idAuthorComment;
+    }
+
+    /**
+     * Get the value of contentComment
+     */ 
+    public function getContentComment()
+    {
+        return $this->contentComment;
+    }
+
+    /**
+     * Set the value of contentComment
      *
      * @return  self
      */ 
-    public function setValid_comment($valid_comment)
+    public function setContentComment($contentComment)
     {
-        $this->valid_comment = $valid_comment;
+        $this->contentComment = $contentComment;
 
         return $this;
     }
 
     /**
-     * Get the value of id_author_comment
+     * Get the value of dateComment
      */ 
-    public function getId_author_comment()
+    public function getDateComment()
     {
-        return $this->id_author_comment;
+        return $this->dateComment;
     }
 
     /**
-     * Set the value of id_author_comment
+     * Set the value of dateComment
      *
      * @return  self
      */ 
-    public function setId_author_comment($id_author_comment)
+    public function setDateComment($dateComment)
     {
-        $this->id_author_comment = $id_author_comment;
+        $this->dateComment = $dateComment;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of nameComment
+     */ 
+    public function getNameComment()
+    {
+        return $this->nameComment;
+    }
+
+    /**
+     * Set the value of nameComment
+     *
+     * @return  self
+     */ 
+    public function setNameComment($nameComment)
+    {
+        $this->nameComment = $nameComment;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of validComment
+     */ 
+    public function getValidComment()
+    {
+        return $this->validComment;
+    }
+
+    /**
+     * Set the value of validComment
+     *
+     * @return  self
+     */ 
+    public function setValidComment($validComment)
+    {
+        $this->validComment = $validComment;
 
         return $this;
     }

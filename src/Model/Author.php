@@ -4,7 +4,7 @@ class Author
 {
 
     //Propriétés
-    private $id_pk_author;
+    private $idPkAuthor;
     private $firstName;
     private $lastName;
     private $hash;
@@ -33,7 +33,7 @@ class Author
         $data = $reqAuthor->fetch();
 
         //Je paramètre les propriétés du nouvel objet
-        $this->id_pk_author = $id;
+        $this->idPkAuthor = $id;
         $this->firstName = $data['firstName'];
         $this->lastName = $data['lastName'];
         $this->hash = $data['hash'];
@@ -124,14 +124,6 @@ class Author
     }
 
     /**
-     * Get the value of id_pk_author
-     */
-    public function getId_pk_author()
-    {
-        return $this->id_pk_author;
-    }
-
-    /**
      * Get the value of role
      */
     public function getRole()
@@ -169,5 +161,13 @@ class Author
         $this->valid = $valid;
 
         return $this;
+    }
+
+    /**
+     * Get the value of idPkAuthor
+     */ 
+    public function getIdPkAuthor()
+    {
+        return $this->idPkAuthor;
     }
 }

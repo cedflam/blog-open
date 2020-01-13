@@ -27,7 +27,7 @@ switch ($page) {
     case 'registration':
         echo $twig->render('templates/member/registration.html.twig', [
             'addAuthor' => ManagerAuthorController::addAuthorControls(),
-            'authors' => AuthorController::allDatabase(),
+            'authors' => AuthorController::allDatabase(), 
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
         ]);
@@ -37,7 +37,7 @@ switch ($page) {
     case 'post-list':
         //J'affiche le template
         echo $twig->render('templates/post-list.html.twig', [
-            'authors' => ArticleController::findArticleAuthor(),
+            'authors' => ArticleController::findArticleAuthor(), 
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
         ]);
@@ -48,9 +48,9 @@ switch ($page) {
         //J'affiche le template
         echo $twig->render('templates/post-detail.html.twig', [
             'addComment' => ManagerCommentController::addCommentControls(),
-            'article' => ArticleController::findArticle(),
+            'article' => ArticleController::findArticle(), 
             'author' => AuthorController::findAuthor(),
-            'comments' => AuthorController::allDatabase(),
+            'comments' => AuthorController::allDatabase(), 
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
 
@@ -169,7 +169,6 @@ switch ($page) {
         echo $twig->render('templates/member/article-edit-member.html.twig', [
             'article' => ArticleController::findEditArticle(),
             'editArticle' => ManagerArticleController::editArticleControls(),
-            'author' => AuthorController::findAuthor(),
             'authors' => AuthorController::findAuthors(),
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
