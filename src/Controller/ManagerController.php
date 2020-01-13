@@ -64,20 +64,12 @@ class ManagerController
      */
     public static function addArticleControls()
     {
-
-        //Je filtre les données du post (sécurité)
-        $add_article = filter_input(INPUT_POST, 'add_article', FILTER_SANITIZE_STRING );
-        $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING );
-        $sentence = filter_input(INPUT_POST, 'sentence', FILTER_SANITIZE_STRING );        
-        $content_article = filter_input(INPUT_POST, 'content_article', FILTER_SANITIZE_STRING );        
-        
-
         //Controles
         if (
-            !empty($add_article) and
-            !empty($title) and
-            !empty($sentence) and
-            !empty($content_article) and
+            !empty($_POST['add_article']) and
+            !empty($_POST['title']) and
+            !empty($_POST['sentence']) and
+            !empty($_POST['content_article']) and
             $_SESSION['role'] == 'user' |
             $_SESSION['role'] == 'admin'
         ) {

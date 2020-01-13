@@ -149,7 +149,6 @@ class ArticleController
         $sentence = htmlspecialchars($_POST['sentence']);
         $id_author = htmlspecialchars($_POST['id_author']);
         $content_article = htmlspecialchars($_POST['content_article']);
-        $id_author = htmlspecialchars($_POST['id_author']);
         $id_article = htmlspecialchars($_POST['edit_article']);
 
         //Connexion à la bdd 
