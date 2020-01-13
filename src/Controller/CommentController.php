@@ -47,14 +47,14 @@ class CommentController
                 return $comment;
             } else {
                 //Sinon redirection avec message d'erreur
-                ManagerController::addFlash(
+                FlashController::addFlash(
                     "Accès refusé ! Vous essayez d'accéder à un commentaire dont vous n'êtes pas l'auteur !", 
                     'danger');
 
                 //redirection
                 header('Location:comment-list-member');
                 //Affichage du message avant de le vider
-                ManagerController::stabilizeFlash();
+                FlashController::stabilizeFlash();
 
             }
         }
@@ -114,14 +114,14 @@ class CommentController
         ));
 
         //Message flash 
-        ManagerController::addFlash(
+        FlashController::addFlash(
             "Le commentaire à été soumis, il est en attente de validation par l'administrateur", 
             'success');
 
         //Redirection de la page
         header('Location: post-list');
         //Affichage du message avant de le vider
-        ManagerController::stabilizeFlash();
+        FlashController::stabilizeFlash();
     }
 
 
@@ -151,7 +151,7 @@ class CommentController
         $editArticle->execute(array($content_comment, $name_comment, 0, $edit_comment));
 
         //Message flash 
-        ManagerController::addFlash(
+        FlashController::addFlash(
             "Le commentaire à bien été modifié ! Il sera de nouveau valide sous 48H", 
             'success');
     }
@@ -177,7 +177,7 @@ class CommentController
         $reqValid->execute(array($valid_comment));
 
         //Message flash 
-        ManagerController::addFlash(
+        FlashController::addFlash(
             "Le commentaire à bien été validé !", 
             'success');
         
@@ -206,7 +206,7 @@ class CommentController
         $delete->execute(array($comment->getId_pk_comment()));
         
         //Message flash 
-        ManagerController::addFlash(
+        FlashController::addFlash(
             "Le commentaire à bien été supprimé !", 
             'success');
 

@@ -27,7 +27,7 @@ class AuthorController
         $hash = $data['hash'];
 
         //J'appelle la fonction de vérification du password en bdd
-        ManagerController::passwordVerify($pass, $hash, $data);
+        ManagerAuthorController::passwordVerify($pass, $hash, $data);
     }
 
 
@@ -73,24 +73,24 @@ class AuthorController
                     ':role' => 'user'
                 ));
                 //Message flash
-                ManagerController::addFlash(
+                FlashController::addFlash(
                     'Votre inscription à réussie, comptez 48h pour que celle-ci soit valide', 
                     'success'
                 );
                 //Redirection de la page
                 header('Location: home');
                 //Affichage du message avant de le vider
-                ManagerController::stabilizeFlash();
+                FlashController::stabilizeFlash();
             }else{
                 //Message flash
-                ManagerController::addFlash(
+                FlashController::addFlash(
                     "Cet auteur existe déjà ! Rendez-vous sur la page de connexion", 
                     'danger'
                 );
             }
         } else {
             //Message flash
-            ManagerController::addFlash(
+            FlashController::addFlash(
                 "Echec ! Les mots de passes doivent être identiques !", 
                 'danger'
             );
@@ -120,11 +120,11 @@ class AuthorController
         $reqValid->execute(array($id));
 
         //Message flash 
-        ManagerController::addFlash("Le nouvel auteur à été validé !", 'success');
+        FlashController::addFlash("Le nouvel auteur à été validé !", 'success');
         //Redirection 
         header('Location: registration-valid');
         //affichage du message avant de le vider
-        ManagerController::stabilizeFlash();
+        FlashController::stabilizeFlash();
     }
 
     /**
@@ -148,11 +148,11 @@ class AuthorController
         $delete->execute(array($id));
 
         //Message flash 
-        ManagerController::addFlash("L'auteur à été supprimé !", 'success');
+        FlashController::addFlash("L'auteur à été supprimé !", 'success');
         //Redirection de la page 
         header('Location: registration-valid');
         //Affichage du message avant de le vider
-        ManagerController::stabilizeFlash();
+        FlashController::stabilizeFlash();
     }
 
     /**

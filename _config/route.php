@@ -8,16 +8,16 @@ switch ($page) {
         //J'affiche le template
         echo $twig->render('templates/home.html.twig', [
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
 
         //Page de connexion
     case 'login':
         echo $twig->render('templates/member/login.html.twig', [
-            'userConnect' => ManagerController::loginControls(),
+            'userConnect' => ManagerAuthorController::loginControls(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
            
 
         ]);
@@ -26,10 +26,10 @@ switch ($page) {
         //Page d'inscription
     case 'registration':
         echo $twig->render('templates/member/registration.html.twig', [
-            'addAuthor' => ManagerController::addAuthorControls(),
+            'addAuthor' => ManagerAuthorController::addAuthorControls(),
             'authors' => AuthorController::allDatabase(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
 
@@ -39,7 +39,7 @@ switch ($page) {
         echo $twig->render('templates/post-list.html.twig', [
             'authors' => ArticleController::findArticleAuthor(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
 
@@ -47,12 +47,12 @@ switch ($page) {
     case 'post-detail':
         //J'affiche le template
         echo $twig->render('templates/post-detail.html.twig', [
-            'addComment' => ManagerController::addCommentControls(),
+            'addComment' => ManagerCommentController::addCommentControls(),
             'article' => ArticleController::findArticle(),
             'author' => AuthorController::findAuthor(),
             'comments' => AuthorController::allDatabase(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
 
         ]);
         break;
@@ -61,11 +61,11 @@ switch ($page) {
     case 'articles-list':
         ///J'affiche le template
         echo $twig->render('templates/admin/articles-list.html.twig', [
-            'validArticle' => ManagerController::validArticleControls(),
-            'deleteArticle' => ManagerController::deleteArticleControls(),
+            'validArticle' => ManagerArticleController::validArticleControls(),
+            'deleteArticle' => ManagerArticleController::deleteArticleControls(),
             'authors' => ArticleController::findArticleAuthor(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
 
@@ -74,11 +74,11 @@ switch ($page) {
         //J'affiche le template
         echo $twig->render('templates/admin/article-edit.html.twig', [
             'article' => ArticleController::findEditArticle(),
-            'editArticle' => ManagerController::editArticleControls(),
+            'editArticle' => ManagerArticleController::editArticleControls(),
             'author' => AuthorController::findAuthor(),
             'authors' => AuthorController::findAuthors(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
 
@@ -86,9 +86,9 @@ switch ($page) {
     case 'article-add':
         echo $twig->render('templates/admin/article-add.html.twig', [
             'authors' => AuthorController::findAuthors(),
-            'addArticle' => ManagerController::addArticleControls(),
+            'addArticle' => ManagerArticleController::addArticleControls(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
 
@@ -97,10 +97,10 @@ switch ($page) {
         echo $twig->render('templates/admin/comment-list.html.twig', [
 
             'comments' => AuthorController::allDatabase(),
-            'validComment' => ManagerController::validCommentControls(),
-            'deleteComment' => ManagerController::deleteCommentControls(),
+            'validComment' => ManagerCommentController::validCommentControls(),
+            'deleteComment' => ManagerCommentController::deleteCommentControls(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
 
         ]);
         break;
@@ -108,11 +108,11 @@ switch ($page) {
         //Admin - Modification d'un commentaire
     case 'comment-edit':
         echo $twig->render('templates/admin/comment-edit.html.twig', [
-            'editComment' => ManagerController::editCommentControls(),
+            'editComment' => ManagerCommentController::editCommentControls(),
             'comment' => CommentController::findComment(),
             'articles' => ArticleController::findArticles(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
 
@@ -120,18 +120,18 @@ switch ($page) {
     case 'admin-home':
         echo $twig->render('templates/admin/admin-home.html.twig', [
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
 
         //Admin - Validation des nouvelles inscriptions
     case 'registration-valid':
         echo $twig->render('templates/admin/registration-valid.html.twig', [
-            'validAuthor' => ManagerController::validAuthorControls(),
-            'deleteAuthor' => ManagerController::deleteAuthorControls(),
+            'validAuthor' => ManagerAuthorController::validAuthorControls(),
+            'deleteAuthor' => ManagerAuthorController::deleteAuthorControls(),
             'authors' => AuthorController::findAuthors(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
 
@@ -139,17 +139,17 @@ switch ($page) {
     case 'admin-home-member':
         echo $twig->render('templates/member/admin-home-member.html.twig', [
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
 
         //Admin member - Page de gestion des articles d'un auteur
     case 'articles-list-member':
         echo $twig->render('templates/member/articles-list-member.html.twig', [            
-            'deleteArticle' => ManagerController::deleteArticleControls(),
+            'deleteArticle' => ManagerArticleController::deleteArticleControls(),
             'authors' => ArticleController::findArticleAuthor(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
 
@@ -157,9 +157,9 @@ switch ($page) {
     case 'article-add-member':
         echo $twig->render('templates/member/article-add-member.html.twig', [
             'author' => AuthorController::findAuthor(),
-            'addArticle' => ManagerController::addArticleControls(),
+            'addArticle' => ManagerArticleController::addArticleControls(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
 
@@ -168,11 +168,11 @@ switch ($page) {
         //J'affiche le template
         echo $twig->render('templates/member/article-edit-member.html.twig', [
             'article' => ArticleController::findEditArticle(),
-            'editArticle' => ManagerController::editArticleControls(),
+            'editArticle' => ManagerArticleController::editArticleControls(),
             'author' => AuthorController::findAuthor(),
             'authors' => AuthorController::findAuthors(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
         
@@ -180,10 +180,10 @@ switch ($page) {
     case 'comment-list-member':
         echo $twig->render('templates/member/comment-list-member.html.twig', [            
             'comments' => AuthorController::allDatabase(),
-            'validComment' => ManagerController::validCommentControls(),
-            'deleteComment' => ManagerController::deleteCommentControls(),
+            'validComment' => ManagerCommentController::validCommentControls(),
+            'deleteComment' => ManagerCommentController::deleteCommentControls(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
 
         ]);
         break;
@@ -191,11 +191,11 @@ switch ($page) {
         //Admin - Modification d'un commentaire
     case 'comment-edit-member':
         echo $twig->render('templates/member/comment-edit-member.html.twig', [
-            'editComment' => ManagerController::editCommentControls(),
+            'editComment' => ManagerCommentController::editCommentControls(),
             'comment' => CommentController::findComment(),
             'articles' => ArticleController::findArticles(),
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
 
@@ -205,7 +205,7 @@ switch ($page) {
         //J'affiche le template
         echo $twig->render('templates/partials/404.html.twig', [
             'session' => $_SESSION,
-            'resetFlash' => ManagerController::purgeFlash()
+            'resetFlash' => FlashController::purgeFlash()
         ]);
         break;
 }

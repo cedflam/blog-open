@@ -1,6 +1,6 @@
 <?php
 
-class ArticleController
+class ArticleController 
 {
 
     /**
@@ -44,13 +44,13 @@ class ArticleController
                 return $article;
             } else {
                 //Sinon redirection avec message d'erreur
-                ManagerController::addFlash(
+                FlashController::addFlash(
                     "Accès refusé ! Vous essayez d'accéder à un article dont vous n'êtes pas l'auteur !", 
                     'danger');
                 //Redirection
                 header('Location:articles-list-member');
                 //affichage du message avant de le vider
-                ManagerController::stabilizeFlash();
+               FlashController::stabilizeFlash();
             }
         }
     }
@@ -126,14 +126,14 @@ class ArticleController
         ));
 
         //Message flash 
-        ManagerController::addFlash(
+        FlashController::addFlash(
             "L'article à bien été ajouté !, la validation peut prendre 48h !", 
             'success'
         );
         //Redirection de la page
         header('Location: post-list');
         //Affichage du message avant de le vider
-        ManagerController::stabilizeFlash();
+       FlashController::stabilizeFlash();
     }
 
     /**
@@ -163,7 +163,7 @@ class ArticleController
         $editArticle->execute(array($title, $sentence, $content_article, $id_author, $id_article));
 
         //Message flash 
-        ManagerController::addFlash(
+       FlashController::addFlash(
             "L'article à bien été modifié !, La validation peut prendre 48h", 
             'success'
         );
@@ -190,7 +190,7 @@ class ArticleController
         $reqValid->execute(array($valid_article));
 
         //Message flash 
-        ManagerController::addFlash(
+       FlashController::addFlash(
             "L'article à bien été validé et publié !", 
             'success'
         );
@@ -218,7 +218,7 @@ class ArticleController
         $delete->execute(array($article->getId_pk_article()));
 
         //Message flash 
-        ManagerController::addFlash(
+        FlashController::addFlash(
             "L'article à bien été supprimé !", 
             'success'
         );

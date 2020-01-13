@@ -14,8 +14,12 @@ require_once 'src/Model/Article.php';
 require_once 'src/Model/Comment.php';
 
 
-//Ajout du controller 
-require_once 'src/Controller/ManagerController.php';
+//Ajout des managers
+require_once 'src/Controller/ManagerArticleController.php';
+require_once 'src/Controller/ManagerAuthorController.php';
+require_once 'src/Controller/ManagerCommentController.php';
+//Ajout des Controllers
+require_once 'src/Controller/FlashController.php';
 require_once 'src/Controller/ArticleController.php';
 require_once 'src/Controller/AuthorController.php';
 require_once 'src/Controller/CommentController.php';
