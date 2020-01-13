@@ -12,7 +12,6 @@ class Comment
     private $id_article;
     private $id_author_comment;
 
-
     /**
      * Constructeur
      *

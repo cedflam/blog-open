@@ -54,10 +54,10 @@ class ManagerArticleController {
             //Redirection en fonction du role 
             if ($_SESSION['role'] == 'admin') {
                 header('Location: articles-list');
-                ManagerController::stabilizeFlash();
+                FlashController::stabilizeFlash();
             } else {
                 header('Location: articles-list-member');
-                ManagerController::stabilizeFlash();
+                FlashController::stabilizeFlash();
             }
         }
     }
@@ -84,10 +84,10 @@ class ManagerArticleController {
             //Redirection en fonction du role
             if ($_SESSION['role'] == 'admin') {
                 header('Location: articles-list');
-                ManagerController::stabilizeFlash();
+                FlashController::stabilizeFlash();
             } else {
                 header('Location: articles-list-member');
-                ManagerController::stabilizeFlash();
+                FlashController::stabilizeFlash();
             }
         }
     }
