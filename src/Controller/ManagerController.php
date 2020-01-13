@@ -65,12 +65,19 @@ class ManagerController
     public static function addArticleControls()
     {
 
+        //Je filtre les données du post (sécurité)
+        $add_article = filter_input(INPUT_POST, 'add_article', FILTER_SANITIZE_STRING );
+        $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING );
+        $sentence = filter_input(INPUT_POST, 'sentence', FILTER_SANITIZE_STRING );        
+        $content_article = filter_input(INPUT_POST, 'content_article', FILTER_SANITIZE_STRING );        
+        
+
         //Controles
         if (
-            !empty($_POST['add_article']) and
-            !empty($_POST['title']) and
-            !empty($_POST['sentence']) and
-            !empty($_POST['content_article']) and
+            !empty($add_article) and
+            !empty($title) and
+            !empty($sentence) and
+            !empty($content_article) and
             $_SESSION['role'] == 'user' |
             $_SESSION['role'] == 'admin'
         ) {
@@ -88,6 +95,7 @@ class ManagerController
      */
     public static function editArticleControls()
     {
+       
         //Controles
         if (
             !empty($_POST['edit_article']) and
@@ -174,8 +182,10 @@ class ManagerController
      */
     public static function loginControls()
     {
+        $hash = filter_input(INPUT_POST, 'hash', FILTER_SANITIZE_STRING );
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING );
         //Controles 
-        if (!empty($_POST['hash']) and !empty($_POST['email'])) {
+        if (!empty($hash) and !empty($email)) {
             //Alors je lance la connexion
             AuthorController::login();
         }

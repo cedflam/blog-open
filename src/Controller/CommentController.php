@@ -50,7 +50,7 @@ class CommentController
                 ManagerController::addFlash(
                     "Accès refusé ! Vous essayez d'accéder à un commentaire dont vous n'êtes pas l'auteur !", 
                     'danger');
-                    
+
                 //redirection
                 header('Location:comment-list-member');
                 //Affichage du message avant de le vider
