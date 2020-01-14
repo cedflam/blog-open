@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 05 jan. 2020 à 15:39
+-- Généré le :  mar. 14 jan. 2020 à 08:49
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -39,18 +39,17 @@ CREATE TABLE IF NOT EXISTS `article` (
   `valid_article` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_pk_article`),
   KEY `id_author` (`id_author`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `article`
 --
 
 INSERT INTO `article` (`id_pk_article`, `title`, `sentence`, `content_article`, `date_article`, `id_author`, `valid_article`) VALUES
-(25, '  Meilleurs voeux 2020 !', '																		Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo dicta\r\n								\r\n								', '																		Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo dicta quod eaque repellendus nam quis voluptatum recusandae, facilis in quas impedit nisi nihil non libero rerum quasi. Natus neque fugit temporibus voluptatibus est laudantium cum iusto necessitatibus quis odit eveniet et, ut delectus non, omnis provident consequatur nostrum ratione! Nobis molestias similique commodi dignissimos hic odit quae temporibus earum magni dolorum quos eos nam dolore, ad iste iusto laudantium voluptatibus sapiente necessitatibus itaque a unde distinctio. Vitae fugiat, quos iste velit ea veniam alias est molestiae reprehenderit illum labore accusamus non nostrum neque voluptatem nulla voluptate earum, totam rerum maxime laborum odio debitis excepturi? Commodi est obcaecati possimus, odio repudiandae tempore eius debitis natus perspiciatis!\r\n								\r\n								', '2020-01-05 11:26:49', 43, 1),
-(26, ' Le web en 2020 !!!  ', '									Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo \r\n								', '									Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo dicta quod eaque repellendus nam quis voluptatum recusandae, facilis in quas impedit nisi nihil non libero rerum quasi. Natus neque fugit temporibus voluptatibus est laudantium cum iusto necessitatibus quis odit eveniet et, ut delectus non, omnis provident consequatur nostrum ratione! Nobis molestias similique commodi dignissimos hic odit quae temporibus earum magni dolorum quos eos nam dolore, ad iste iusto laudantium voluptatibus sapiente necessitatibus itaque a unde distinctio. Vitae fugiat, quos iste velit ea veniam alias est molestiae reprehenderit illum labore accusamus non nostrum neque voluptatem nulla voluptate earum, totam rerum maxime laborum odio debitis excepturi? Commodi est obcaecati possimus, odio repudiandae tempore eius debitis natus perspiciatis!\r\n								', '2020-01-05 11:50:09', 43, 0),
-(27, 'Que faire sans la fibre ?', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo ', '2020-01-04 10:45:50', 45, 0),
-(28, '  Les règles d\'or d\'un site fonctionnel  ', '																		Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci iusto\r\n								\r\n								', '																		Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci iusto, amet fugit aliquid ea obcaecati unde libero culpa optio nisi magnam omnis eveniet quas labore ad ipsa mollitia quam alias voluptatum eligendi tempore excepturi sit sunt. Ex neque facilis ad laudantium fugiat ullam, rem, laboriosam quia totam mollitia tempora! Nisi et quod accusamus, repudiandae eius, dolore soluta suscipit ut veritatis a aliquid! Recusandae doloremque asperiores nam molestiae quibusdam sit quisquam quam exercitationem voluptatem excepturi optio voluptatum, repudiandae nostrum debitis sapiente. Et, itaque corporis. Est soluta voluptate sed placeat modi recusandae voluptatum aut voluptatibus, omnis delectus, ex fugit aliquid, ullam iure!\r\n								\r\n								', '2020-01-05 11:56:45', 43, 0),
-(32, '   Les règles d\'or d\'un site responsive...   ', '																											Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum\r\n								\r\n								\r\n								', '																											Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum maxime inventore suscipit vel saepe aspernatur, minus ab asperiores, ad odit reiciendis fugiat perspiciatis autem, sapiente facere molestiae obcaecati aperiam nesciunt consectetur dolorem doloribus fugit laboriosam. Temporibus corporis earum at quod ex quam maxime ipsa, nihil aliquid ab quaerat? Numquam, voluptatum quos consectetur esse sapiente minus nisi voluptatibus consequatur debitis qui repellendus necessitatibus, architecto similique praesentium repellat eos saepe atque veniam corrupti, mollitia eligendi. Accusamus provident ratione laudantium iusto ipsa omnis quia perferendis delectus quisquam eius, dolorem nostrum libero velit adipisci, commodi non pariatur incidunt modi! Voluptatem animi deleniti beatae rem.\r\n\r\n								\r\n								\r\n								', '2020-01-05 12:16:47', 44, 0);
+(25, '                Meilleurs voeux 2020 !  !!            ', '																																																																																																																																																Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo dicta\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								', '																																																																																																																																																Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo dicta quod eaque repellendus nam quis voluptatum recusandae, facilis in quas impedit nisi nihil non libero rerum quasi. Natus neque fugit temporibus voluptatibus est laudantium cum iusto necessitatibus quis odit eveniet et, ut delectus non, omnis provident consequatur nostrum ratione! Nobis molestias similique commodi dignissimos hic odit quae temporibus earum magni dolorum quos eos nam dolore, ad iste iusto laudantium voluptatibus sapiente necessitatibus itaque a unde distinctio. Vitae fugiat, quos iste velit ea veniam alias est molestiae reprehenderit illum labore accusamus non nostrum neque voluptatem nulla voluptate earum, totam rerum maxime laborum odio debitis excepturi? Commodi est obcaecati possimus, odio repudiandae tempore eius debitis natus perspiciatis!\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								', '2020-01-13 18:04:48', 43, 1),
+(26, '    Le web en 2020 !    ', '																																				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo \r\n								\r\n								\r\n								\r\n								', '																																				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo dicta quod eaque repellendus nam quis voluptatum recusandae, facilis in quas impedit nisi nihil non libero rerum quasi. Natus neque fugit temporibus voluptatibus est laudantium cum iusto necessitatibus quis odit eveniet et, ut delectus non, omnis provident consequatur nostrum ratione! Nobis molestias similique commodi dignissimos hic odit quae temporibus earum magni dolorum quos eos nam dolore, ad iste iusto laudantium voluptatibus sapiente necessitatibus itaque a unde distinctio. Vitae fugiat, quos iste velit ea veniam alias est molestiae reprehenderit illum labore accusamus non nostrum neque voluptatem nulla voluptate earum, totam rerum maxime laborum odio debitis excepturi? Commodi est obcaecati possimus, odio repudiandae tempore eius debitis natus perspiciatis!\r\n								\r\n								\r\n								\r\n								', '2020-01-14 08:12:47', 44, 1),
+(27, '      Que faire sans la fibre ??   ', '																																																						Lorem ipsum dolor sit amet consectetur, adipisicing elit.\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								', '																																																						Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit repellat dolore dolores iste nemo \r\n								\r\n								\r\n								\r\n								\r\n								\r\n								', '2020-01-13 18:05:42', 45, 1),
+(28, '      Les règles d\'or d\'un site fonctionnel  ', '																																																						Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci iusto\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								', '																																																						Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci iusto, amet fugit aliquid ea obcaecati unde libero culpa optio nisi magnam omnis eveniet quas labore ad ipsa mollitia quam alias voluptatum eligendi tempore excepturi sit sunt. Ex neque facilis ad laudantium fugiat ullam, rem, laboriosam quia totam mollitia tempora! Nisi et quod accusamus, repudiandae eius, dolore soluta suscipit ut veritatis a aliquid! Recusandae doloremque asperiores nam molestiae quibusdam sit quisquam quam exercitationem voluptatem excepturi optio voluptatum, repudiandae nostrum debitis sapiente. Et, itaque corporis. Est soluta voluptate sed placeat modi recusandae voluptatum aut voluptatibus, omnis delectus, ex fugit aliquid, ullam iure!\r\n								\r\n								\r\n								\r\n								\r\n								\r\n								', '2020-01-13 19:39:19', 45, 0);
 
 -- --------------------------------------------------------
 
@@ -68,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `author` (
   `role` varchar(255) NOT NULL,
   `valid` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_pk_author`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `author`
@@ -78,7 +77,9 @@ INSERT INTO `author` (`id_pk_author`, `firstName`, `lastName`, `hash`, `email`, 
 (43, 'Cedric', 'Flamain', '$2y$10$XQ85V06l9BMIEckFh30oa.s3mnRGwOuCV89fBGOvD0xxQkZsW2TDe', 'cedflam@gmail.com', 'admin', 1),
 (44, 'Fabien', 'Giraud', '$2y$10$.i2PicoR0mDy3Ma8k3eatulcbtF8Ziy3ISXXydwqZSNm5i1LvYeyq', 'fab@gmail.com', 'user', 1),
 (45, 'Sandrine', 'Gumez', '$2y$10$LUAPc.36qGQTyf7KFjV1/u8XpUEhovxpPzaJfPd5ZNcYogXavSk6a', 'dine@gmail.com', 'user', 1),
-(46, 'Emilie', 'Buinoud', '$2y$10$LAhaF15Go9UGTXPdH70uteAJDjb2vxG0wFrTiSFNschE6c9zHnY5C', 'emilie@gmail.com', 'user', 0);
+(71, 'Emilie', 'BUINOUD', '$2y$10$0a357W2yBzehv6ZkVbP8h.H4Xt8e77JXrEFDWc2OHy1koGVP2Q.TK', 'milie@gmail.com', 'user', 0),
+(72, 'admin', 'admin', '$2y$10$R1tVELB9r9KAsTLiebW5vubOUy/Xv3j6UGab8N.1K1uperuEZcUuW', 'admin@admin.fr', 'admin', 1),
+(73, 'user', 'user', '$2y$10$OSAp6PKABiwsTuG36h2Lvujpk7W3aZ8cPcQz9kBl0diBygvTZrNhi', 'user@user.fr', 'user', 1);
 
 -- --------------------------------------------------------
 
@@ -98,14 +99,16 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id_pk_comment`),
   KEY `fk_id_article` (`id_article`),
   KEY `fk_author_comment` (`id_author_comment`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `comment`
 --
 
 INSERT INTO `comment` (`id_pk_comment`, `content_comment`, `date_comment`, `name_comment`, `valid_comment`, `id_article`, `id_author_comment`) VALUES
-(29, 'Merci Cédric !!!', '2020-01-05 15:36:23', 'Sandrine Gumez', 0, 25, 45);
+(55, 'Merci ! Bonne année !', '2020-01-14 09:44:53', 'Sandrine Gumez', 1, 25, 45),
+(56, 'A toi aussi !', '2020-01-14 09:45:13', 'Fabien Giraud', 0, 25, 44),
+(57, 'Bonne question !!!', '2020-01-14 09:45:39', 'Fabien Giraud', 1, 27, 44);
 
 --
 -- Contraintes pour les tables déchargées
