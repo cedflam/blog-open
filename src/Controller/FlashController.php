@@ -33,7 +33,7 @@ class FlashController{
 
 
     /**
-     * fonction permet l'affichage et la suppression des messages flashs
+     * fonction permet l'affichage des messages flash
      * 
      *
      * @return void

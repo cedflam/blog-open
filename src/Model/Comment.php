@@ -39,7 +39,7 @@ class Comment
         $this->nameComment = $data['name_comment'];
         $this->validComment = $data['valid_comment'];
         $this->idArticle = $data['id_article'];
-        $this->idAuthor = $data['id_author_comment'];
+        $this->idAuthorComment = $data['id_author_comment'];
     }
 
 
