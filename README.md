@@ -20,7 +20,7 @@ This position on the dev branch.
 # 2  
 Click on clone or download and recover the zip file or copy github link.
 # 3  
-Unzip the file in the www folder of wamp / xamp or use git clone with link.
+Unzip the file in the www folder of wamp / xamp or use git clone in the terminal with a link.
 # 4  
 Launch phpMySql and import the file located in public / docs / blog.sql.
 # 5  
