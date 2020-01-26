@@ -17,9 +17,9 @@ this site is fully responsive
 # 1  
 This position on the dev branch.
 # 2  
-Click on clone or download and recover the zip file.
+Click on clone or download and recover the zip file or copy github link.
 # 3  
-Unzip the file in the www folder of wamp / xamp.
+Unzip the file in the www folder of wamp / xamp or use git clone with link.
 # 4  
 Launch phpMySql and import the file located in public / docs / blog.sql.
 # 5  
