@@ -1,12 +1,13 @@
 # blog-open
 
-# Languages 
+# Languages / frameworks
 - HTML  
 - CSS
 - PHP   
 - SQL
 - Javascript  
 - jQuery
+- Boostrap 4
 
 # Responsive ?
 
