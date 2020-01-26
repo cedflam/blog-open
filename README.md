@@ -1,7 +1,7 @@
 # blog-open
 [![Maintainability](https://api.codeclimate.com/v1/badges/7a5038e6764f6162bb28/maintainability)](https://codeclimate.com/github/cedflam/blog-open/maintainability)
 
-# Languages / frameworks
+# Languages / Frameworks
 - HTML  
 - CSS
 - PHP   
