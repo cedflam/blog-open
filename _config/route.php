@@ -5,12 +5,13 @@ switch ($page) {
 
         //Page d'accueil
     case 'home':
-        //J'affiche le template
-        echo $twig->render('templates/home.html.twig', [
-            'session' => $_SESSION,
-            'resetFlash' => FlashController::purgeFlash()
-        ]);
-        break;
+    //J'affiche le template
+    echo $twig->render('templates/home.html.twig', [
+        'sendMail' => CommentController::sendMail(),
+        'session' => $_SESSION,
+        'resetFlash' => FlashController::purgeFlash()
+    ]);
+    break;
 
         //Page de connexion
     case 'login':
@@ -18,7 +19,6 @@ switch ($page) {
             'userConnect' => ManagerAuthorController::loginControls(),
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
-           
 
         ]);
         break;

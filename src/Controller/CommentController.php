@@ -3,6 +3,7 @@
 class CommentController
 {
 
+
     /**
      * Fonction qui permet de récupérer tous les commentaires
      *
@@ -185,9 +186,8 @@ class CommentController
 
 
     /**
-     * fonction qui permet d'effacer un commentaire 
+     * fonction qui permet d'effacer un commentaire
      *
-     * @param Comment $comment
      * @return void
      */
     public static function deleteComment()
@@ -209,6 +209,38 @@ class CommentController
         FlashController::addFlash(
             "Le commentaire à bien été supprimé !", 
             'success');
+
+    }
+
+    /**
+     * fonction qui permet d'envoyer un mail depuis le formulaire de contact
+     * @return void
+     */
+    public static function sendMail()
+    {
+        //condition
+        if (isset($_POST['sendMail']) and
+            !empty($_POST['name']) and
+            !empty($_POST['email']) and
+            !empty($_POST['message']))
+        {
+            //Je récupère les informations postées
+            $name = htmlspecialchars($_POST['name']);
+            $message = htmlspecialchars($_POST['message']);
+            $from = htmlspecialchars($_POST['email']);
+            //Paramétrage des autres variables
+            $to = 'cedflam@gmail.com';
+            $subject = "Vous avez une nouvelle demande d'information de votre Blog";
+            $message = "Message de : ". $name . "\r\nEmail : ".$from. "\r\nMessage : ".$message;
+            //Envoi de l'email
+            mail($to, $subject, $message);
+
+            //Message flash
+            FlashController::addFlash(
+                "Votre email à bien été envoyé !",
+                'success');
+        }
+
 
     }
 }

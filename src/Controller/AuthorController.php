@@ -4,11 +4,9 @@
 class AuthorController
 {
     /**
-     * fonction qui permet de se connecter 
+     * fonction qui permet de se connecter
      *
-     * @param String $mail
-     * @param String $pass
-     * @return Author 
+     * @return void
      */
     public static function login()
     {
@@ -209,4 +207,6 @@ class AuthorController
         //Je retourne le résultat
         return $reqAllDatabase->fetchAll();
     }
+
+
 }
