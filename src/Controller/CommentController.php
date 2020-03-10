@@ -4,32 +4,12 @@ class CommentController
 {
 
 
-    /**
-     * Fonction qui permet de récupérer tous les commentaires
-     *
-     * @return void
-     */
-    public static function findComments()
-    {
-        //Variable globale qui permet de se connecter à la bdd 
-        global $db;
 
-        // Requete préparée
-        $reqComments = $db->prepare('SELECT * FROM comment ORDER BY id_pk_comment DESC');
-
-        //J'exécute la requete
-        $reqComments->execute();
-
-        //Je retourne le résultat
-        return $reqComments->fetchAll();
-
-
-    }
 
     /**
      * Fonction qui permet de récupérer un commentaire
      *
-     * @return Article
+     * @return Comment
      */
     public static function findComment()
     {
@@ -62,29 +42,6 @@ class CommentController
     }
 
     /**
-     * fonction qui permet de récupérer les auteurs et les commentaires liés
-     *
-     * @return void
-     */
-    public static function findAuthorComment()
-    {
-        $id = $_SESSION['id'];
-        //connexion à la bdd 
-        global $db;
-        // Requete préparée 
-        $reqAuthorComment = $db->prepare(
-            'SELECT * FROM `comment` 
-        left join article on comment.id_article = id_article
-        left join author on article.id_author = author.id_pk_author
-        where id_pk_author = ?'
-        );
-        //J'execute la requete 
-        $reqAuthorComment->execute(array($id));
-        //Je retourne le résultat 
-        return $reqAuthorComment->fetchAll();
-    }
-
-    /**
      * Fonction qui permet d'ajouter un commentaire
      *
      * @return void
@@ -97,26 +54,12 @@ class CommentController
         $name_comment = htmlspecialchars($_POST['name_comment']);
         $id_author_comment = $_SESSION['id'];
 
-        //Connexion à la bdd 
-        global $db;
-
-        //requete préparée
-        $addComment = $db->prepare(
-            'INSERT INTO comment (content_comment, date_comment, name_comment, valid_comment, id_article, id_author_comment)
-             VALUES (:content_comment, NOW(), :name_comment, false, :id_article, :id_author_comment)'
-        );
-
-        //J'execute la requete
-        $addComment->execute(array(
-            ':content_comment' => $content_comment,
-            ':name_comment' => $name_comment,
-            ':id_article' => $add_comment,
-            ':id_author_comment' => $id_author_comment
-        ));
+        //J'appel la requete
+        Comment::requestAddComment($content_comment, $name_comment, $add_comment, $id_author_comment);
 
         //Message flash 
         FlashController::addFlash(
-            "Le commentaire à été soumis, il est en attente de validation par l'administrateur", 
+            "Le commentaire a été soumis, il est en attente de validation par l'administrateur",
             'success');
 
         //Redirection de la page
@@ -137,23 +80,13 @@ class CommentController
         $edit_comment = $_POST['edit_comment'];
         $content_comment = htmlspecialchars($_POST['content_comment']);
         $name_comment = htmlspecialchars($_POST['name_comment']);
-        
 
-
-        //Connexion à la bdd 
-        global $db;
-
-        //Requete préparée 
-        $editArticle = $db->prepare('UPDATE comment 
-                                    SET content_comment = ?, name_comment = ?, valid_comment = ?   
-                                    WHERE id_pk_comment = ?');
-
-        //J'execute la requete
-        $editArticle->execute(array($content_comment, $name_comment, 0, $edit_comment));
+        //J'appel la requete
+        Comment::requestEditComment($content_comment, $name_comment, $edit_comment);
 
         //Message flash 
         FlashController::addFlash(
-            "Le commentaire à bien été modifié ! Il sera de nouveau valide sous 48H", 
+            "Le commentaire a bien été modifié ! Il sera de nouveau valide sous 48H",
             'success');
     }
 
@@ -168,18 +101,12 @@ class CommentController
         //Je récupère le get dans une variable 
         $valid_comment = $_GET['valid_comment'];
 
-        //Connexion à la bdd 
-        global $db;
-
-        //Requete préparée 
-        $reqValid = $db->prepare('UPDATE comment SET valid_comment = true WHERE id_pk_comment = ?');
-
-        //J'execute la requete 
-        $reqValid->execute(array($valid_comment));
+        //Je lance la requete
+        Comment::requestValidComment($valid_comment);
 
         //Message flash 
         FlashController::addFlash(
-            "Le commentaire à bien été validé !", 
+            "Le commentaire a bien été validé !",
             'success');
         
     }
@@ -197,17 +124,13 @@ class CommentController
         $id_delete = $_GET['id_delete_comment'];
         //Je crée un nouvel objet 
         $comment = new Comment($id_delete);
-        //connexion à la base de données
-        global $db;
-        //Requete préparée
-        $delete = $db->prepare('DELETE FROM comment WHERE id_pk_comment = ?');
 
-        //J'execute la Requete
-        $delete->execute(array($comment->getIdPkComment()));
+        //J'appelle la requete de suppression du commentaire
+        Comment::requestDeleteComment($comment);
         
         //Message flash 
         FlashController::addFlash(
-            "Le commentaire à bien été supprimé !", 
+            "Le commentaire a bien été supprimé !",
             'success');
 
     }
@@ -237,7 +160,7 @@ class CommentController
 
             //Message flash
             FlashController::addFlash(
-                "Votre email à bien été envoyé !",
+                "Votre email a bien été envoyé !",
                 'success');
         }
 

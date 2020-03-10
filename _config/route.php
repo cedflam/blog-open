@@ -27,7 +27,7 @@ switch ($page) {
     case 'registration':
         echo $twig->render('templates/member/registration.html.twig', [
             'addAuthor' => ManagerAuthorController::addAuthorControls(),
-            'authors' => AuthorController::allDatabase(), 
+            'authors' => Author::allDatabase(),
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
         ]);
@@ -37,7 +37,7 @@ switch ($page) {
     case 'post-list':
         //J'affiche le template
         echo $twig->render('templates/post-list.html.twig', [
-            'authors' => ArticleController::findArticleAuthor(), 
+            'authors' => Article::findArticleAuthor(),
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
         ]);
@@ -50,7 +50,7 @@ switch ($page) {
             'addComment' => ManagerCommentController::addCommentControls(),
             'article' => ArticleController::findArticle(), 
             'author' => AuthorController::findAuthor(),
-            'comments' => AuthorController::allDatabase(), 
+            'comments' => Author::allDatabase(),
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
 
@@ -63,7 +63,7 @@ switch ($page) {
         echo $twig->render('templates/admin/articles-list.html.twig', [
             'validArticle' => ManagerArticleController::validArticleControls(),
             'deleteArticle' => ManagerArticleController::deleteArticleControls(),
-            'authors' => ArticleController::findArticleAuthor(),
+            'authors' => Article::findArticleAuthor(),
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
         ]);
@@ -76,7 +76,7 @@ switch ($page) {
             'article' => ArticleController::findEditArticle(),
             'editArticle' => ManagerArticleController::editArticleControls(),
             'author' => AuthorController::findAuthor(),
-            'authors' => AuthorController::findAuthors(),
+            'authors' => Author::findAuthors(),
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
         ]);
@@ -85,7 +85,7 @@ switch ($page) {
         //Admin - Ajout d'un article
     case 'article-add':
         echo $twig->render('templates/admin/article-add.html.twig', [
-            'authors' => AuthorController::findAuthors(),
+            'authors' => Author::findAuthors(),
             'addArticle' => ManagerArticleController::addArticleControls(),
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
@@ -96,7 +96,7 @@ switch ($page) {
     case 'comment-list':
         echo $twig->render('templates/admin/comment-list.html.twig', [
 
-            'comments' => AuthorController::allDatabase(),
+            'comments' => Author::allDatabase(),
             'validComment' => ManagerCommentController::validCommentControls(),
             'deleteComment' => ManagerCommentController::deleteCommentControls(),
             'session' => $_SESSION,
@@ -110,7 +110,7 @@ switch ($page) {
         echo $twig->render('templates/admin/comment-edit.html.twig', [
             'editComment' => ManagerCommentController::editCommentControls(),
             'comment' => CommentController::findComment(),
-            'articles' => ArticleController::findArticles(),
+            'articles' => Article::findArticles(),
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
         ]);
@@ -129,7 +129,7 @@ switch ($page) {
         echo $twig->render('templates/admin/registration-valid.html.twig', [
             'validAuthor' => ManagerAuthorController::validAuthorControls(),
             'deleteAuthor' => ManagerAuthorController::deleteAuthorControls(),
-            'authors' => AuthorController::findAuthors(),
+            'authors' => Author::findAuthors(),
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
         ]);
@@ -147,7 +147,7 @@ switch ($page) {
     case 'articles-list-member':
         echo $twig->render('templates/member/articles-list-member.html.twig', [            
             'deleteArticle' => ManagerArticleController::deleteArticleControls(),
-            'authors' => ArticleController::findArticleAuthor(),
+            'authors' => Article::findArticleAuthor(),
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
         ]);
@@ -169,7 +169,7 @@ switch ($page) {
         echo $twig->render('templates/member/article-edit-member.html.twig', [
             'article' => ArticleController::findEditArticle(),
             'editArticle' => ManagerArticleController::editArticleControls(),
-            'authors' => AuthorController::findAuthors(),
+            'authors' => Author::findAuthors(),
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
         ]);
@@ -178,7 +178,7 @@ switch ($page) {
 
     case 'comment-list-member':
         echo $twig->render('templates/member/comment-list-member.html.twig', [            
-            'comments' => AuthorController::allDatabase(),
+            'comments' => Author::allDatabase(),
             'validComment' => ManagerCommentController::validCommentControls(),
             'deleteComment' => ManagerCommentController::deleteCommentControls(),
             'session' => $_SESSION,
@@ -192,7 +192,7 @@ switch ($page) {
         echo $twig->render('templates/member/comment-edit-member.html.twig', [
             'editComment' => ManagerCommentController::editCommentControls(),
             'comment' => CommentController::findComment(),
-            'articles' => ArticleController::findArticles(),
+            'articles' => Article::findArticles(),
             'session' => $_SESSION,
             'resetFlash' => FlashController::purgeFlash()
         ]);

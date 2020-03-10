@@ -165,9 +165,150 @@ class Author
 
     /**
      * Get the value of idPkAuthor
-     */ 
+     */
     public function getIdPkAuthor()
     {
         return $this->idPkAuthor;
+    }
+
+    /**
+     * Requete qui permet de récupérer un Author par son email
+     *
+     * @param $mail
+     * @return mixed
+     */
+    public static function requestLogin($mail)
+    {
+        //Connexion à la bdd
+        global $db;
+        //Requete préparée
+        $req = $db->prepare('
+        SELECT id_pk_author, firstName, lastName, hash, email, role, valid
+        FROM author WHERE email = ?
+        ');
+        //J'execute la requete
+        $req->execute([$mail]);
+        //Je stocke le résultat
+        $data = $req->fetch();
+        //Je retourne l'auteur
+        return $data;
+    }
+
+    /**
+     * Requete qui permet de récupérer un email
+     *
+     * @param $db
+     * @param $email
+     * @return mixed
+     */
+    public static function requestEmail($db, $email)
+    {
+        //Requete préparée
+        $exist = $db->prepare('SELECT email FROM author WHERE email = ?');
+        //J'execute la requete
+        $exist->execute(array($email));
+        //Je stocke le résultat
+        $exist = $exist->fetch();
+
+        return $exist;
+    }
+
+    /**
+     * Requete qui permet d'ajouter un nouvel Author
+     *
+     * @param $db
+     */
+    public static function requestAddAuthor($db)
+    {
+        //Requete préparée
+        $addArticle = $db->prepare(
+            'INSERT INTO author (firstName,lastName, hash, email, role, valid)
+                         VALUES (:firstName, :lastName, :hash, :email, :role, false)'
+        );
+
+        //J'execute la requete
+        $addArticle->execute(array(
+            ':firstName' => htmlspecialchars($_POST['firstName']),
+            ':lastName' => htmlspecialchars($_POST['lastName']),
+            ':hash' => password_hash(htmlspecialchars($_POST['password']), PASSWORD_DEFAULT),
+            ':email' => filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL),
+            ':role' => 'user'
+        ));
+    }
+
+    /**
+     * Requete qui permet de valider un nouvel Author
+     *
+     * @param $id
+     */
+    public static function requestValidAuthor($id)
+    {
+        //Connexion à la bdd
+        global $db;
+
+        //Requete préparée
+        $reqValid = $db->prepare('UPDATE author SET valid = true WHERE id_pk_author = ?');
+
+        //J'execute la requete
+        $reqValid->execute(array($id));
+    }
+
+    /**
+     * Requete qui permet de supprimer un Author
+     *
+     * @param $id
+     */
+    public static function requestDeleteAuthor($id)
+    {
+        //connexion à la base de données
+        global $db;
+
+        //Requete préparée
+        $delete = $db->prepare('DELETE FROM author WHERE id_pk_author = ?');
+
+        //J'execute la Requete
+        $delete->execute(array($id));
+    }
+
+    /**
+     * Fonction qui permet de récupérer tous les auteurs
+     *
+     * @return array
+     */
+    public static function findAuthors()
+    {
+
+        //Variable globale qui permet de se connecter à la bdd
+        global $db;
+        // Requete préparée
+        $reqAuthors = $db->prepare('
+        SELECT id_pk_author, firstName, lastName, hash, email, role, valid FROM author');
+        //J'exécute la requete
+        $reqAuthors->execute();
+        //Je retourne le résultat
+        return $reqAuthors->fetchAll();
+    }
+
+    /**
+     * Fonction qui permet de récupérer les données
+     * de l'ensemble des tables de la bdd
+     *
+     * @return array
+     */
+    public static function allDatabase()
+    {
+        //Variable globale qui permet de se connecter à la bdd
+        global $db;
+        // Requete préparée
+        $reqAllDatabase = $db->prepare('
+        SELECT id_pk_author, firstName, lastName, hash, email, role, valid 
+        FROM author 
+        LEFT JOIN article ON author.id_pk_author = article.id_author
+        LEFT JOIN comment ON comment.id_article = article.id_pk_article 
+        ORDER BY date_article DESC');
+        //J'éxecute la requete
+        $reqAllDatabase->execute();
+        //Je retourne le résultat
+        return $reqAllDatabase->fetchAll();
     }
 }

@@ -100,17 +100,16 @@ class ManagerArticleController {
      */
     public static function validArticleControls()
     {
-
-        //controles 
         //Condition
         if (
             !empty($_GET['valid_article']) and
             $_SESSION['role'] == 'admin'
         ) {
-
             //alors je valide l'article concerné
             ArticleController::validArticle();
         }
     }
+
+
 
 }
