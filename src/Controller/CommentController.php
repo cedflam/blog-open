@@ -11,7 +11,7 @@ class CommentController
      *
      * @return Comment
      */
-    public static function findComment()
+    public function findComment()
     {
         //Je récupère le get dans une variable
         $id_comment = $_GET['id_comment'];
@@ -28,14 +28,15 @@ class CommentController
                 return $comment;
             } else {
                 //Sinon redirection avec message d'erreur
-                FlashController::addFlash(
+                $flashController = new FlashController();
+                $flashController->addFlash(
                     "Accès refusé ! Vous essayez d'accéder à un commentaire dont vous n'êtes pas l'auteur !", 
                     'danger');
 
                 //redirection
                 header('Location:comment-list-member');
                 //Affichage du message avant de le vider
-                FlashController::stabilizeFlash();
+                $flashController->stabilizeFlash();
 
             }
         }
@@ -46,7 +47,7 @@ class CommentController
      *
      * @return void
      */
-    public static function addComment()
+    public function addComment()
     {
         //Je récupère les post dans des variables
         $add_comment = $_POST['add_comment'];
@@ -57,15 +58,16 @@ class CommentController
         //J'appel la requete
         Comment::requestAddComment($content_comment, $name_comment, $add_comment, $id_author_comment);
 
-        //Message flash 
-        FlashController::addFlash(
+        //Message flash
+        $flashController = new FlashController();
+        $flashController->addFlash(
             "Le commentaire a été soumis, il est en attente de validation par l'administrateur",
             'success');
 
         //Redirection de la page
         header('Location: post-list');
         //Affichage du message avant de le vider
-        FlashController::stabilizeFlash();
+        $flashController->stabilizeFlash();
     }
 
 
@@ -74,7 +76,7 @@ class CommentController
      *
      * @return void
      */
-    public static function editComment()
+    public function editComment()
     {
         //Je stock le post dans des variables
         $edit_comment = $_POST['edit_comment'];
@@ -82,10 +84,12 @@ class CommentController
         $name_comment = htmlspecialchars($_POST['name_comment']);
 
         //J'appel la requete
-        Comment::requestEditComment($content_comment, $name_comment, $edit_comment);
+        $comment = new Comment($edit_comment);
+        $comment->requestEditComment($content_comment, $name_comment, $edit_comment);
 
-        //Message flash 
-        FlashController::addFlash(
+        //Message flash
+        $flashController = new FlashController();
+        $flashController->addFlash(
             "Le commentaire a bien été modifié ! Il sera de nouveau valide sous 48H",
             'success');
     }
@@ -96,16 +100,18 @@ class CommentController
      *
      * @return void
      */
-    public static function validComment()
+    public function validComment()
     {
         //Je récupère le get dans une variable 
         $valid_comment = $_GET['valid_comment'];
 
         //Je lance la requete
-        Comment::requestValidComment($valid_comment);
+        $comment = new Comment($valid_comment);
+        $comment->requestValidComment($valid_comment);
 
-        //Message flash 
-        FlashController::addFlash(
+        //Message flash
+        $flashController = new FlashController();
+        $flashController->addFlash(
             "Le commentaire a bien été validé !",
             'success');
         
@@ -117,7 +123,7 @@ class CommentController
      *
      * @return void
      */
-    public static function deleteComment()
+    public function deleteComment()
     {
 
         //Je récupère l'id 
@@ -126,10 +132,11 @@ class CommentController
         $comment = new Comment($id_delete);
 
         //J'appelle la requete de suppression du commentaire
-        Comment::requestDeleteComment($comment);
+        $comment->requestDeleteComment($comment);
         
-        //Message flash 
-        FlashController::addFlash(
+        //Message flash
+        $flashController = new FlashController();
+        $flashController->addFlash(
             "Le commentaire a bien été supprimé !",
             'success');
 
@@ -139,7 +146,7 @@ class CommentController
      * fonction qui permet d'envoyer un mail depuis le formulaire de contact
      * @return void
      */
-    public static function sendMail()
+    public function sendMail()
     {
         //condition
         if (isset($_POST['sendMail']) and
@@ -159,7 +166,8 @@ class CommentController
             mail($to, $subject, $message);
 
             //Message flash
-            FlashController::addFlash(
+            $flashController = new FlashController();
+            $flashController->addFlash(
                 "Votre email a bien été envoyé !",
                 'success');
         }

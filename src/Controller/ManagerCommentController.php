@@ -2,6 +2,8 @@
 
 class ManagerCommentController{
 
+
+
        /********************CONTROLES COMMENT************** */
 
     /**
@@ -10,7 +12,7 @@ class ManagerCommentController{
      *
      * @return void
      */
-    public static function addCommentControls()
+    public function addCommentControls()
     {
 
         //Controles 
@@ -22,8 +24,10 @@ class ManagerCommentController{
             $_SESSION['role'] == 'user' | $_SESSION['role'] == 'admin'
         ) {
 
-            //Alors j'ajoute le nouveau commentaire 
-            CommentController::addComment();
+            //Alors j'ajoute le nouveau commentaire
+            $commentController = new CommentController();
+            $commentController->addComment();
+
         }
     }
 
@@ -34,8 +38,11 @@ class ManagerCommentController{
      *
      * @return void
      */
-    public static function editCommentControls()
+    public function editCommentControls()
     {
+        //J'instancie la classe
+        $commentController = new CommentController();
+        $flashController = new FlashController();
 
         //Controles 
         //condition
@@ -47,16 +54,16 @@ class ManagerCommentController{
         ) {
 
             //Alors je modifie le commentaire
-            CommentController::editComment();
+            $commentController->editComment();
             //Redirection de la page
             //Si role admin alors...
             if ($_SESSION['role'] == 'admin') {
                 header('Location: comment-list');
-                FlashController::stabilizeFlash();
+                $flashController->stabilizeFlash();
                 //Sinon...
             } else {
                 header('Location: comment-list-member');
-                FlashController::stabilizeFlash();
+                $flashController->stabilizeFlash();
             }
         }
     }
@@ -68,8 +75,11 @@ class ManagerCommentController{
      *
      * @return void
      */
-    public static function deleteCommentControls()
+    public function deleteCommentControls()
     {
+        //
+        $commentController = new CommentController();
+        $flashController = new FlashController();
 
         //Controles 
         if (
@@ -79,15 +89,15 @@ class ManagerCommentController{
         ) {
 
             //Alors je supprime le commentaire
-            CommentController::deleteComment();
+            $commentController->deleteComment();
             //Redirection de la page 
             //si admin alors...
             if ($_SESSION['role'] == 'admin') {
                 header('Location: comment-list');
-                FlashController::stabilizeFlash();
+                $flashController->stabilizeFlash();
             } else {
                 header('Location: comment-list-member');
-                FlashController::stabilizeFlash();
+                $flashController->stabilizeFlash();
             }
         }
     }
@@ -97,9 +107,10 @@ class ManagerCommentController{
      *
      * @return void
      */
-    public static function validCommentControls()
+    public function validCommentControls()
     {
-
+        //
+        $commentController = new CommentController();
         //Controles 
         //Condition
         if (
@@ -108,7 +119,7 @@ class ManagerCommentController{
         ) {
 
             //Alors je valide le commentaire
-            CommentController::validComment();
+            $commentController->validComment();
         }
     }
 

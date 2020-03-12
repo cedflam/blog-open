@@ -11,7 +11,7 @@ class FlashController{
      * @param string $type
      * @return void
      */
-    public static function addFlash($message, $type){
+    public function addFlash($message, $type){
         //J'attribue les variables reçues à la session
         $_SESSION['message'] = $message;
         $_SESSION['type'] = $type;  
@@ -23,7 +23,7 @@ class FlashController{
      *
      * @return void
      */
-    public static function purgeFlash()
+    public function purgeFlash()
     {
         if (!empty($_SESSION['message'])) {
 
@@ -38,7 +38,7 @@ class FlashController{
      *
      * @return void
      */
-    public static function stabilizeFlash()
+    public function stabilizeFlash()
     {
         try {
             exit;

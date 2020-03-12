@@ -23,7 +23,7 @@ class Article
         global $db;
         //Requete préparée
         $reqAuthor = $db->prepare(
-            'SELECT * 
+            'SELECT id_pk_article, title, sentence, content_article, date_article, id_author, valid_article 
             FROM article 
             WHERE id_pk_article = ?'
         );
@@ -214,7 +214,7 @@ class Article
      * @param $content_article
      * @param $id_author
      */
-    public static function requestInsertArticle($title, $sentence, $content_article, $id_author)
+    public function requestInsertArticle($title, $sentence, $content_article, $id_author)
     {
         //Connexion à la bdd
         global $db;
@@ -241,13 +241,13 @@ class Article
      * @param $id_author
      * @param $id_article
      */
-    public static function requestEditArticle($title, $sentence, $content_article, $id_author, $id_article)
-    {
+    public function requestEditArticle($title, $sentence, $content_article, $id_author, $id_article)    {
+
         //Connexion à la bdd
         global $db;
         //Requete préparée
         $editArticle = $db->prepare('UPDATE article 
-                                    SET title = ?, sentence = ?, content_article = ?, id_author = ?, date_article = NOW(), valid_article = false  
+                                    SET title = ?, sentence = ?, content_article = ?, date_article = NOW(), id_author = ?, valid_article = false  
                                     WHERE id_pk_article = ?');
         //J'execute la requete
         $editArticle->execute(array($title, $sentence, $content_article, $id_author, $id_article));
@@ -258,7 +258,7 @@ class Article
      *
      * @param $valid_article
      */
-    public static function requestValidArticle($valid_article)
+    public function requestValidArticle($valid_article)
     {
         //Connexion à la bdd
         global $db;
@@ -275,7 +275,7 @@ class Article
      *
      * @param $article
      */
-    public static function requestDeleteArticle($article)
+    public function requestDeleteArticle($article)
     {
         //connexion à la base de données
         global $db;

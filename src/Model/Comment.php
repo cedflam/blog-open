@@ -23,7 +23,7 @@ class Comment
         global $db;
         //Requete préparée
         $reqComment = $db->prepare(
-            'SELECT * 
+            'SELECT  id_pk_comment, content_comment, date_comment, name_comment, valid_comment, id_article, id_author_comment
             FROM comment 
             WHERE id_pk_comment = ?'
         );
@@ -190,7 +190,7 @@ class Comment
      * @param $name_comment
      * @param $edit_comment
      */
-    public static function requestEditComment($content_comment, $name_comment, $edit_comment)
+    public function requestEditComment($content_comment, $name_comment, $edit_comment)
     {
         //Connexion à la bdd
         global $db;
@@ -208,7 +208,7 @@ class Comment
      *
      * @param $valid_comment
      */
-    public static function requestValidComment($valid_comment)
+    public function requestValidComment($valid_comment)
     {
         //Connexion à la bdd
         global $db;
@@ -226,7 +226,7 @@ class Comment
      * @param $comment
      *
      */
-    public static function requestDeleteComment($comment)
+    public function requestDeleteComment($comment)
     {
         //connexion à la base de données
         global $db;

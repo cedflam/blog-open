@@ -11,14 +11,17 @@ class ManagerAuthorController{
      *
      * @return void
      */
-    public static function loginControls()
+    public function loginControls()
     {
+        $authorController = new AuthorController();
+
         $hash = filter_input(INPUT_POST, 'hash', FILTER_SANITIZE_STRING );
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING );
         //Controles 
         if (!empty($hash) and !empty($email)) {
             //Alors je lance la connexion
-            AuthorController::login();
+            $authorController->login();
+
         }
     }
 
@@ -32,8 +35,9 @@ class ManagerAuthorController{
      * @param Author $data
      * @return void
      */
-    public static function passwordVerify($password, $hash, $data)
+    public function passwordVerify($password, $hash, $data)
     {
+        $flashController = new FlashController();
 
         //Je vérifie le password saisi avec le hash en bdd
         if (password_verify($password, $hash)) {
@@ -57,10 +61,10 @@ class ManagerAuthorController{
                 //Redirection
                 header('Location: home');
                 //Permet l'affichage et la suppression du message flash
-                FlashController::stabilizeFlash();
+                $flashController->stabilizeFlash();
             } else {
                 //Message flash
-                FlashController::addFlash(
+                $flashController->addFlash(
                     "Votre compte n'a pas encore été validé !
                     Vous pouvez contacter l'administrateur 
                     via la formulaire de contact si le délais 
@@ -71,7 +75,7 @@ class ManagerAuthorController{
 
         } else {
             //Message flash
-            FlashController::addFlash(
+            $flashController->addFlash(
                 "Le mot de passe saisi est incorrect !", 
                 'danger'
             );
@@ -84,8 +88,9 @@ class ManagerAuthorController{
      *
      * @return void
      */
-    public static function addAuthorControls()
+    public function addAuthorControls()
     {
+        $flashController = new FlashController();
         //Controles sur les champs
         if (
             !empty($_POST['add_author']) and
@@ -99,14 +104,15 @@ class ManagerAuthorController{
             //Si le mot de passe contient moins de 6 caractères
             if (strlen($lengthPass) < 6) {
                 //Message flash
-                FlashController::addFlash(
+                $flashController->addFlash(
                     "Le mot de passe doit contenir au moins 6 caractères !", 
                     'danger'
                 );
     
             } else {
                 //Sinon j'ajoute un nouvel autheur
-                AuthorController::addAuthor();
+                $authorController = new AuthorController();
+                $authorController->addAuthor();
             }
         }
     }
@@ -117,7 +123,7 @@ class ManagerAuthorController{
      *
      * @return void
      */
-    public static function deleteAuthorControls()
+    public function deleteAuthorControls()
     {
 
         //Controles 
@@ -125,8 +131,10 @@ class ManagerAuthorController{
             !empty($_GET['delete_author']) and
             $_SESSION['role'] == 'admin'
         ) {
-            //Alors je supprime l'auteur 
-            AuthorController::deleteAuthor();
+            //Alors je supprime l'auteur
+            $authorcontroller = new AuthorController();
+            $authorcontroller->deleteAuthor();
+
         }
     }
 
@@ -136,7 +144,7 @@ class ManagerAuthorController{
      *
      * @return void
      */
-    public static function validAuthorControls()
+    public function validAuthorControls()
     {
 
         //Controles
@@ -145,7 +153,9 @@ class ManagerAuthorController{
             $_SESSION['role'] == 'admin'
         ) {
             //Alors je valide l'inscription
-            AuthorController::validAuthor();
+            $authorController = new AuthorController();
+            $authorController->validAuthor();
+
         }
     }
 

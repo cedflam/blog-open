@@ -9,7 +9,7 @@ class ArticleController
      *
      * @return Article
      */
-    public static function findArticle()
+    public function findArticle()
     {
         //Je récupère un article
         if (!empty($_GET['id_article'])) {
@@ -30,7 +30,7 @@ class ArticleController
      *
      * @return Article
      */
-    public static function findEditArticle()
+    public function findEditArticle()
     {
         //Je récupère un article
         if (!empty($_GET['id_article'])) {
@@ -45,13 +45,14 @@ class ArticleController
                 return $article;
             } else {
                 //Sinon redirection avec message d'erreur
-                FlashController::addFlash(
+                $flashController = new FlashController();
+                $flashController->addFlash(
                     "Accès refusé ! Vous essayez d'accéder à un article dont vous n'êtes pas l'auteur !",
                     'danger');
                 //Redirection
                 header('Location:articles-list-member');
                 //affichage du message avant de le vider
-                FlashController::stabilizeFlash();
+                $flashController->stabilizeFlash();
             }
         }
     }
@@ -62,9 +63,8 @@ class ArticleController
      *
      * @return void
      */
-    public static function addArticle()
+    public function addArticle()
     {
-
         //Je récupère le post dans des variables 
         $title = htmlspecialchars($_POST['title']);
         $sentence = htmlspecialchars($_POST['sentence']);
@@ -72,17 +72,19 @@ class ArticleController
         $id_author = $_SESSION['id'];
 
         //J'appel la requete
-        Article::requestInsertArticle($title, $sentence, $content_article, $id_author);
+        $article = new Article($id_author);
+        $article->requestInsertArticle($title, $sentence, $content_article, $id_author);
 
-        //Message flash 
-        FlashController::addFlash(
+        //Message flash
+        $flashController = new FlashController();
+        $flashController->addFlash(
             "L'article a bien été ajouté !, la validation peut prendre 48h !",
             'success'
         );
         //Redirection de la page
         header('Location: post-list');
         //Affichage du message avant de le vider
-        FlashController::stabilizeFlash();
+        $flashController->stabilizeFlash();
     }
 
     /**
@@ -90,9 +92,8 @@ class ArticleController
      *
      * @return void
      */
-    public static function editArticle()
+    public function editArticle()
     {
-
         //J'attribue les valeurs des champs aux variables
         $title = htmlspecialchars($_POST['title']);
         $sentence = htmlspecialchars($_POST['sentence']);
@@ -101,10 +102,12 @@ class ArticleController
         $id_article = htmlspecialchars($_POST['edit_article']);
 
         //Appel de la requete
-        Article::requestEditArticle($title, $sentence, $id_author, $content_article, $id_article);
+        $article = new Article($id_article);
+        $article->requestEditArticle($title, $sentence, $id_author, $content_article, $id_article);
 
-        //Message flash 
-        FlashController::addFlash(
+        //Message flash
+        $flashController = new FlashController();
+        $flashController->addFlash(
             "L'article a bien été modifié !, La validation peut prendre 48h",
             'success'
         );
@@ -116,16 +119,19 @@ class ArticleController
      *
      * @return void
      */
-    public static function validArticle()
+    public function validArticle()
     {
         //Je récupère le get dans une variable 
         $valid_article = $_GET['valid_article'];
 
-        //Appel de la requete
-        Article::requestValidArticle($valid_article);
 
-        //Message flash 
-        FlashController::addFlash(
+        //Appel de la requete
+        $article = new Article($valid_article);
+        $article->requestValidArticle($valid_article);
+
+        //Message flash
+        $flashController = new FlashController();
+        $flashController->addFlash(
             "L'article a bien été validé et publié !",
             'success'
         );
@@ -137,17 +143,18 @@ class ArticleController
      *
      * @return void
      */
-    public static function deleteArticle()
+    public function deleteArticle()
     {
         //Je récupère l'id dans une variable 
         $id_delete_article = $_GET['id_delete_article'];
         //Je crée un nouvel objet article 
         $article = new Article($id_delete_article);
         //appel de la requete
-        Article::requestDeleteArticle($article);
+        $article->requestDeleteArticle($article);
 
-        //Message flash 
-        FlashController::addFlash(
+        //Message flash
+        $flashController = new FlashController();
+        $flashController->addFlash(
             "L'article a bien été supprimé !",
             'success'
         );

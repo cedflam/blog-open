@@ -23,7 +23,7 @@ class Author
         global $db;
         //Requete préparée
         $reqAuthor = $db->prepare(
-            'SELECT * 
+            'SELECT id_pk_author, firstName, lastName, hash, email, role, valid 
             FROM author 
             WHERE id_pk_author = ?'
         );
@@ -177,7 +177,7 @@ class Author
      * @param $mail
      * @return mixed
      */
-    public static function requestLogin($mail)
+    public function requestLogin($mail)
     {
         //Connexion à la bdd
         global $db;
@@ -241,7 +241,7 @@ class Author
      *
      * @param $id
      */
-    public static function requestValidAuthor($id)
+    public function requestValidAuthor($id)
     {
         //Connexion à la bdd
         global $db;
@@ -258,7 +258,7 @@ class Author
      *
      * @param $id
      */
-    public static function requestDeleteAuthor($id)
+    public function requestDeleteAuthor($id)
     {
         //connexion à la base de données
         global $db;
@@ -301,7 +301,9 @@ class Author
         global $db;
         // Requete préparée
         $reqAllDatabase = $db->prepare('
-        SELECT id_pk_author, firstName, lastName, hash, email, role, valid 
+        SELECT id_pk_author, firstName, lastName, hash, email, role, valid, 
+               id_pk_comment, content_comment, date_comment, name_comment, valid_comment, id_article, id_author_comment, 
+               id_pk_article, title, sentence, content_article, date_article, id_author, valid_article
         FROM author 
         LEFT JOIN article ON author.id_pk_author = article.id_author
         LEFT JOIN comment ON comment.id_article = article.id_pk_article 
