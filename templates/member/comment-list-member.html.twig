@@ -1,0 +1,88 @@
+{% extends "templates/base.html.twig" %}
+{% block title %}Administration - Liste des commentaires
+{% endblock %}
+
+{% block body %}
+	{% if session.role == 'user' %}
+
+		<!-- Page Header -->
+		<header class="masthead" style="background-image: url('public/images/comments.jpg')">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-10 mx-auto">
+						<div class="site-heading">
+							<h1>Liste des commentaires</h1>
+							{% if session.message %}
+								<p class="bg-{{session.type}} p-3">
+									{{session.message}}
+								</p>
+							{% endif %}
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!--Corps de la page -->
+		<div class="container mt-5">
+			<div class="row">
+				{% for comment in comments %}	
+				
+						{% if session.id == comment.id_author_comment %}
+
+						
+
+						<div class="col-lg-8 col-md-10 mx-auto mt-3">
+							<div class="card">
+								<div class="card-header">
+									<h4>
+										{{comment.title}}
+									</h4>
+									<p>
+										Commentaire par,
+										{{comment.name_comment}}
+										le,
+										{{comment.date_comment | date ('d/m/Y à H:m:s')}}</p>
+								</div>
+								<div class="card-body">
+									<p class="text-justify">
+										{{comment.content_comment}}
+									</p>
+
+									<a href="?page=comment-edit-member&amp;id_comment={{comment.id_pk_comment}}" class="btn btn-info">Modifier</a>
+									<a href="?page=comment-list-member&amp;id_delete_comment={{comment.id_pk_comment}}" class="btn btn-danger">Supprimer</a>
+										
+								</div>
+
+								<div class="card-footer">
+									{% if comment.valid_comment == true %}
+										<span class="badge badge-success mx-auto d-block ">validé</span>
+									{% else %}
+										<span class="badge badge-danger mx-auto d-block">non validé</span>
+									{% endif %}
+								</div>
+
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	{% else %}
+		<!-- Page Header -->
+		<header class="masthead" style="background-image: url('public/images/interdit.jpg')">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-10 mx-auto">
+						<div class="site-heading">
+							<h1>Accès interdit !</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	{% endif %}
+{% endblock %}

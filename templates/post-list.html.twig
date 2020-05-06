@@ -1,0 +1,62 @@
+{% extends "templates/base.html.twig" %}
+
+{% block title %}Liste des posts
+{% endblock %}
+
+{% block body %}
+
+	<!-- Page Header -->
+	<header class="masthead" style="background-image: url('public/images/post.jpg')">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<div class="site-heading">
+						<h1>Listes des posts !</h1>
+						{% if session.message %}
+							<p class="bg-{{session.type}} p-3">
+								{{session.message}}
+							</p>
+						{% endif %}
+
+						<span class="subheading">Cliquez sur l'article pour en savoir plus !</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- Main Content -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+
+
+				{% for author in authors %}
+					{% if author.valid_article == true %}
+
+						<div class="post-preview">
+							<a href="?page=post-detail&amp;id_article={{author.id_pk_article}}&amp;id_author={{author.id_author}}">
+								<h2 class="post-title">
+									{{author.title}}
+
+								</h2>
+								<h3 class="post-subtitle">
+									{{author.sentence}}
+								</h3>
+							</a>
+							<p class="post-meta">Posté par
+								<a href="#">
+									{{author.firstName}}
+									{{author.lastName}}
+								</a>
+								le,
+								{{author.date_article | date("d/m/Y à H:m:s")}}
+							</p>
+						</div>
+						<hr>
+
+					{% endif %}
+				{% endfor %}
+
+
+			{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "templates/base.html.twig" %}
+
+{% block title %}
+	Accueil
+{% endblock %}
+
+
+{% block body %}
+	<!-- Page Header -->
+	<header class="masthead" style="background-image: url('public/images/home-bg.jpg')">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<div class="site-heading">
+						<h1>Push Your Site !
+						</h1>
+						<span class="subheading">Pour un site dans l'air du temps !</span><br><br>
+									<a href="https://codeclimate.com/github/cedflam/blog-open/maintainability"><img src="https://api.codeclimate.com/v1/badges/7a5038e6764f6162bb28/maintainability" /></a>
+
+						{% if session.message %}
+
+							<p class="bg-{{session.type}} p-3">{{session.message}}</p>
+
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<ul class="list-inline text-center">
+						<li class="list-inline-item">
+							<a href="https://twitter.com/Cedflam">
+								<span class="fa-stack fa-lg">
+									<i class="fas fa-circle fa-stack-2x"></i>
+									<i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+								</span>
+							</a>
+						</li>
+						<li class="list-inline-item">
+							<a href="https://www.linkedin.com/in/cedric-f-11046010a/">
+								<span class="fa-stack fa-lg">
+									<i class="fas fa-circle fa-stack-2x"></i>
+									<i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+								</span>
+							</a>
+						</li>
+						<li class="list-inline-item">
+							<a href="https://github.com/cedflam">
+								<span class="fa-stack fa-lg">
+									<i class="fas fa-circle fa-stack-2x"></i>
+									<i class="fab fa-github fa-stack-1x fa-inverse"></i>
+								</span>
+							</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</header>
+
+
+	{% include "templates/contact.html.twig" %}
+
+{% endblock %}

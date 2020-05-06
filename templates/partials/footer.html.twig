@@ -1,0 +1,25 @@
+<!-- Footer -->
+<footer>
+	<div class="container-fluid bg-light">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto d-block">
+				{% if session.role == 'admin'%}
+					<p class="text-center">
+						<a href="?page=admin-home" class="text-center">
+							<span class="badge badge-primary">Administration</span>
+						</a>
+					</p>
+
+				{% elseif session.role == 'user' %}
+					<p class="text-center">
+						<a href="?page=admin-home-member" class="text-center">
+							<span class="badge badge-primary">Administration</span>
+						</a>
+					</p>
+				{% endif %}
+				<p class="copyright text-muted">Copyright &copy; PushYourSite 2020</p>
+			</div>
+				
+		</div>
+	</div>
+</footer>

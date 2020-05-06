@@ -1,0 +1,110 @@
+{% extends "templates/base.html.twig" %}
+
+{% block title %}
+	Afficher Post
+{% endblock %}
+
+{% block body %}
+	<!-- Page Header -->
+	<header class="masthead" style="background-image: url('public/images/postDetail.jpg')">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<div class="post-heading">
+						<h1>{{article.title}}</h1>
+						<h2 class="subheading">
+							{{article.sentence}}
+						</h2>
+						<span class="meta">Posté par
+
+							<a href="#">
+								{{author.firstName}}
+								{{author.lastName}}
+							</a>
+
+							le,
+							{{article.dateArticle | date('d/m/Y à H:m:s') }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- Post Content -->
+	<article>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					{{article.contentArticle}}
+				</div>
+			</div>
+		</div>
+	</article>
+	{% if session.role == 'user' or session.role == 'admin' %}
+
+		<!--formulaire d'ajout de commentaire-->
+		<div class="container mt-5">
+
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto bg-light">
+					<h2>Laissez un commentaire...</h2>
+
+					<form name="addComment" action="" method="POST">
+						<div class="control-group">
+							<p class="help-block text-danger"></p>
+							<hr>
+							<div class="form-group floating-label-form-group controls">
+								<label>{{session.firstName}}</label>
+								<input type="text" class="form-control" name="name_comment" value="{{session.firstName}} {{session.lastName}}">
+							</div>
+						</div>
+
+						<input type="hidden" value="{{article.idPkArticle}}" name="add_comment">
+						<div class="control-group">
+							<div class="form-group floating-label-form-group controls">
+								<label>Message</label>
+								<textarea rows="5" class="form-control" placeholder="Message" name="content_comment"></textarea>
+								<p class="help-block text-danger"></p>
+							</div>
+						</div>
+						<br>
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Soumettre</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--Post Comment-->
+
+	{% endif %}
+
+	<div class="container mt-5 text-justify">
+		<h2 class="text-center mt-3 mb-3">Les derniers commentaires...</h2>
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				{% for comment in comments %}
+					{% if article.idPkArticle == comment.id_article and comment.valid_comment == true %}
+
+						<div class="card">
+							<div class="card-header ">
+								<h5>Posté par,
+									{{comment.name_comment}}
+									le,
+									{{comment.date_comment | date ('d/m/Y à H:m:s')}}
+								</h5>
+							</div>
+							<div class="card-body">
+								<p>
+									{{comment.content_comment}}
+								</p>
+							</div>
+						</div>
+
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

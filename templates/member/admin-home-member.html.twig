@@ -1,0 +1,96 @@
+{% extends "templates/base.html.twig" %}
+{% block title %}Blog - Administration membres
+{% endblock %}
+
+{% block body %}
+
+	{% if session.role == 'user' %}
+
+		<!-- Page Header -->
+		<header class="masthead" style="background-image: url('public/images/adminHome.jpg')">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-10 mx-auto">
+						<div class="site-heading">
+							<h1>
+								Accueil - Administration
+							</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!--Corps-->
+		<div class="container mt-3">
+			<div class="row">
+				<div class="col-md-4 mt-3">
+					<div class="card">
+						<div class="card-header bg-warning">
+							<h5>Gérer les articles</h5>
+						</div>
+						<div class="card-body">
+							<p class="text-justify ">
+								Sur cette section vous avez la possibilité de gérer les articles. 
+																							                        Vous pourrez modifier ou supprimer un article.
+							</p>
+						</div>
+						<div class="card-footer">
+							<a href="?page=articles-list-member" class="btn btn-warning mx-auto d-block">Gestion des articles</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 mt-3">
+					<div class="card">
+						<div class="card-header bg-info">
+							<h5>Ajouter un article</h5>
+						</div>
+						<div class="card-body ">
+							<p class="text-justify">
+								Sur cette section vous avez la possibilité d'ajouter un nouvel article.
+							</p>
+						</div>
+						<div class="card-footer">
+							<a href="?page=article-add-member&amp;id_author={{session.id}}" class="btn btn-info mx-auto d-block">Ajouter un article</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 mt-3">
+					<div class="card">
+						<div class="card-header bg-success">
+							<h5>Gérer les commentaires</h5>
+						</div>
+						<div class="card-body ">
+							<p class="text-justify">
+								Sur cette section vous avez la possibilité de gérer les commentaires.
+																							                         Vous pourrez modifier ou supprimer un commentaire.
+							</p>
+						</div>
+						<div class="card-footer">
+							<a href="?page=comment-list-member" class="btn btn-success mx-auto d-block">Gestion des commentaires</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<header class="masthead " style="background-image: url('public/images/interdit.jpg')">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-10 mx-auto">
+						<div class="site-heading">
+							<h2 class="">
+								Accès interdit !
+								<br>
+								Retour à l'accueil
+							</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+	{% endif %}
+
+{% endblock %}

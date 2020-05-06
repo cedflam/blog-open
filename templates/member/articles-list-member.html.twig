@@ -1,0 +1,90 @@
+{% extends "templates/base.html.twig" %}
+{% block title %}Administration - liste des articles
+{% endblock %}
+
+{% block body %}
+	{% if session.role == 'user' %}
+
+		<!-- Page Header -->
+		<header class="masthead" style="background-image: url('public/images/article.jpg')">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-10 mx-auto">
+						<div class="site-heading">
+							<h1>Liste des articles</h1>
+							{% if session.message %}
+								<p class="bg-{{session.type}} p-3">
+									{{session.message}}
+								</p>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!--Corps de la page -->
+		<div class="container mt-5">
+			<div class="row">
+				{% for author in authors %}
+					{% if session.id == author.id_author %}
+
+						<div class="col-lg-8 col-md-10 mx-auto mt-3">
+							<div class="card">
+								<div class="card-header">
+									<h4>
+
+										{{author.title}}
+
+									</h4>
+									<p>
+										Par,
+										{{author.firstName}}
+										{{author.lastName}}
+										le,
+										{{author.date_article | date ('d/m/Y à H:m:s')}}</p>
+								</div>
+								<div class="card-body">
+									<p class="text-justify">
+										{{author.sentence}}
+									</p>
+									
+							
+									{# Boutons #}
+									<a href="?page=article-edit-member&amp;id_article={{author.id_pk_article}}" class="btn btn-info mr-2 ">Modifier</button>
+									<a href="?page=articles-list-member&amp;id_delete_article={{author.id_pk_article}}" class="btn btn-danger ">Supprimer</a>
+
+								</div>
+
+								<div class="card-footer">
+									{% if author.valid_article == true %}
+										<span class="badge badge-success mx-auto d-block ">validé</span>
+									{% else %}
+										<span class="badge badge-danger mx-auto d-block">non validé</span>
+									{% endif %}
+								</div>
+
+							</div>
+						</div>
+
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	{% else %}
+		<!-- Page Header -->
+		<header class="masthead" style="background-image: url('public/images/interdit.jpg')">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-10 mx-auto">
+						<div class="site-heading">
+							<h1>Accès interdit !</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	{% endif %}
+{% endblock %}

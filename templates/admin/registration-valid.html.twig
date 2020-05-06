@@ -1,0 +1,60 @@
+{% extends "templates/base.html.twig" %}
+{% block title %}Administration - Valider inscriptions
+{% endblock %}
+
+{% block body %}
+
+	<!-- Page Header -->
+	<header class="masthead" style="background-image: url('public/images/valid.jpg')">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<div class="site-heading">
+						<h1>
+							Valider les inscriptions
+						</h1>
+						{% if session.message %}
+							<p class="p-3 bg-{{session.type}}">{{session.message}}</p>
+						{% endif %}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!--Corps-->
+	{% for author in authors %}
+		{% if author.valid == false %}
+
+			<div class="container mt-3">
+				<div class="row">
+					<div class="col-md-6 mx-auto d-block">
+						<div class="card">
+							<div class="card-header">
+								{{author.firstName}}
+								{{author.lastName}}
+							</div>
+							<div class="card-body">
+								<strong>Email :
+								</strong>
+								{{author.email}}
+								<br>
+								<strong>Role :
+								</strong>
+								{{author.role}}
+							</div>
+							<div class="card-footer">
+								<a href="?page=registration-valid&amp;valid_author={{author.id_pk_author}}" class="btn btn-success">Valider</a>
+								<a href="?page=registration-valid&amp;delete_author={{author.id_pk_author}}" class="btn btn-danger">Supprimer</a>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		{% endif %}
+	{% endfor %}
+{% endblock %}
